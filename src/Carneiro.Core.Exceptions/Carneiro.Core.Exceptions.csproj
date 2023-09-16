@@ -7,7 +7,6 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <Copyright>Copyright 2023 Ricardo Carneiro</Copyright>
     <PackageIcon>icon.png</PackageIcon>
-    <PackageIconUrl>http://code.ricardocarneiro.pt/uploads/-/system/project/avatar/28/7.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Core</PackageProjectUrl>
