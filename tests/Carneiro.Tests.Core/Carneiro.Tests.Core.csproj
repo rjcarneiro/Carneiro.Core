@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+    <NoWarn>NU1803</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="34.0.2" />
+    <PackageReference Include="JunitXml.TestLogger" Version="3.0.134" />
+    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="nunit" Version="3.13.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Carneiro.Core.Entities\Carneiro.Core.Entities.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Extensions\Carneiro.Core.Extensions.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Host\Carneiro.Core.Host.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Repository\Carneiro.Core.Repository.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Utils.Abstractions\Carneiro.Core.Utils.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Utils\Carneiro.Core.Utils.csproj" />
+    <ProjectReference Include="..\..\src\Carneiro.Core.Web\Carneiro.Core.Web.csproj" />
+  </ItemGroup>
+
+
+</Project>

@@ -1,0 +1,1 @@
+# Carneiro.Core.Entities.Abstractions
