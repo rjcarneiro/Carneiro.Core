@@ -12,9 +12,8 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
     /// Initializes a new instance of the <see cref="OnceOffBackgroundService" /> class.
     /// </summary>
     /// <param name="logger"></param>
-    /// <param name="hostApplicationLifetime"></param>
-    protected OnceOffBackgroundService(ILogger<OnceOffBackgroundService> logger, IHostApplicationLifetime hostApplicationLifetime) 
-        : base(logger, hostApplicationLifetime)
+    protected OnceOffBackgroundService(ILogger<OnceOffBackgroundService> logger)
+        : base(logger)
     {
     }
 
@@ -30,13 +29,15 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
         {
             await RunAsync(cancellationToken);
         }
+        catch (OperationCanceledException)
+        {
+            // When the stopping token is canceled, for example, a call made from services.msc,
+            // we shouldn't exit with a non-zero exit code. In other words, this is expected...
+        }
         catch (Exception e)
         {
-            Logger.LogError(e, "Unable to perform \'{TaskName}\' on folder \'{CurrentDirectory}\'", TaskName, Directory.GetCurrentDirectory());
-        }
-        finally
-        {
-            ApplicationLifetime.StopApplication();
+            Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
+            Environment.Exit(1);
         }
     }
 }

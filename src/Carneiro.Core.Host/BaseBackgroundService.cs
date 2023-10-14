@@ -8,12 +8,7 @@ public abstract class BaseBackgroundService : BackgroundService
     /// <summary>
     /// Gets the <see cref="ILogger"/>.
     /// </summary>
-    protected virtual ILogger<BaseBackgroundService> Logger { get; }
-
-    /// <summary>
-    /// Gets the <see cref="IHostApplicationLifetime"/>.
-    /// </summary>
-    protected IHostApplicationLifetime ApplicationLifetime { get; }
+    protected ILogger<BaseBackgroundService> Logger { get; }
 
     /// <summary>
     /// Gets the name of the task.
@@ -24,11 +19,9 @@ public abstract class BaseBackgroundService : BackgroundService
     /// Initializes a new instance of the <see cref="OnceOffBackgroundService"/> class.
     /// </summary>
     /// <param name="logger">The logger.</param>
-    /// <param name="hostApplicationLifetime"></param>
-    protected BaseBackgroundService(ILogger<BaseBackgroundService> logger, IHostApplicationLifetime hostApplicationLifetime)
+    protected BaseBackgroundService(ILogger<BaseBackgroundService> logger)
     {
         Logger = logger;
-        ApplicationLifetime = hostApplicationLifetime;
     }
 
     /// <summary>
