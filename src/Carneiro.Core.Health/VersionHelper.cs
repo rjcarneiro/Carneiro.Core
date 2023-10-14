@@ -8,20 +8,19 @@ public static class VersionHelper
     /// <summary>
     /// Gets the version.
     /// </summary>
-    /// <returns></returns>
     public static string GetSimplerVersion() => GetVersion().Version;
 
     /// <summary>
     /// Gets the version.
     /// </summary>
-    /// <returns></returns>
     public static VersionModel GetVersion()
     {
-        var assembly = Assembly.GetEntryAssembly();
+        Assembly assembly = Assembly.GetEntryAssembly() 
+                            ?? Assembly.GetExecutingAssembly();
 
         return new VersionModel
         {
-            Date = File.GetLastWriteTime(assembly!.Location),
+            Date = File.GetLastWriteTime(assembly.Location),
             Version = assembly.GetName().Version!.ToString()
         };
     }

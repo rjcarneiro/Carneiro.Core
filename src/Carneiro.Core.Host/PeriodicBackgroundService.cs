@@ -17,10 +17,8 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
     /// </summary>
     /// <param name="logger">The logger.</param>
     /// <param name="options">The options.</param>
-    /// <param name="hostApplicationLifetime"></param>
-    protected PeriodicBackgroundService(ILogger<PeriodicBackgroundService> logger, IOptions<PeriodicBackgroundServiceOptions> options,
-        IHostApplicationLifetime hostApplicationLifetime)
-        : base(logger, hostApplicationLifetime)
+    protected PeriodicBackgroundService(ILogger<PeriodicBackgroundService> logger, IOptions<PeriodicBackgroundServiceOptions> options)
+        : base(logger)
     {
         Options = options.Value ?? new PeriodicBackgroundServiceOptions();
     }
@@ -28,37 +26,48 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        Logger.LogInformation("Starting periodic service \'{TaskName}\' v{Version} on folder \'{CurrentDirectory}\' using Options {Options}", TaskName, VersionHelper.GetSimplerVersion(),
-            Directory.GetCurrentDirectory(), Options);
-
         try
         {
+            Logger.LogInformation("Starting periodic service \'{TaskName}\' version {Version} using options {Options}", TaskName, VersionHelper.GetVersion(), Options);
+
             while (!cancellationToken.IsCancellationRequested)
             {
                 Logger.LogInformation("Looping again into service \'{TaskName}\'", TaskName);
 
                 try
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                        break;
+
                     await RunAsync(cancellationToken);
                 }
                 catch (Exception e)
                 {
-                    Logger.LogError(e, "Unable to perform \'{TaskName}\' on folder \'{CurrentDirectory}\'", TaskName, Directory.GetCurrentDirectory());
+                    Logger.LogError(e, "Unable to perform \'{TaskName}\' on folder \'{CurrentDirectory}\'", TaskName,
+                        Directory.GetCurrentDirectory());
                 }
-
-                var seconds = Random.Shared.Next(Options.Min, Options.Max);
-
-                Logger.LogInformation("Process finished! Waiting {Seconds} seconds for the next iteration for service \'{TaskName}\'", seconds, TaskName);
 
                 if (cancellationToken.IsCancellationRequested)
                     break;
-                
+
+                var seconds = Random.Shared.Next(Options.Min, Options.Max);
+
+                Logger.LogInformation(
+                    "Process finished! Waiting {Seconds} seconds for the next iteration for service \'{TaskName}\'",
+                    seconds, TaskName);
+
                 await Task.Delay(seconds * 1000, cancellationToken);
             }
         }
-        finally
+        catch (OperationCanceledException)
         {
-            ApplicationLifetime.StopApplication();
+            // When the stopping token is canceled, for example, a call made from services.msc,
+            // we shouldn't exit with a non-zero exit code. In other words, this is expected...
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
+            Environment.Exit(1);
         }
     }
 }
