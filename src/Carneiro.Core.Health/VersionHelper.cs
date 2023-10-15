@@ -8,7 +8,13 @@ public static class VersionHelper
     /// <summary>
     /// Gets the version.
     /// </summary>
-    public static string GetSimplerVersion() => GetVersion().Version;
+    public static string GetSimplerVersion()
+    {
+        Assembly assembly = Assembly.GetEntryAssembly() 
+                            ?? Assembly.GetExecutingAssembly();
+
+        return assembly.GetName().Version!.ToString();
+    }
 
     /// <summary>
     /// Gets the version.
