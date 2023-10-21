@@ -32,8 +32,6 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                Logger.LogInformation("Looping again into service \'{TaskName}\'", TaskName);
-
                 try
                 {
                     if (cancellationToken.IsCancellationRequested)
