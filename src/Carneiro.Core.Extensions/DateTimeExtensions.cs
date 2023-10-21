@@ -108,14 +108,14 @@ public static class DateTimeExtensions
     public static string ToDateString(this DateTime? dateTime) => dateTime.HasValue ? dateTime.Value.ToDateString() : string.Empty;
 
     /// <summary>
-    /// Converts a <see cref="DateTime"/> into a string format of <c>dd/MM/yyyy</c>.
+    /// Converts a <see cref="DateTime"/> into a string format of <c>yyyy-MM-dd</c>.
     /// </summary>
     /// <param name="dateTime">The date time.</param>
     /// <returns></returns>
-    public static string ToDateString(this DateTime dateTime) => dateTime.ToString("dd/MM/yyyy");
+    public static string ToDateString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd");
 
     /// <summary>
-    /// Converts a <see cref="DateTime"/> into a string format of <c>dd/MM/yyyy HH:mm:ss</c>.
+    /// Converts a <see cref="DateTime"/> into a string format of <c>yyyy-MM-dd HH:mm:ss</c>.
     /// </summary>
     /// <param name="dateTime">The date time.</param>
     /// <returns></returns>
@@ -123,11 +123,11 @@ public static class DateTimeExtensions
     public static string ToDateTimeString(this DateTime? dateTime) => dateTime.HasValue ? dateTime.Value.ToDateTimeString() : string.Empty;
 
     /// <summary>
-    /// Converts a <see cref="DateTime"/> into a string format of <c>dd/MM/yyyy HH:mm:ss</c>.
+    /// Converts a <see cref="DateTime"/> into a string format of <c>yyyy-MM-dd HH:mm:ss</c>.
     /// </summary>
     /// <param name="dateTime">The date time.</param>
     /// <returns></returns>
-    public static string ToDateTimeString(this DateTime dateTime) => dateTime.ToString("dd/MM/yyyy HH:mm:ss");
+    public static string ToDateTimeString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
     /// <summary>
     /// Converts a <see cref="DateTime" /> of <see cref="DateTimeKind.Utc" /> into a <see cref="DateTime"/> based in a <paramref name="timeZoneId"/>. Default is <c>Central Standard Time (Mexico)</c>.
