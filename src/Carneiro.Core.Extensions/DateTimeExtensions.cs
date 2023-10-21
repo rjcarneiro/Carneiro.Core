@@ -221,5 +221,5 @@ public static class DateTimeExtensions
         return new DateTime(dateTime.Value.Year, dateTime.Value.Month, dateTime.Value.Day, 23, 59, 59);
     }
 
-    private static int MonthDifference(this DateTime lValue, DateTime rValue) => Math.Abs((lValue.Month - rValue.Month) + 12 * (lValue.Year - rValue.Year));
+    private static int MonthDifference(this DateTime lValue, DateTime rValue) => Math.Abs(lValue.Month - rValue.Month + 12 * (lValue.Year - rValue.Year));
 }
