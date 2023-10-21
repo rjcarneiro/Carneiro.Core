@@ -20,17 +20,19 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        Logger.LogInformation("Starting service \'{TaskName}\' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
+        var isSuccess = false;
 
         try
         {
+            Logger.LogInformation("Starting service \'{TaskName}\' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
+
             if (cancellationToken.IsCancellationRequested)
             {
                 return;
             }
 
             await RunAsync(cancellationToken);
-            Environment.Exit(0);
+            isSuccess = true;
         }
         catch (OperationCanceledException)
         {
@@ -40,11 +42,12 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
         catch (Exception e)
         {
             Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
-            Environment.Exit(1);
         }
         finally
         {
             Logger.LogInformation("Finish service \'{TaskName}\' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
         }
+
+        Environment.Exit(isSuccess ? 0 : 1);
     }
 }
