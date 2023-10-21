@@ -130,21 +130,21 @@ public static class DateTimeExtensions
     public static string ToDateTimeString(this DateTime dateTime) => dateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
     /// <summary>
-    /// Converts a <see cref="DateTime" /> of <see cref="DateTimeKind.Utc" /> into a <see cref="DateTime"/> based in a <paramref name="timeZoneId"/>. Default is <c>Central Standard Time (Mexico)</c>.
+    /// Converts a <see cref="DateTime" /> of <see cref="DateTimeKind.Utc" /> into a <see cref="DateTime"/> based in a <paramref name="timeZoneId"/>. Default is <c>GMT Standard Time</c>.
     /// </summary>
     /// <param name="dateTime">The time.</param>
     /// <param name="timeZoneId">The time zone identifier.</param>
     /// <returns></returns>
     /// <remarks>Returns <c>null</c> case <paramref name="dateTime"/> is null.</remarks>
-    public static DateTime? ToTimeZoneTime(this DateTime? dateTime, string timeZoneId = "Central Standard Time (Mexico)") => dateTime?.ToTimeZoneTime(timeZoneId);
+    public static DateTime? ToTimeZoneTime(this DateTime? dateTime, string timeZoneId = "GMT Standard Time") => dateTime?.ToTimeZoneTime(timeZoneId);
 
     /// <summary>
-    /// Converts a <see cref="DateTime" /> of <see cref="DateTimeKind.Utc" /> into a <see cref="DateTime"/> based in a <paramref name="timeZoneId"/>. Default is <c>Central Standard Time (Mexico)</c>.
+    /// Converts a <see cref="DateTime" /> of <see cref="DateTimeKind.Utc" /> into a <see cref="DateTime"/> based in a <paramref name="timeZoneId"/>. Default is <c>GMT Standard Time</c>.
     /// </summary>
     /// <param name="dateTime">The time.</param>
     /// <param name="timeZoneId">The time zone identifier.</param>
     /// <returns></returns>
-    public static DateTime ToTimeZoneTime(this DateTime dateTime, string timeZoneId = "Central Standard Time (Mexico)")
+    public static DateTime ToTimeZoneTime(this DateTime dateTime, string timeZoneId = "GMT Standard Time")
     {
         var tzi = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
         return dateTime.ToTimeZoneTime(tzi);
