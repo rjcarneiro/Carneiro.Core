@@ -7,3 +7,4 @@ global using System.Threading.Tasks;
 global using System.Net.Http;
 global using System.IO;
 global using System.Reflection;
+global using Carneiro.Core.Entities.Abstractions;

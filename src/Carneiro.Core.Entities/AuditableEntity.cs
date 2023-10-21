@@ -1,21 +1,11 @@
-﻿using Carneiro.Core.Entities.Abstractions;
-
-namespace Carneiro.Core.Entities;
+﻿namespace Carneiro.Core.Entities;
 
 /// <summary>
 /// Default implementation for <see cref="IAuditableEntity"/>.
 /// </summary>
 /// <seealso cref="IAuditableEntity" />
-public abstract class AuditableEntity : IAuditableEntity
+public abstract class AuditableEntity : Entity, IAuditableEntity
 {
-    /// <summary>
-    /// Gets or sets the identifier.
-    /// </summary>
-    /// <value>
-    /// The identifier.
-    /// </value>
-    public virtual int Id { get; set; }
-
     /// <summary>
     /// Gets or sets a value indicating whether this instance is active.
     /// </summary>
