@@ -1,6 +1,4 @@
 ﻿using System.Net;
-using Carneiro.Core.Exceptions;
-using Carneiro.Core.WebApi.Abstractions;
 
 namespace Carneiro.Core.WebApi.Exceptions;
 

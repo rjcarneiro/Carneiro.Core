@@ -3,7 +3,6 @@
 /// <summary>
 /// Interface that communicates with micro services.
 /// </summary>
-/// <seealso cref="IDisposable" />
 public interface IHttpOrchestrator
 {
     /// <summary>
