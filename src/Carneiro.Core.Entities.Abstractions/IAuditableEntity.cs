@@ -1,18 +1,10 @@
 ﻿namespace Carneiro.Core.Entities.Abstractions;
 
 /// <summary>
-/// Interface for a default database entity.
+/// Interface for a default auditable database entity.
 /// </summary>
-public interface IAuditableEntity
+public interface IAuditableEntity : IEntity
 {
-    /// <summary>
-    /// Gets or sets the identifier.
-    /// </summary>
-    /// <value>
-    /// The identifier.
-    /// </value>
-    int Id { get; set; }
-
     /// <summary>
     /// Gets or sets a value indicating whether this instance is active.
     /// </summary>
