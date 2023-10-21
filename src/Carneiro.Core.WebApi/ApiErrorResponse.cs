@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.WebApi.Abstractions;
-
-namespace Carneiro.Core.WebApi;
+﻿namespace Carneiro.Core.WebApi;
 
 /// <summary>
 /// Api error response.
@@ -11,15 +9,11 @@ public class ApiErrorResponse : IApiErrorResponse
     /// <summary>
     /// Gets or sets the message.
     /// </summary>
-    /// <value>
-    /// The message.
-    /// </value>
     public string Message { get; init; }
 
     /// <summary>
     /// Defaults the specified message.
     /// </summary>
-    /// <returns></returns>
     public static ApiErrorResponse Default() => new() { Message = "An unknown error happened." };
 }
 

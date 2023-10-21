@@ -1,15 +1,7 @@
-﻿using System.Text;
-using Carneiro.Core.Exceptions;
-using Carneiro.Core.Json;
-using Carneiro.Core.WebApi.Abstractions;
-using Carneiro.Core.WebApi.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-
-namespace Carneiro.Core.WebApi;
+﻿namespace Carneiro.Core.WebApi;
 
 /// <summary>
-/// Http Orchestrator.
+/// Default Http Orchestrator implementation.
 /// </summary>
 /// <seealso cref="IHttpOrchestrator" />
 public class HttpOrchestrator : IHttpOrchestrator
@@ -260,26 +252,21 @@ public class HttpOrchestrator : IHttpOrchestrator
 
     private Task<HttpResponseMessage> SendHttpRequestAsync(HttpMethod httpMethod, string url) => SendHttpRequestAsync<string>(httpMethod, url, model: null, action: null);
 
-    private async Task<HttpResponseMessage> SendHttpRequestAsync<TInput>(HttpMethod httpMethod, string url, TInput model = null, Action<Exception> action = null) where TInput : class
+    private async Task<HttpResponseMessage> SendHttpRequestAsync<TInput>(HttpMethod httpMethod, string url, TInput model = null, Action<Exception> action = null) 
+        where TInput : class
     {
         _logger.LogInformation("Creating http request {HttpMethodMethod} {HttpClientBaseAddress} => {Url}", httpMethod.Method, HttpClient.BaseAddress, url);
-        var request = new HttpRequestMessage(httpMethod, url);
+        using var request = new HttpRequestMessage(httpMethod, url);
 
         if ((httpMethod.Method == HttpMethods.Post || httpMethod.Method == HttpMethods.Put) && model != null)
         {
-            _logger.LogInformation("Setting body in this request");
             request.Content = GetStringContent(model);
-        }
-        else
-        {
-            _logger.LogInformation("This request is not getting any body value");
         }
 
         HttpResponseMessage response;
 
         try
         {
-            _logger.LogInformation("Sending http request...");
             response = await HttpClient.SendAsync(request);
         }
         catch (Exception e)
@@ -297,22 +284,24 @@ public class HttpOrchestrator : IHttpOrchestrator
         }
 
         if (response.IsSuccessStatusCode)
+        {
             return response;
+        }
 
         // something went wrong
         _logger.LogWarning("Http response with failed status code: {ResponseStatusCode}", response.StatusCode);
         var httpContent = await response.Content.ReadAsStringAsync();
         _logger.LogWarning("Http response with body: {HttpContent}", httpContent);
 
-        HttpRzException httpTinyPzException = !string.IsNullOrEmpty(httpContent)
+        HttpRzException httpRzException = !string.IsNullOrEmpty(httpContent)
             ? new HttpRzException(response.StatusCode, JsonHelper.Deserialize<ApiErrorResponse>(httpContent))
             : new HttpRzException(response.StatusCode);
 
         // custom behaviour 
         // if it's set, should throw an exception and the following code is not reached
-        action?.Invoke(httpTinyPzException);
+        action?.Invoke(httpRzException);
 
         // default behaviour case 'action' is not set or doesn't match
-        throw httpTinyPzException;
+        throw httpRzException;
     }
 }
