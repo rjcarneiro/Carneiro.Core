@@ -18,14 +18,12 @@
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Repository.Abstractions.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <NoWarn>1701;1702;NU5105;NU1803</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Repository.Abstractions.xml</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
-    <NoWarn>1701;1702;NU5105;NU1803</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
