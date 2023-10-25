@@ -10,18 +10,16 @@ namespace Carneiro.Core.Logging;
 public static class LoggingExtensions
 {
     /// <summary>
-    /// Starts logging in <c>logs/log_{Date}.log</c>.
+    /// Adds <c>Serilog</c>.
     /// </summary>
     /// <param name="builder">The builder.</param>
-    /// <returns></returns>
     public static IHostBuilder UseLogging(this IHostBuilder builder) => builder.UseLogging(action: null);
 
     /// <summary>
-    /// Starts logging in <c>logs/log_{Date}.log</c> and overrides with <paramref name="action"/>.
+    /// Adds <c>Serilog</c> and overrides with <paramref name="action"/>.
     /// </summary>
     /// <param name="builder">The builder.</param>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     public static IHostBuilder UseLogging(this IHostBuilder builder, Action<LoggerConfiguration> action)
     {
         builder.UseSerilog((hostingContext, loggerConfiguration) =>
@@ -33,5 +31,31 @@ public static class LoggingExtensions
         });
 
         return builder;
+    }
+
+    /// <summary>
+    /// Adds <c>Serilog</c>.
+    /// </summary>
+    /// <param name="hostApplicationBuilder"></param>
+    public static HostApplicationBuilder UseLogging(this HostApplicationBuilder hostApplicationBuilder) => hostApplicationBuilder.UseLogging(action: null);
+
+    /// <summary>
+    /// Adds <c>Serilog</c> and overrides with <paramref name="action"/>.
+    /// </summary>
+    /// <param name="hostApplicationBuilder"></param>
+    /// <param name="action"></param>
+    public static HostApplicationBuilder UseLogging(this HostApplicationBuilder hostApplicationBuilder, Action<LoggerConfiguration> action)
+    {
+        hostApplicationBuilder.Services.AddSerilog(loggerConfiguration =>
+        {
+            loggerConfiguration
+                .ReadFrom.Configuration(hostApplicationBuilder.Configuration);
+
+            action?.Invoke(loggerConfiguration);
+        });
+
+        hostApplicationBuilder.Logging.AddSerilog();
+
+        return hostApplicationBuilder;
     }
 }
