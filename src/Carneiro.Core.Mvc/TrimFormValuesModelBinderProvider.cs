@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-
-namespace Carneiro.Core.Mvc;
+﻿namespace Carneiro.Core.Mvc;
 
 /// <summary>
 /// The <see cref="string"/> trim model binder.
