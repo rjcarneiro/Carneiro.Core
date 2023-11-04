@@ -42,7 +42,7 @@ public static class WebApiBuilderExtensions
     /// <param name="routeOptions"></param>
     /// <param name="apiBehaviorOptions"></param>
     public static IMvcBuilder AddWebApi(this IServiceCollection services,
-        Action<IMvcBuilder> mvcBuilder,
+        Action<IMvcBuilder> mvcBuilder = null,
         Action<MvcOptions> mvcOptions = null,
         Action<MvcNewtonsoftJsonOptions> jsonOptions = null,
         Action<RouteOptions> routeOptions = null,
