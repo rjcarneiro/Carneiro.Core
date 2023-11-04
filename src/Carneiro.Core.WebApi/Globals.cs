@@ -14,3 +14,8 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.Logging;
 global using System.Net;
 global using Carneiro.Core.Exceptions;
+global using FluentValidation.AspNetCore;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Routing;
+global using Microsoft.Extensions.DependencyInjection;
+global using Newtonsoft.Json;

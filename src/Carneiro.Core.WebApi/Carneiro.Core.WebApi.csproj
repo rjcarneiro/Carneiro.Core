@@ -43,6 +43,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj" />
     <ProjectReference Include="..\Carneiro.Core.Json\Carneiro.Core.Json.csproj" />
+    <ProjectReference Include="..\Carneiro.Core.Mvc\Carneiro.Core.Mvc.csproj" />
     <ProjectReference Include="..\Carneiro.Core.WebApi.Abstractions\Carneiro.Core.WebApi.Abstractions.csproj" />
   </ItemGroup>
 
@@ -51,6 +52,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.13" />
   </ItemGroup>
   
