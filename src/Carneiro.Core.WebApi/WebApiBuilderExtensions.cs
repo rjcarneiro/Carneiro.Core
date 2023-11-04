@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
+﻿using Carneiro.Core.Mvc;
 
 namespace Carneiro.Core.WebApi;
 
@@ -10,82 +7,6 @@ namespace Carneiro.Core.WebApi;
 /// </summary>
 public static class WebApiBuilderExtensions
 {
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services) => services.AppWebApiOptions();
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="mvcBuilderAction"></param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<IMvcBuilder> mvcBuilderAction) => services.AppWebApiOptions(null, null, null, mvcBuilderAction);
-    
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="jsonOptions">The json options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<MvcNewtonsoftJsonOptions> jsonOptions) => services.AppWebApiOptions(null, null, jsonOptions);
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="mvcOptions">The MVC options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<MvcOptions> mvcOptions) => services.AppWebApiOptions(mvcOptions);
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="mvcOptions">The MVC options.</param>
-    /// <param name="jsonOptions">The json options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<MvcOptions> mvcOptions, Action<MvcNewtonsoftJsonOptions> jsonOptions) => services.AppWebApiOptions(mvcOptions, null, jsonOptions);
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="routeOptions">The route options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<RouteOptions> routeOptions) => services.AppWebApiOptions(null, routeOptions);
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="routeOptions">The route options.</param>
-    /// <param name="jsonOptions">The json options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<RouteOptions> routeOptions, Action<MvcNewtonsoftJsonOptions> jsonOptions) => services.AppWebApiOptions(null, routeOptions, jsonOptions);
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="mvcOptions">The MVC options.</param>
-    /// <param name="routeOptions">The route options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<MvcOptions> mvcOptions, Action<RouteOptions> routeOptions) => services.AppWebApiOptions(mvcOptions, routeOptions);
-
-    /// <summary>
-    /// Adds the WebApi
-    /// </summary>
-    /// <param name="services">The services.</param>
-    /// <param name="mvcOptions">The MVC options.</param>
-    /// <param name="routeOptions">The route options.</param>
-    /// <param name="jsonOptions">The json options.</param>
-    /// <returns></returns>
-    public static IMvcBuilder AddWebApi(this IServiceCollection services, Action<MvcOptions> mvcOptions, Action<RouteOptions> routeOptions, Action<MvcNewtonsoftJsonOptions> jsonOptions) => services.AppWebApiOptions(mvcOptions, routeOptions, jsonOptions);
-
     /// <summary>
     /// Adds the json provider.
     /// </summary>
@@ -111,26 +32,47 @@ public static class WebApiBuilderExtensions
         return mvcBuilder;
     }
 
-    private static IMvcBuilder AppWebApiOptions(this IServiceCollection services,
+    /// <summary>
+    /// Adds the default WebApi settings.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="mvcBuilder"></param>
+    /// <param name="mvcOptions"></param>
+    /// <param name="jsonOptions"></param>
+    /// <param name="routeOptions"></param>
+    /// <param name="apiBehaviorOptions"></param>
+    public static IMvcBuilder AddWebApi(this IServiceCollection services,
+        Action<IMvcBuilder> mvcBuilder,
         Action<MvcOptions> mvcOptions = null,
-        Action<RouteOptions> routeActions = null,
         Action<MvcNewtonsoftJsonOptions> jsonOptions = null,
-        Action<IMvcBuilder> mvcBuilderAction = null)
+        Action<RouteOptions> routeOptions = null,
+        Action<ApiBehaviorOptions> apiBehaviorOptions = null)
     {
-        IMvcBuilder mvcBuilder = services
-            .AddRouting(options =>
+        IMvcBuilder builder = services
+            .AddControllers(options =>
             {
-                options.AppendTrailingSlash = true;
-                routeActions?.Invoke(options);
-            })
-            .AddMvc(config =>
-            {
-                mvcOptions?.Invoke(config);
+                options.ModelBinderProviders.Insert(0, new StringTrimModelBinderProvider());
+                mvcOptions?.Invoke(options);
             })
             .AddJsonProvider(jsonOptions);
 
-        mvcBuilderAction?.Invoke(mvcBuilder);
-        
-        return mvcBuilder;
+        mvcBuilder?.Invoke(builder);
+
+        services.AddRouting(options =>
+        {
+            options.AppendTrailingSlash = true;
+            options.LowercaseQueryStrings = false;
+            options.LowercaseUrls = true;
+
+            routeOptions?.Invoke(options);
+        });
+
+        services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.InvalidModelStateResponseFactory = context => new ValidationFailedResult(context.ModelState);
+            apiBehaviorOptions?.Invoke(options);
+        });
+
+        return builder;
     }
 }
