@@ -1,9 +1,4 @@
-﻿using System.Collections.Concurrent;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
-
-namespace Carneiro.Core.Mvc;
+﻿namespace Carneiro.Core.Mvc;
 
 /// <summary>
 /// The string trim validation model binder provider. Works with <see cref="IgnoreStringTrimAttribute"/> to ignore <see cref="string.Trim()"/> on model state.
