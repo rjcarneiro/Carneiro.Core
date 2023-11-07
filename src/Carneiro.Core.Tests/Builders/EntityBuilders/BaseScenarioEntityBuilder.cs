@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Carneiro.Core.Repository.Abstractions;
+﻿using Carneiro.Core.Repository.Abstractions;
 
 namespace Carneiro.Core.Tests.Builders.EntityBuilders;
 

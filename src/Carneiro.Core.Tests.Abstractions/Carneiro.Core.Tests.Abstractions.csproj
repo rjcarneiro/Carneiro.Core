@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Authors>Ricardo Carneiro</Authors>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <Copyright>Copyright 2023 Ricardo Carneiro</Copyright>
+        <PackageIcon>icon.png</PackageIcon>
+        <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Core</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Core</PackageProjectUrl>
+        <Description>Test abstractions framework</Description>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Tests.Abstractions.xml</DocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Tests.Abstractions.xml</DocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors />
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <Visible>false</Visible>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="..\..\images\icon.png">
+            <Pack>True</Pack>
+            <Visible>false</Visible>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="readme.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoFixture" Version="4.18.0" />
+        <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.0" />
+        <PackageReference Include="AutoFixture.NUnit3" Version="4.18.0" />
+        <PackageReference Include="Bogus" Version="34.0.2" />
+        <PackageReference Include="FluentValidation" Version="11.8.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
+        <PackageReference Include="Moq" Version="4.20.69" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Carneiro.Core.Repository\Carneiro.Core.Repository.csproj" />
+    </ItemGroup>
+
+</Project>

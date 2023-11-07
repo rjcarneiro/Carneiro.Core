@@ -1,7 +1,6 @@
 ﻿using System.Data.Common;
 using System.Diagnostics;
 using System.Globalization;
-using Bogus;
 using Carneiro.Core.Repository;
 using Carneiro.Core.Repository.Abstractions;
 using Carneiro.Core.Repository.Options;

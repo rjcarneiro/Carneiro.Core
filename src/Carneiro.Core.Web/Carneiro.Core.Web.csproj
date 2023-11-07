@@ -10,7 +10,7 @@
     <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Core</PackageProjectUrl>
-    <Description>Generic exceptions</Description>
+    <Description>Web package implementation of Carneiro.Core.Web.Abstractions.</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
   </PropertyGroup>
 
@@ -42,6 +42,18 @@
 
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj" />
+    <ProjectReference Include="..\Carneiro.Core.Health\Carneiro.Core.Health.csproj" />
+    <ProjectReference Include="..\Carneiro.Core.Json\Carneiro.Core.Json.csproj" />
+    <ProjectReference Include="..\Carneiro.Core.Web.Abstractions\Carneiro.Core.Web.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.13" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

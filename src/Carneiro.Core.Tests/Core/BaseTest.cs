@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Carneiro.Core.Tests.Generators;
+﻿using Carneiro.Core.Tests.Generators;
 using Moq;
 
 namespace Carneiro.Core.Tests.Core;
