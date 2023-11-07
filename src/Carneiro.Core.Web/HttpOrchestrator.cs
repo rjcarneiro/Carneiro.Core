@@ -1,4 +1,6 @@
-﻿namespace Carneiro.Core.Web;
+﻿using Carneiro.Core.Web.Extensions;
+
+namespace Carneiro.Core.Web;
 
 /// <summary>
 /// Default Http Orchestrator implementation.

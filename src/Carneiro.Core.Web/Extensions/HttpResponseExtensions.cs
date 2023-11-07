@@ -1,6 +1,6 @@
 ﻿using Microsoft.Net.Http.Headers;
 
-namespace Carneiro.Core.Web;
+namespace Carneiro.Core.Web.Extensions;
 
 /// <summary>
 /// Extensions for <see cref="HttpResponse"/>.

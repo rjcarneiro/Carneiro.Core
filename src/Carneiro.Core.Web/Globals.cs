@@ -21,3 +21,5 @@ global using Carneiro.Core.Web.Abstractions;
 global using Carneiro.Core.Web.Exceptions;
 global using Microsoft.Extensions.Logging;
 global using Carneiro.Core.Json;
+global using Microsoft.AspNetCore.Mvc;
+global using Newtonsoft.Json;

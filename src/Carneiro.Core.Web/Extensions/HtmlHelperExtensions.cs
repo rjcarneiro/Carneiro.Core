@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Carneiro.Core.Web;
+namespace Carneiro.Core.Web.Extensions;
 
 /// <summary>
 /// <see cref="IHtmlHelper"/> extension methods.

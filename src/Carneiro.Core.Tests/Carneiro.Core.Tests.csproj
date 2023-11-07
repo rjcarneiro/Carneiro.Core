@@ -46,7 +46,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Carneiro.Core.Json\Carneiro.Core.Json.csproj" />
-    <ProjectReference Include="..\Carneiro.Core.Repository.Abstractions\Carneiro.Core.Repository.Abstractions.csproj" />
     <ProjectReference Include="..\Carneiro.Core.Repository\Carneiro.Core.Repository.csproj" />
     <ProjectReference Include="..\Carneiro.Core.Tests.Abstractions\Carneiro.Core.Tests.Abstractions.csproj" />
     <ProjectReference Include="..\Carneiro.Core.Utils.Abstractions\Carneiro.Core.Utils.Abstractions.csproj" />
