@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Tests.Scenarios;
-
-namespace Carneiro.Core.Tests.Builders;
+﻿namespace Carneiro.Core.Tests.Builders;
 
 /// <summary>
 /// Sets the options for <see cref="IBaseScenarioBuilder.StartHttpServer"/>.

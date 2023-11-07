@@ -32,21 +32,17 @@ dotnet pack ./src/Carneiro.Core.Repository.Abstractions/Carneiro.Core.Repository
 dotnet pack ./src/Carneiro.Core.Repository/Carneiro.Core.Repository.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 
 # tests
+dotnet pack ./src/Carneiro.Core.Tests/Carneiro.Core.Tests.Abstractions.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 dotnet pack ./src/Carneiro.Core.Tests/Carneiro.Core.Tests.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 
 # utils
 dotnet pack ./src/Carneiro.Core.Utils/Carneiro.Core.Utils.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 dotnet pack ./src/Carneiro.Core.Utils.Abstractions/Carneiro.Core.Utils.Abstractions.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 
-# web mvc
+# json
 dotnet pack ./src/Carneiro.Core.Json/Carneiro.Core.Json.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
-dotnet pack ./src/Carneiro.Core.Mvc/Carneiro.Core.Mvc.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 
 # web
 dotnet pack ./src/Carneiro.Core.Web/Carneiro.Core.Web.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
-dotnet pack ./src/Carneiro.Core.Web.Health/Carneiro.Core.Web.Health.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
+dotnet pack ./src/Carneiro.Core.Web/Carneiro.Core.Web.Abstractions.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
 dotnet pack ./src/Carneiro.Core.Web.Tests/Carneiro.Core.Web.Tests.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
-
-# web api
-dotnet pack ./src/Carneiro.Core.WebApi/Carneiro.Core.WebApi.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null
-dotnet pack ./src/Carneiro.Core.WebApi.Abstractions/Carneiro.Core.WebApi.Abstractions.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path 3>&1 2>&1 $null

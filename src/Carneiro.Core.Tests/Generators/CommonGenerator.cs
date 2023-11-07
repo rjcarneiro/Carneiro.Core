@@ -1,7 +1,4 @@
-﻿using Bogus;
-using Carneiro.Core.Tests.Scenarios;
-
-namespace Carneiro.Core.Tests.Generators;
+﻿namespace Carneiro.Core.Tests.Generators;
 
 /// <summary>
 /// Common generator.

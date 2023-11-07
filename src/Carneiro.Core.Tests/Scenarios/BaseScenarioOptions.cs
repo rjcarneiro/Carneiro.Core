@@ -1,5 +1,4 @@
 ﻿using Carneiro.Core.Repository.Options;
-using Carneiro.Core.Tests.Tasks;
 using Microsoft.Extensions.Configuration;
 using Moq;
 

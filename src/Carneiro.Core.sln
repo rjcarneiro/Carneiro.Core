@@ -7,15 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7F081951
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Exceptions", "Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj", "{E2E93FD2-232D-40CA-A99C-D0329075C061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.WebApi.Abstractions", "Carneiro.Core.WebApi.Abstractions\Carneiro.Core.WebApi.Abstractions.csproj", "{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.WebApi", "Carneiro.Core.WebApi\Carneiro.Core.WebApi.csproj", "{800AE398-8FE2-4B6A-9253-69F16E0A546E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Web.Abstractions", "Carneiro.Core.Web.Abstractions\Carneiro.Core.Web.Abstractions.csproj", "{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Json", "Carneiro.Core.Json\Carneiro.Core.Json.csproj", "{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Mvc", "Carneiro.Core.Mvc\Carneiro.Core.Mvc.csproj", "{2E755A3E-E41C-4D6A-A107-7091E422BA75}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Web.Health", "Carneiro.Core.Web.Health\Carneiro.Core.Web.Health.csproj", "{EB3F1D1B-1B6C-472D-AE22-6DDBC1DF651F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Tests", "Carneiro.Core.Tests\Carneiro.Core.Tests.csproj", "{58DBD781-FCB2-4B5E-81FF-188DFCB3F5F4}"
 EndProject
@@ -45,6 +39,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Tests.Core", "..\t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Health", "Carneiro.Core.Health\Carneiro.Core.Health.csproj", "{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Tests.Abstractions", "Carneiro.Core.Tests.Abstractions\Carneiro.Core.Tests.Abstractions.csproj", "{12B4AF63-720A-4ACA-838B-AB3219BE80EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,22 +55,10 @@ Global
 		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Release|Any CPU.Build.0 = Release|Any CPU
-		{800AE398-8FE2-4B6A-9253-69F16E0A546E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{800AE398-8FE2-4B6A-9253-69F16E0A546E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{800AE398-8FE2-4B6A-9253-69F16E0A546E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{800AE398-8FE2-4B6A-9253-69F16E0A546E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E755A3E-E41C-4D6A-A107-7091E422BA75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E755A3E-E41C-4D6A-A107-7091E422BA75}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E755A3E-E41C-4D6A-A107-7091E422BA75}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E755A3E-E41C-4D6A-A107-7091E422BA75}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB3F1D1B-1B6C-472D-AE22-6DDBC1DF651F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB3F1D1B-1B6C-472D-AE22-6DDBC1DF651F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB3F1D1B-1B6C-472D-AE22-6DDBC1DF651F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB3F1D1B-1B6C-472D-AE22-6DDBC1DF651F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{58DBD781-FCB2-4B5E-81FF-188DFCB3F5F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58DBD781-FCB2-4B5E-81FF-188DFCB3F5F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58DBD781-FCB2-4B5E-81FF-188DFCB3F5F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -131,6 +115,10 @@ Global
 		{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12B4AF63-720A-4ACA-838B-AB3219BE80EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12B4AF63-720A-4ACA-838B-AB3219BE80EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12B4AF63-720A-4ACA-838B-AB3219BE80EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12B4AF63-720A-4ACA-838B-AB3219BE80EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
