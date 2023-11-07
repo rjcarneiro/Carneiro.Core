@@ -44,5 +44,9 @@
     <ProjectReference Include="..\Carneiro.Core.Entities.Abstractions\Carneiro.Core.Entities.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
+  </ItemGroup>
+
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Carneiro.Core.Repository;
+namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// Paginated list class.

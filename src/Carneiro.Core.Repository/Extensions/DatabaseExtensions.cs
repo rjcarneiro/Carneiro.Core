@@ -1,5 +1,4 @@
-﻿using Carneiro.Core.Repository.Abstractions;
-using Carneiro.Core.Repository.Options;
+﻿using Carneiro.Core.Repository.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
