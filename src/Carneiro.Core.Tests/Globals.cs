@@ -22,3 +22,8 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Carneiro.Core.Tests.Abstractions;
 global using Bogus;
 global using Carneiro.Core.Tests.Scenarios;
+global using System.Net.Http.Json;
+global using System.Text;
+global using Carneiro.Core.Json;
+global using Carneiro.Core.Tests.Options;
+global using Carneiro.Core.Web.Extensions;

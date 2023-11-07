@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-
-namespace Carneiro.Core.Web;
+﻿namespace Carneiro.Core.Web.Extensions;
 
 /// <summary>
 /// <see cref="WebApiBuilderExtensions"/> Extensions.

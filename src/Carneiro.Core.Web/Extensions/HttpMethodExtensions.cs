@@ -1,4 +1,4 @@
-namespace Carneiro.Core.Web;
+namespace Carneiro.Core.Web.Extensions;
 
 /// <summary>
 /// Extensions for <see cref="HttpMethod"/>

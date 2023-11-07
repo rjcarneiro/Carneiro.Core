@@ -1,10 +1,4 @@
-﻿using System.Net.Http.Json;
-using System.Text;
-using Carneiro.Core.Json;
-using Carneiro.Core.Tests.Options;
-using Carneiro.Core.Web;
-
-namespace Carneiro.Core.Tests.Core;
+﻿namespace Carneiro.Core.Tests.Core;
 
 /// <summary>
 /// Class that sends ajax requests.

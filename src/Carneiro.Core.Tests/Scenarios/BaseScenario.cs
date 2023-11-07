@@ -1,8 +1,6 @@
-﻿using System.Text;
-using Carneiro.Core.Repository.Abstractions;
+﻿using Carneiro.Core.Repository.Abstractions;
 using Carneiro.Core.Tests.Builders.EntityBuilders;
 using Carneiro.Core.Tests.Core;
-using Carneiro.Core.Tests.Options;
 using Carneiro.Core.Utils.Abstractions;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Hosting;

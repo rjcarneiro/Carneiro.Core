@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Carneiro.Core.Web;
+namespace Carneiro.Core.Web.Extensions;
 
 /// <summary>
 /// <see cref="IServiceCollection"/> for <see cref="VersionModel"/>.
