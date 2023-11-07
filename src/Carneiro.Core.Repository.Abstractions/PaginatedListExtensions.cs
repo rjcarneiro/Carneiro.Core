@@ -1,4 +1,4 @@
-﻿namespace Carneiro.Core.Repository;
+﻿namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// Extensions for <see cref="PaginatedList{T}"/>.

@@ -1,6 +1,4 @@
 ﻿using System.Data;
-using Carneiro.Core.Entities.Abstractions;
-using Carneiro.Core.Repository.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
