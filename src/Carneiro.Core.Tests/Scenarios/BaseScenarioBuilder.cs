@@ -229,6 +229,18 @@ public abstract class BaseScenarioBuilder : IBaseScenarioBuilder
             {
                 options.UseSqlServer(connectionString, providerOptions =>
                 {
+                    if (dbOptions.QuerySplittingBehavior.HasValue)
+                        providerOptions.UseQuerySplittingBehavior(dbOptions.QuerySplittingBehavior.Value);
+
+                    if (dbOptions.UseRelationalNulls.HasValue)
+                        providerOptions.UseRelationalNulls(dbOptions.UseRelationalNulls.Value);
+
+                    if (dbOptions.MinBatchSize.HasValue)
+                        providerOptions.MinBatchSize(dbOptions.MinBatchSize.Value);
+
+                    if (dbOptions.MaxBatchSize.HasValue)
+                        providerOptions.MaxBatchSize(dbOptions.MaxBatchSize.Value);
+
                     providerOptions.CommandTimeout(dbOptions.Timeout);
                     providerOptions.EnableRetryOnFailure(
                         maxRetryCount: dbOptions.Failure.Retries,
@@ -239,13 +251,13 @@ public abstract class BaseScenarioBuilder : IBaseScenarioBuilder
             ,
             ScenarioType.SqlLite => options =>
             {
-                const string SqlLiteFolder = "sqlite";
+                const string sqlLiteFolder = "sqlite";
 
-                if (!Directory.Exists(SqlLiteFolder))
-                    Directory.CreateDirectory(SqlLiteFolder);
+                if (!Directory.Exists(sqlLiteFolder))
+                    Directory.CreateDirectory(sqlLiteFolder);
 
                 // save the relative path to delete it in the end
-                connectionString = $@"{SqlLiteFolder}\{faker.GetTicks()}-{faker.GenerateUniqueId().ToUpper()}.db";
+                connectionString = $@"{sqlLiteFolder}\{faker.GetTicks()}-{faker.GenerateUniqueId().ToUpper()}.db";
 
                 var connectionStringBuilder = new SqliteConnectionStringBuilder
                 {

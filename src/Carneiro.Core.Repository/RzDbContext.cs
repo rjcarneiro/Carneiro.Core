@@ -1,7 +1,6 @@
 ﻿using Carneiro.Core.Repository.Configurations;
 using Carneiro.Core.Repository.Extensions;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 
 namespace Carneiro.Core.Repository;
 

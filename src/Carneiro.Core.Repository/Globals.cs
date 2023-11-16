@@ -9,3 +9,7 @@ global using System.IO;
 global using System.Reflection;
 global using Carneiro.Core.Entities.Abstractions;
 global using Carneiro.Core.Repository.Abstractions;
+global using Carneiro.Core.Repository.Options;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
