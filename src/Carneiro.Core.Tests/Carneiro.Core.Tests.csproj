@@ -12,6 +12,7 @@
         <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Core</PackageProjectUrl>
         <Description>Test framework</Description>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

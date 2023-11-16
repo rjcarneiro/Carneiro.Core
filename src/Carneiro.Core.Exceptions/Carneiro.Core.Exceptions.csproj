@@ -1,43 +1,44 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
-    <LangVersion>latest</LangVersion>
-    <Authors>Ricardo Carneiro</Authors>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright 2023 Ricardo Carneiro</Copyright>
-    <PackageIcon>icon.png</PackageIcon>
-    <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Core</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Core</PackageProjectUrl>
-    <Description>Generic exceptions</Description>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+        <LangVersion>latest</LangVersion>
+        <Authors>Ricardo Carneiro</Authors>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <Copyright>Copyright 2023 Ricardo Carneiro</Copyright>
+        <PackageIcon>icon.png</PackageIcon>
+        <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Core</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageProjectUrl>https://github.com/rjcarneiro/Carneiro.Core</PackageProjectUrl>
+        <Description>Generic exceptions</Description>
+        <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Exceptions.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Exceptions.xml</DocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors/>
+    </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Exceptions.xml</DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningsAsErrors />
-  </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Carneiro.Core.Exceptions.xml</DocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningsAsErrors/>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
-      <Visible>false</Visible>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="..\..\images\icon.png">
-      <Pack>True</Pack>
-      <Visible>false</Visible>
-      <PackagePath></PackagePath>
-    </None>
-    <None Include="readme.md" Pack="true" PackagePath="\"/>
-  </ItemGroup>
+    <ItemGroup>
+        <None Include="..\..\LICENSE">
+            <Pack>True</Pack>
+            <Visible>false</Visible>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="..\..\images\icon.png">
+            <Pack>True</Pack>
+            <Visible>false</Visible>
+            <PackagePath></PackagePath>
+        </None>
+        <None Include="readme.md" Pack="true" PackagePath="\"/>
+    </ItemGroup>
 
 </Project>
