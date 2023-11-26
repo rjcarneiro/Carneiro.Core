@@ -42,10 +42,10 @@
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.13"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.13"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.14"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.14"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.14"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14"/>
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
@@ -60,7 +60,7 @@
         <PackageReference Include="AutoFixture.AutoMoq" Version="4.18.0"/>
         <PackageReference Include="AutoFixture.NUnit3" Version="4.18.0"/>
         <PackageReference Include="Bogus" Version="34.0.2"/>
-        <PackageReference Include="FluentValidation" Version="11.8.0"/>
+        <PackageReference Include="FluentValidation" Version="11.8.1" />
         <PackageReference Include="Moq" Version="4.20.69"/>
     </ItemGroup>
 
