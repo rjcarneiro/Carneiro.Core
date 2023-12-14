@@ -12,6 +12,6 @@ Write-Host "-----------------"
 
 foreach ($NuGet in $NuGetFiles)
 { 
-    Write-Host "   => Pushing $NuGet";
+    #Write-Host "   => Pushing $NuGet";
     nuget push $Path/$NuGet -ApiKey $ApiKey -Source $Source
 }
