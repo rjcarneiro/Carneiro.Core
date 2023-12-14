@@ -1,5 +1,4 @@
 ﻿using Carneiro.Core.Repository;
-using Carneiro.Core.Repository.Options;
 using Microsoft.AspNetCore.Antiforgery;
 using Moq;
 
