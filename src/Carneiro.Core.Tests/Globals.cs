@@ -27,3 +27,5 @@ global using System.Text;
 global using Carneiro.Core.Json;
 global using Carneiro.Core.Tests.Options;
 global using Carneiro.Core.Web.Extensions;
+global using Microsoft.AspNetCore.Razor.TagHelpers;
+global using NUnit.Framework;

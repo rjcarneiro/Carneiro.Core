@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
-using NUnit.Framework;
-
-namespace Carneiro.Core.Tests.Core;
+﻿namespace Carneiro.Core.Tests.Core;
 
 /// <summary>
 /// The base tag helper test. Works very well to test custom <see cref="TagHelper"/>.
@@ -24,11 +21,10 @@ public abstract class TagHelperBaseTest
     /// <param name="action"></param>
     protected virtual void GenerateTagHelperOutput(string element, TagHelper tagHelper, Action<TagHelperContext, TagHelperOutput> action)
     {
-        var output = new TagHelperOutput(element, new TagHelperAttributeList(), (useCachedResult, htmlEncoder) =>
+        var output = new TagHelperOutput(element, [], (_, _) =>
         {
             var tagHelperContent = new DefaultTagHelperContent();
-            tagHelperContent.SetContent(string.Empty);
-            return Task.FromResult<TagHelperContent>(tagHelperContent);
+            return Task.FromResult<TagHelperContent>(tagHelperContent.SetContent(string.Empty));
         });
 
         var context = new TagHelperContext(new TagHelperAttributeList(), new Dictionary<object, object>(), Guid.NewGuid().ToString("N"));
