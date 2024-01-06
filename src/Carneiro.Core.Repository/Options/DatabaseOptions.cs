@@ -55,6 +55,11 @@ public class DatabaseOptions
     /// </summary>
     public virtual int? MaxBatchSize { get; set; }
 
+    /// <summary>
+    /// Flag that registers the <c>DbContext</c> as context pool.
+    /// </summary>
+    public virtual bool UseDbContextPool { get; set; } = false;
+
     /// <inheritdoc />
     public override string ToString() =>
         $"{nameof(Timeout)}: {Timeout}, {nameof(Failure)}: {Failure}, {nameof(EnableSensitiveDataLogging)}: {EnableSensitiveDataLogging}, {nameof(EnableDetailedErrors)}: {EnableDetailedErrors}, {nameof(QuerySplittingBehavior)}: {QuerySplittingBehavior}, {nameof(UseRelationalNulls)}: {UseRelationalNulls}, {nameof(MinBatchSize)}: {MinBatchSize}, {nameof(MaxBatchSize)}: {MaxBatchSize}";

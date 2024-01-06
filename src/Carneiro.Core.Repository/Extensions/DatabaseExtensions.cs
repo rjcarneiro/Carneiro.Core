@@ -6,18 +6,33 @@
 public static class DatabaseExtensions
 {
     /// <summary>
-    /// Registers the database with a default connection string.
+    /// Adds the database that expects  <paramref name="connectionString"/> as connection string.
     /// </summary>
     /// <typeparam name="T">Generic that must be a <see cref="DbContext" />.</typeparam>
     /// <param name="services">The services.</param>
     /// <param name="connectionString">The connection string.</param>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString) where T : DbContext
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString) 
+        where T : DbContext
     {
-        return services.RegisterDatabaseAndUnitOfWork<T>(connectionString, new DatabaseOptions());
+        return services.AddDatabaseContext<T>(connectionString, new DatabaseOptions());
     }
 
     /// <summary>
-    /// Registers the database.
+    /// Adds the database that expects  <paramref name="connectionString"/> as connection string and <paramref name="databaseOptionsSection"/> as <see cref="DatabaseOptions"/>.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="connectionString"></param>
+    /// <param name="databaseOptionsSection"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, IConfigurationSection databaseOptionsSection) 
+        where T : DbContext
+    {
+        return services.AddDatabaseContext<T>(connectionString, databaseOptionsSection.Get<DatabaseOptions>());
+    }
+
+    /// <summary>
+    /// Adds the database that expects  <paramref name="connectionString"/> as connection string.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="services">The services.</param>
@@ -29,23 +44,24 @@ public static class DatabaseExtensions
         var dbSettings = new DatabaseOptions();
         actions.Invoke(dbSettings);
 
-        return services.RegisterDatabaseAndUnitOfWork<T>(connectionString, dbSettings);
+        return services.AddDatabaseContext<T>(connectionString, dbSettings);
     }
 
     /// <summary>
-    /// Registers the database.
+    /// Adds the database that expects <c>DatabaseContext</c> as a connection string configuration section.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="services">The services.</param>
     /// <param name="connectionString">The connection string.</param>
     /// <param name="databaseOptions">The database options.</param>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions) where T : DbContext
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions) 
+        where T : DbContext
     {
-        return services.RegisterDatabaseAndUnitOfWork<T>(connectionString, databaseOptions);
+        return services.AddDatabaseContext<T>(connectionString, databaseOptions);
     }
 
     /// <summary>
-    /// Adds the database that expects <c>DatabaseContext</c> as a connection string configuration section.
+    /// Adds the database that expects <c>DatabaseContext</c> as a connection string configuration section and <c>Database</c> as configuration section for <see cref="DatabaseOptions"/>.
     /// </summary>
     /// <typeparam name="T">Generic that must be a <see cref="DbContext" />.</typeparam>
     /// <param name="services">The services.</param>
@@ -54,35 +70,16 @@ public static class DatabaseExtensions
     /// It expects <c>DatabaseContext</c> as configuration section for the connection string.
     /// It expects <c>Database</c> as configuration for <see cref="DatabaseOptions" />.
     /// </remarks>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, IConfiguration configuration) where T : DbContext
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, IConfiguration configuration) 
+        where T : DbContext
     {
-        services.RegisterDatabaseAndUnitOfWork<T>(configuration.GetConnectionString("DatabaseContext"), configuration.GetSection("Database").Get<DatabaseOptions>());
-
-        return services;
+        return services.AddDatabaseContext<T>(configuration.GetConnectionString("DatabaseContext"), configuration.GetSection("Database").Get<DatabaseOptions>());
     }
 
-    /// <summary>
-    /// Registers a basic <see cref="ServiceLifetime.Scoped"/> implementation of <see cref="IUnitOfWork"/>.
-    /// </summary>
-    /// <param name="services">The services.</param>
-    public static IServiceCollection AddUnitOfWork<T>(this IServiceCollection services) where T : DbContext
-    {
-        services.Add(new ServiceDescriptor(typeof(IUnitOfWork), typeof(UnitOfWork<T>), ServiceLifetime.Scoped));
-        return services;
-    }
-
-    private static IServiceCollection RegisterDatabaseAndUnitOfWork<TDbContext>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions) where TDbContext : DbContext
-    {
-        services.RegisterDatabaseContext<TDbContext>(connectionString, databaseOptions);
-        services.AddUnitOfWork<TDbContext>();
-
-        return services;
-    }
-
-    private static IServiceCollection RegisterDatabaseContext<TDbContext>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions, Action<DbContextOptionsBuilder> dbContextOptionsBuilder = null)
+    private static IServiceCollection AddDatabaseContext<TDbContext>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions, Action<DbContextOptionsBuilder> dbContextOptionsBuilder = null)
         where TDbContext : DbContext
     {
-        services.AddDbContextPool<TDbContext>(options =>
+        Action<DbContextOptionsBuilder> d = options =>
         {
             options.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
             options.EnableDetailedErrors(databaseOptions.EnableDetailedErrors);
@@ -107,7 +104,17 @@ public static class DatabaseExtensions
                     errorNumbersToAdd: null);
             });
             dbContextOptionsBuilder?.Invoke(options);
-        });
+        };
+
+        if (databaseOptions.UseDbContextPool)
+        {
+            services.AddDbContextPool<TDbContext>(d);
+        }
+        else
+        {
+            services.AddDbContext<TDbContext>(d);
+        }
+
         return services;
     }
 }
