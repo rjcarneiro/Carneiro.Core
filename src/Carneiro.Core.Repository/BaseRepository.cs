@@ -11,9 +11,6 @@ public abstract class BaseRepository : IBaseRepository
     /// <summary>
     /// Gets the unit of work.
     /// </summary>
-    /// <value>
-    /// The unit of work.
-    /// </value>
     protected IUnitOfWork UnitOfWork { get; }
 
     /// <summary>
@@ -74,7 +71,7 @@ public abstract class BaseRepository<T> : BaseRepository, IBaseRepository<T> whe
     }
 
     /// <inheritdoc />
-    public virtual Task<T> GetEntityAsync(int id) => UnitOfWork.FirstOrDefaultAsync<T>(t => t.Id == id);
+    public virtual Task<T> GetEntityAsync(int id) => UnitOfWork.SingleOrDefaultAsync<T>(t => t.Id == id);
 
     /// <inheritdoc />
     public virtual Task UpdateAsync(T entity)
