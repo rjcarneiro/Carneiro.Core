@@ -1,4 +1,6 @@
-﻿namespace Carneiro.Tests.Core.Repository;
+﻿using Carneiro.Core.Repository.Options;
+
+namespace Carneiro.Tests.Core.Repository;
 
 [TestFixture]
 [Parallelizable(ParallelScope.Fixtures)]

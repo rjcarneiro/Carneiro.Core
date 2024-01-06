@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿namespace Carneiro.Core.Repository.Options;
+
+/// <summary>
 /// Database options class.
 /// </summary>
 public class DatabaseOptions
