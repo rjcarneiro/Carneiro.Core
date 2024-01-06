@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using Carneiro.Core.Repository;
 using Carneiro.Core.Repository.Abstractions;
+using Carneiro.Core.Repository.Options;
 using Carneiro.Core.Tests.Generators;
 using Carneiro.Core.Tests.Tasks;
 using Microsoft.AspNetCore.Antiforgery;

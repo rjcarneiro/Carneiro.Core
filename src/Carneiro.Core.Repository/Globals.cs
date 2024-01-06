@@ -13,3 +13,5 @@ global using Carneiro.Core.Repository.Options;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
+global using Carneiro.Core.Repository.Extensions;
+global using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;

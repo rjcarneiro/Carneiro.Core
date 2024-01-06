@@ -1,20 +1,23 @@
-﻿using Carneiro.Core.Repository.Extensions;
+﻿using Carneiro.Core.Repository.Configurations;
 using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 
 namespace Carneiro.Core.Repository;
 
 /// <summary>
-/// Default Database Context.
+/// Database implementation with <see cref="IDataProtectionKeyContext"/>.
 /// </summary>
-/// <seealso cref="IDataProtectionKeyContext" />
-/// <seealso cref="DbContext" />
-public abstract class RzDbContext : DbContext
+public abstract class RzDataProtectionDbContext : RzDbContext, IDataProtectionKeyContext
 {
+    /// <summary>
+    /// A collection of <see cref="T:Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey" />
+    /// </summary>
+    public virtual DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RzDbContext"/> class.
     /// </summary>
     /// <param name="options">The options.</param>
-    protected RzDbContext(DbContextOptions<RzDbContext> options)
+    protected RzDataProtectionDbContext(DbContextOptions<RzDataProtectionDbContext> options)
         : base(options)
     {
     }
@@ -23,7 +26,7 @@ public abstract class RzDbContext : DbContext
     /// Initializes a new instance of the <see cref="RzDbContext" /> class.
     /// </summary>
     /// <param name="options">The options.</param>
-    protected RzDbContext(DbContextOptions options)
+    protected RzDataProtectionDbContext(DbContextOptions options)
         : base(options)
     {
     }
@@ -35,6 +38,6 @@ public abstract class RzDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.UseUtcDateTimeRead();
+        builder.ApplyConfiguration(new DataProtectionKeyConfiguration());
     }
 }

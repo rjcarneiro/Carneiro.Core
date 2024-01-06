@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Carneiro.Core.Repository.Options;
+using Microsoft.Extensions.Configuration;
 using Moq;
 
 namespace Carneiro.Core.Tests.Scenarios;
