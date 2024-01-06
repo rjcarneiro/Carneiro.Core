@@ -17,8 +17,14 @@ public static class ModelBuilderExtensions
         var dateTimeConverter = new ValueConverter<DateTime, DateTime>(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
-        foreach (IMutableProperty property in entityType.GetProperties())
-            if (property.ClrType == typeof(DateTime) || property.ClrType == typeof(DateTime?))
-                property.SetValueConverter(dateTimeConverter);
+        {
+            foreach (IMutableProperty property in entityType.GetProperties())
+            {
+                if (property.ClrType == typeof(DateTime) || property.ClrType == typeof(DateTime?))
+                {
+                    property.SetValueConverter(dateTimeConverter);
+                }
+            }
+        }
     }
 }
