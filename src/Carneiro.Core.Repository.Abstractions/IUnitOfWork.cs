@@ -257,6 +257,73 @@ public interface IUnitOfWork : IDisposable
     Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
 
     /// <summary>
+    /// Singles the asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    /// <returns></returns>
+    Task<T> SingleAsync<T>(long id) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    Task<T> SingleAsync<T>() where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <returns></returns>
+    Task<T> SingleAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the or default asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    /// <returns></returns>
+    Task<T> SingleOrDefaultAsync<T>(long id) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the or default asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <returns></returns>
+    Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the or default asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    /// <param name="expression">The expression.</param>
+    /// <returns></returns>
+    Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the or default asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    /// <param name="expression">The expression.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns></returns>
+    Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Singles the or default asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    /// <returns></returns>
+    Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+
+    /// <summary>
     /// Saves the context asynchronously.
     /// </summary>
     /// <returns></returns>

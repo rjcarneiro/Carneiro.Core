@@ -180,6 +180,30 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).FirstOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
+    public virtual Task<T> SingleAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).SingleAsync();
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleAsync<T>() where T : class, IAuditableEntity => Query<T>().SingleAsync();
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).SingleAsync();
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => _context.Set<T>().SingleOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().SingleOrDefaultAsync(expression);
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).SingleOrDefaultAsync(expression);
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().SingleOrDefaultAsync(expression, cancellationToken);
+
+    /// <inheritdoc />
+    public virtual Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).SingleOrDefaultAsync(expression, cancellationToken);
+
+    /// <inheritdoc />
     public virtual Task SaveAsync() => _context.SaveChangesAsync();
 
     /// <inheritdoc />
