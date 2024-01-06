@@ -28,31 +28,37 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
     {
         try
         {
-            Logger.LogInformation("Starting periodic service \'{TaskName}\' version {Version} using options {Options}", TaskName, VersionHelper.GetVersion(), Options);
+            Logger.LogInformation("Starting periodic service '{TaskName}' version {Version} using options {Options}", TaskName, VersionHelper.GetVersion(), Options);
 
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
                     if (cancellationToken.IsCancellationRequested)
+                    {
                         break;
+                    }
 
                     await RunAsync(cancellationToken);
                 }
+                catch (OperationCanceledException)
+                {
+                    // When the stopping token is canceled, for example, a call made from services.msc,
+                    // we shouldn't exit with a non-zero exit code. In other words, this is expected...
+                }
                 catch (Exception e)
                 {
-                    Logger.LogError(e, "Unable to perform \'{TaskName}\' on folder \'{CurrentDirectory}\'", TaskName,
-                        Directory.GetCurrentDirectory());
+                    Logger.LogError(e, "Unable to perform '{TaskName}' on folder '{CurrentDirectory}'", TaskName, Directory.GetCurrentDirectory());
                 }
 
                 if (cancellationToken.IsCancellationRequested)
+                {
                     break;
+                }
 
                 var seconds = Random.Shared.Next(Options.Min, Options.Max);
 
-                Logger.LogInformation(
-                    "Process finished! Waiting {Seconds} seconds for the next iteration for service \'{TaskName}\'",
-                    seconds, TaskName);
+                Logger.LogInformation("Waiting {Seconds} seconds for the next iteration for service '{TaskName}'", seconds, TaskName);
 
                 await Task.Delay(seconds * 1000, cancellationToken);
             }
