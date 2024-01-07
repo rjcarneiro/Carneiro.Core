@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 
 namespace Carneiro.Core.Repository.Extensions;
 
