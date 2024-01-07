@@ -11,10 +11,23 @@ public static class DatabaseExtensions
     /// <typeparam name="T">Generic that must be a <see cref="DbContext" />.</typeparam>
     /// <param name="services">The services.</param>
     /// <param name="connectionString">The connection string.</param>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString) 
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString)
         where T : DbContext
     {
         return services.AddDatabaseContext<T>(connectionString, new DatabaseOptions());
+    }
+
+    /// <summary>
+    /// Adds the database that expects  <paramref name="connectionString"/> as connection string.
+    /// </summary>
+    /// <typeparam name="T">Generic that must be a <see cref="DbContext" />.</typeparam>
+    /// <param name="services">The services.</param>
+    /// <param name="connectionString">The connection string.</param>
+    /// <param name="dbContextOptionsBuilder">The database context options builder action.</param>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, Action<DbContextOptionsBuilder> dbContextOptionsBuilder)
+        where T : DbContext
+    {
+        return services.AddDatabaseContext<T>(connectionString, new DatabaseOptions(), dbContextOptionsBuilder);
     }
 
     /// <summary>
@@ -24,11 +37,24 @@ public static class DatabaseExtensions
     /// <param name="connectionString"></param>
     /// <param name="databaseOptionsSection"></param>
     /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, IConfigurationSection databaseOptionsSection) 
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, IConfigurationSection databaseOptionsSection)
         where T : DbContext
     {
         return services.AddDatabaseContext<T>(connectionString, databaseOptionsSection.Get<DatabaseOptions>());
+    }
+
+    /// <summary>
+    /// Adds the database that expects  <paramref name="connectionString"/> as connection string and <paramref name="databaseOptionsSection"/> as <see cref="DatabaseOptions"/>.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="connectionString"></param>
+    /// <param name="databaseOptionsSection"></param>
+    /// <param name="dbContextOptionsBuilder">The database context options builder action.</param>
+    /// <typeparam name="T"></typeparam>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, IConfigurationSection databaseOptionsSection, Action<DbContextOptionsBuilder> dbContextOptionsBuilder)
+        where T : DbContext
+    {
+        return services.AddDatabaseContext<T>(connectionString, databaseOptionsSection.Get<DatabaseOptions>(), dbContextOptionsBuilder);
     }
 
     /// <summary>
@@ -37,14 +63,31 @@ public static class DatabaseExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="services">The services.</param>
     /// <param name="connectionString">The connection string.</param>
-    /// <param name="actions">The actions.</param>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, Action<DatabaseOptions> actions)
+    /// <param name="action">The actions.</param>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, Action<DatabaseOptions> action)
         where T : DbContext
     {
         var dbSettings = new DatabaseOptions();
-        actions.Invoke(dbSettings);
+        action.Invoke(dbSettings);
 
         return services.AddDatabaseContext<T>(connectionString, dbSettings);
+    }
+
+    /// <summary>
+    /// Adds the database that expects  <paramref name="connectionString"/> as connection string.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services">The services.</param>
+    /// <param name="connectionString">The connection string.</param>
+    /// <param name="action">The actions.</param>
+    /// <param name="dbContextOptionsBuilder">The database context options builder action.</param>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, Action<DatabaseOptions> action, Action<DbContextOptionsBuilder> dbContextOptionsBuilder)
+        where T : DbContext
+    {
+        var dbSettings = new DatabaseOptions();
+        action.Invoke(dbSettings);
+
+        return services.AddDatabaseContext<T>(connectionString, dbSettings, dbContextOptionsBuilder);
     }
 
     /// <summary>
@@ -54,10 +97,24 @@ public static class DatabaseExtensions
     /// <param name="services">The services.</param>
     /// <param name="connectionString">The connection string.</param>
     /// <param name="databaseOptions">The database options.</param>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions) 
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions)
         where T : DbContext
     {
         return services.AddDatabaseContext<T>(connectionString, databaseOptions);
+    }
+
+    /// <summary>
+    /// Adds the database that expects <c>DatabaseContext</c> as a connection string configuration section.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="services">The services.</param>
+    /// <param name="connectionString">The connection string.</param>
+    /// <param name="databaseOptions">The database options.</param>
+    /// <param name="dbContextOptionsBuilder">The database context options builder action.</param>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions, Action<DbContextOptionsBuilder> dbContextOptionsBuilder)
+        where T : DbContext
+    {
+        return services.AddDatabaseContext<T>(connectionString, databaseOptions, dbContextOptionsBuilder);
     }
 
     /// <summary>
@@ -70,10 +127,27 @@ public static class DatabaseExtensions
     /// It expects <c>DatabaseContext</c> as configuration section for the connection string.
     /// It expects <c>Database</c> as configuration for <see cref="DatabaseOptions" />.
     /// </remarks>
-    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, IConfiguration configuration) 
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, IConfiguration configuration)
         where T : DbContext
     {
         return services.AddDatabaseContext<T>(configuration.GetConnectionString("DatabaseContext"), configuration.GetSection("Database").Get<DatabaseOptions>());
+    }
+
+    /// <summary>
+    /// Adds the database that expects <c>DatabaseContext</c> as a connection string configuration section and <c>Database</c> as configuration section for <see cref="DatabaseOptions"/>.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configuration"></param>
+    /// <param name="dbContextOptionsBuilder">The database context options builder action.</param>
+    /// <typeparam name="T"></typeparam>
+    /// <remarks>
+    /// It expects <c>DatabaseContext</c> as configuration section for the connection string.
+    /// It expects <c>Database</c> as configuration for <see cref="DatabaseOptions" />.
+    /// </remarks>
+    public static IServiceCollection AddDatabase<T>(this IServiceCollection services, IConfiguration configuration, Action<DbContextOptionsBuilder> dbContextOptionsBuilder)
+        where T : DbContext
+    {
+        return services.AddDatabaseContext<T>(configuration.GetConnectionString("DatabaseContext"), configuration.GetSection("Database").Get<DatabaseOptions>(), dbContextOptionsBuilder);
     }
 
     private static IServiceCollection AddDatabaseContext<TDbContext>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions, Action<DbContextOptionsBuilder> dbContextOptionsBuilder = null)
