@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Entities.Abstractions;
-
-namespace Carneiro.Core.Repository.Abstractions;
+﻿namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// Unit of work.
@@ -342,5 +340,5 @@ public interface IUnitOfWork : IDisposable
     /// <param name="action">The action.</param>
     /// <param name="isolationLevel">The isolation level. Default is <see cref="System.Data.IsolationLevel.Serializable"/></param>
     /// <returns></returns>
-    Task ExecuteInTransactionScopeAsync(Func<Task> action, System.Data.IsolationLevel isolationLevel = System.Data.IsolationLevel.Serializable);
+    Task ExecuteInTransactionScopeAsync(Func<Task> action, IsolationLevel isolationLevel = IsolationLevel.Serializable);
 }

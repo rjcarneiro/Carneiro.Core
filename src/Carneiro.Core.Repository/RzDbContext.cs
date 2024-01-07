@@ -1,7 +1,4 @@
-﻿using Carneiro.Core.Repository.Extensions;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
-
-namespace Carneiro.Core.Repository;
+﻿namespace Carneiro.Core.Repository;
 
 /// <summary>
 /// Default Database Context.

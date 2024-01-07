@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Entities.Abstractions;
-
-namespace Carneiro.Core.Repository.Abstractions;
+﻿namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// The base repository interface.
