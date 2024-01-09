@@ -15,3 +15,6 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Carneiro.Core.Repository.Extensions;
 global using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
+global using System.Data;
+global using Microsoft.EntityFrameworkCore.Storage;
+global using Microsoft.Extensions.Logging;
