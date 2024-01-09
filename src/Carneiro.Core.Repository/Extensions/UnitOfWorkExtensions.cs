@@ -25,7 +25,25 @@ public static class UnitOfWorkExtensions
     /// <returns></returns>
     public static IServiceCollection AddUnitOfWork<TService, TImplementation>(this IServiceCollection services)
         where TService : class, IUnitOfWork
-        where TImplementation : UnitOfWork<DbContext>, TService
+        where TImplementation : class, TService
+    {
+        services.AddScoped<TService, TImplementation>();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds a new <see cref="IUnitOfWork"/> with <see cref="ServiceLifetime.Scoped"/> lifetime.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <typeparam name="TService"></typeparam>
+    /// <typeparam name="TImplementation"></typeparam>
+    /// <typeparam name="TDbContext"></typeparam>
+    /// <returns></returns>
+    public static IServiceCollection AddUnitOfWork<TService, TImplementation, TDbContext>(this IServiceCollection services)
+        where TDbContext : DbContext
+        where TService : class, IUnitOfWork
+        where TImplementation : UnitOfWork<TDbContext>, TService
     {
         services.AddScoped<TService, TImplementation>();
 
