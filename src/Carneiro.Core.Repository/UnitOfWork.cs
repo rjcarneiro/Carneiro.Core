@@ -1,8 +1,4 @@
-﻿using System.Data;
-using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.Extensions.Logging;
-
-namespace Carneiro.Core.Repository;
+﻿namespace Carneiro.Core.Repository;
 
 /// <summary>
 /// Working implementation of Entity Framework for <see cref="IUnitOfWork"/>.
