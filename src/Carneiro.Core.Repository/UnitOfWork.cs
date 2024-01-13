@@ -29,10 +29,13 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     }
 
     /// <inheritdoc />
-    public virtual async Task AddAsync<T>(T entity) where T : class, IAuditableEntity
+    public virtual async Task AddAsync<T>(T entity) where T : class, IAuditableEntity => await AddAsync<T>(entity, CancellationToken.None);
+
+    /// <inheritdoc />
+    public virtual async Task AddAsync<T>(T entity, CancellationToken cancellationToken) where T : class, IAuditableEntity
     {
         AuditCreate(entity);
-        await _context.AddAsync(entity);
+        await _context.AddAsync(entity, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -47,13 +50,16 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     }
 
     /// <inheritdoc />
-    public virtual Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class, IAuditableEntity
+    public virtual Task AddRangeAsync<T>(IEnumerable<T> entities) where T : class, IAuditableEntity => AddRangeAsync<T>(entities, CancellationToken.None);
+
+    /// <inheritdoc />
+    public virtual Task AddRangeAsync<T>(IEnumerable<T> entities, CancellationToken cancellationToken) where T : class, IAuditableEntity
     {
         IEnumerable<T> iAuditableEntities = entities as T[] ?? entities.ToArray();
         foreach (T entity in iAuditableEntities)
             AuditCreate(entity);
 
-        return _context.AddRangeAsync(iAuditableEntities);
+        return _context.AddRangeAsync(iAuditableEntities, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -113,10 +119,13 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     }
 
     /// <inheritdoc />
-    public virtual Task<List<T>> GetAsync<T>() where T : class, IAuditableEntity => Query<T>().ToListAsync();
+    public virtual Task<List<T>> GetAsync<T>() where T : class, IAuditableEntity => GetAsync<T>(CancellationToken.None);
 
     /// <inheritdoc />
-    public virtual Task<List<T>> GetAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).ToListAsync();
+    public virtual Task<List<T>> GetAsync<T>(CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().ToListAsync(cancellationToken: cancellationToken);
+
+    /// <inheritdoc />
+    public virtual Task<List<T>> GetAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => GetAsync<T>(expression, CancellationToken.None);
 
     /// <inheritdoc />
     public virtual Task<List<T>> GetAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query(expression).ToListAsync(cancellationToken);
@@ -134,10 +143,16 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual IQueryable<T> Query<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => _context.Set<T>().Where(t => t.IsDeleted == false && t.Id == id).Where(expression);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>() where T : class, IAuditableEntity => Query<T>().AnyAsync();
+    public virtual Task<bool> AnyAsync<T>() where T : class, IAuditableEntity => AnyAsync<T>(CancellationToken.None);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(t => t.Id == id);
+    public virtual Task<bool> AnyAsync<T>(CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().AnyAsync(cancellationToken: cancellationToken);
+
+    /// <inheritdoc />
+    public virtual Task<bool> AnyAsync<T>(long id) where T : class, IAuditableEntity => AnyAsync<T>(id, CancellationToken.None);
+
+    /// <inheritdoc />
+    public virtual Task<bool> AnyAsync<T>(long id, CancellationToken cancellationToken) where T : class, IAuditableEntity =>  Query<T>(id).AnyAsync(t => t.Id == id, cancellationToken: cancellationToken);
 
     /// <inheritdoc />
     public virtual Task<bool> AnyAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(expression);
