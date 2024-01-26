@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
+        <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <Authors>Ricardo Carneiro</Authors>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -45,11 +45,7 @@
         <ProjectReference Include="..\Carneiro.Core.Entities.Abstractions\Carneiro.Core.Entities.Abstractions.csproj"/>
     </ItemGroup>
 
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15"/>
-    </ItemGroup>
-
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+    <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1"/>
     </ItemGroup>
 
