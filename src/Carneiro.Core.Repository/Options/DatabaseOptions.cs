@@ -45,7 +45,7 @@ public class DatabaseOptions
     /// <summary>
     /// Gets or sets the flag to use relation nulls.
     /// </summary>
-    public bool? UseRelationalNulls { get; set; } = true;
+    public bool? UseRelationalNulls { get; set; }
 
     /// <summary>
     /// The minimum number of statements that are needed for a multi-statement command sent to the database during <c>SaveChanges()</c> or <c>null</c> if none has been set.
@@ -60,7 +60,7 @@ public class DatabaseOptions
     /// <summary>
     /// Flag that registers the <c>DbContext</c> as context pool.
     /// </summary>
-    public virtual bool UseDbContextPool { get; set; } = false;
+    public virtual bool UseDbContextPool { get; set; }
 
     /// <inheritdoc />
     public override string ToString() =>
