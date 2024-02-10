@@ -34,11 +34,6 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
             {
                 try
                 {
-                    if (cancellationToken.IsCancellationRequested)
-                    {
-                        break;
-                    }
-
                     await RunAsync(cancellationToken);
                 }
                 catch (OperationCanceledException)
@@ -58,7 +53,7 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
 
                 var seconds = Random.Shared.Next(Options.Min, Options.Max);
 
-                Logger.LogInformation("Waiting {Seconds} seconds for the next iteration for service '{TaskName}'", seconds, TaskName);
+                Logger.LogInformation("Waiting {Seconds}s for the next iteration for service '{TaskName}'", seconds, TaskName);
 
                 await Task.Delay(seconds * 1000, cancellationToken);
             }

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Carneiro.Core.Host;
+﻿namespace Carneiro.Core.Host;
 
 /// <summary>
 /// Background service job that just runs once with a new <see cref="AsyncServiceScope"/>.

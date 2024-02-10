@@ -6,3 +6,4 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
 global using Microsoft.Extensions.Hosting;
 global using Carneiro.Core.Logging;
+global using Microsoft.Extensions.DependencyInjection;
