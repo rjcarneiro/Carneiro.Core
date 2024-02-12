@@ -26,12 +26,19 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
+        var isSuccess = true;
+
         try
         {
             Logger.LogInformation("Starting periodic service '{TaskName}' version {Version} using options {Options}", TaskName, VersionHelper.GetVersion(), Options);
 
             while (!cancellationToken.IsCancellationRequested)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
                 try
                 {
                     await RunAsync(cancellationToken);
@@ -52,9 +59,7 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
                 }
 
                 var seconds = Random.Shared.Next(Options.Min, Options.Max);
-
                 Logger.LogInformation("Waiting {Seconds}s for the next iteration for service '{TaskName}'", seconds, TaskName);
-
                 await Task.Delay(seconds * 1000, cancellationToken);
             }
         }
@@ -65,8 +70,14 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
         }
         catch (Exception e)
         {
+            isSuccess = false;
             Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
-            Environment.Exit(1);
         }
+        finally
+        {
+            Logger.LogInformation("Finish service '{TaskName}' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
+        }
+
+        Environment.Exit(isSuccess ? 0 : 1);
     }
 }
