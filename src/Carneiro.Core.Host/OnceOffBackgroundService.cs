@@ -24,12 +24,9 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
 
         try
         {
-            Logger.LogInformation("Starting service '{TaskName}' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
+            cancellationToken.ThrowIfCancellationRequested();
 
-            if (cancellationToken.IsCancellationRequested)
-            {
-                return;
-            }
+            Logger.LogInformation("Starting service '{TaskName}' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
 
             await RunAsync(cancellationToken);
         }
