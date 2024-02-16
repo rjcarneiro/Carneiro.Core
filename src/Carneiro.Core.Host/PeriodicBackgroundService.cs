@@ -34,19 +34,13 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
 
             while (!cancellationToken.IsCancellationRequested)
             {
-                if (cancellationToken.IsCancellationRequested)
-                {
-                    break;
-                }
-
                 try
                 {
                     await RunAsync(cancellationToken);
                 }
                 catch (OperationCanceledException)
                 {
-                    // When the stopping token is canceled, for example, a call made from services.msc,
-                    // we shouldn't exit with a non-zero exit code. In other words, this is expected...
+                    break;
                 }
                 catch (Exception e)
                 {
@@ -71,7 +65,7 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
         catch (Exception e)
         {
             isSuccess = false;
-            Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
+            Logger.LogCritical(e, "An unknown error happening when running {TaskName}", TaskName);
         }
         finally
         {
