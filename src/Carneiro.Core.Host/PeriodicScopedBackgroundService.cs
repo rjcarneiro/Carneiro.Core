@@ -22,8 +22,11 @@ public abstract class PeriodicScopedBackgroundService : PeriodicBackgroundServic
     /// <inheritdoc />
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
-        await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
-        await RunScopedAsync(asyncServiceScope, cancellationToken);
+        if (!cancellationToken.IsCancellationRequested)
+        {
+            await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
+            await RunScopedAsync(asyncServiceScope, cancellationToken);
+        }
     }
 
     /// <summary>

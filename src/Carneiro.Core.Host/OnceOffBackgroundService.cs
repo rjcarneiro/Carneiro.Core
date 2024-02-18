@@ -21,14 +21,16 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         var isSuccess = true;
+        var version = VersionHelper.GetSimplerVersion();
 
         try
         {
-            cancellationToken.ThrowIfCancellationRequested();
+            if (!cancellationToken.IsCancellationRequested)
+            {
+                Logger.LogInformation("Starting service '{TaskName}' v{Version}", TaskName, version);
 
-            Logger.LogInformation("Starting service '{TaskName}' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
-
-            await RunAsync(cancellationToken);
+                await RunAsync(cancellationToken);
+            }
         }
         catch (Exception e)
         {
@@ -40,7 +42,7 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
         }
         finally
         {
-            Logger.LogInformation("Finish service '{TaskName}' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
+            Logger.LogInformation("Finish service '{TaskName}' v{Version}", TaskName, version);
         }
 
         Environment.Exit(isSuccess ? 0 : 1);
