@@ -38,10 +38,6 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
                 {
                     await RunAsync(cancellationToken);
                 }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
                 catch (Exception e)
                 {
                     Logger.LogError(e, "Unable to perform '{TaskName}' on folder '{CurrentDirectory}'", TaskName, Directory.GetCurrentDirectory());
@@ -57,15 +53,13 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
                 await Task.Delay(seconds * 1000, cancellationToken);
             }
         }
-        catch (OperationCanceledException)
-        {
-            // When the stopping token is canceled, for example, a call made from services.msc,
-            // we shouldn't exit with a non-zero exit code. In other words, this is expected...
-        }
         catch (Exception e)
         {
-            isSuccess = false;
-            Logger.LogCritical(e, "An unknown error happening when running {TaskName}", TaskName);
+            if (e is not OperationCanceledException)
+            {
+                isSuccess = false;
+                Logger.LogCritical(e, "An unknown error happening when running {TaskName}", TaskName);
+            }
         }
         finally
         {

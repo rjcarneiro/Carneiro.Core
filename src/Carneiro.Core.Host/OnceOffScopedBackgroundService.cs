@@ -12,7 +12,7 @@ public abstract class OnceOffScopedBackgroundService : OnceOffBackgroundService
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="serviceProvider"></param>
-    protected OnceOffScopedBackgroundService(ILogger<OnceOffScopedBackgroundService> logger, IServiceProvider serviceProvider) 
+    protected OnceOffScopedBackgroundService(ILogger<OnceOffScopedBackgroundService> logger, IServiceProvider serviceProvider)
         : base(logger)
     {
         _serviceProvider = serviceProvider;
@@ -21,8 +21,11 @@ public abstract class OnceOffScopedBackgroundService : OnceOffBackgroundService
     /// <inheritdoc />
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
-        await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
-        await RunScopedAsync(asyncServiceScope, cancellationToken);
+        if (!cancellationToken.IsCancellationRequested)
+        {
+            await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
+            await RunScopedAsync(asyncServiceScope, cancellationToken);
+        }
     }
 
     /// <summary>
