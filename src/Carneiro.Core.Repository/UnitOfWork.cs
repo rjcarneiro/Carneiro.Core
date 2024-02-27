@@ -4,7 +4,7 @@
 /// Working implementation of Entity Framework for <see cref="IUnitOfWork"/>.
 /// </summary>
 /// <seealso cref="IUnitOfWork" />
-public class UnitOfWork<TDbContext> : IUnitOfWork, IAsyncDisposable where TDbContext : DbContext
+public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 {
     private readonly TDbContext _context;
     private readonly ILogger<UnitOfWork<TDbContext>> _logger;
