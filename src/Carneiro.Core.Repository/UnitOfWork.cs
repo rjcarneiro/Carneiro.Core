@@ -4,9 +4,8 @@
 /// Working implementation of Entity Framework for <see cref="IUnitOfWork"/>.
 /// </summary>
 /// <seealso cref="IUnitOfWork" />
-public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
+public class UnitOfWork<TDbContext> : IUnitOfWork, IAsyncDisposable where TDbContext : DbContext
 {
-    private bool _disposed;
     private readonly TDbContext _context;
     private readonly ILogger<UnitOfWork<TDbContext>> _logger;
 
@@ -152,7 +151,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<bool> AnyAsync<T>(long id) where T : class, IAuditableEntity => AnyAsync<T>(id, CancellationToken.None);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>(long id, CancellationToken cancellationToken) where T : class, IAuditableEntity =>  Query<T>(id).AnyAsync(t => t.Id == id, cancellationToken: cancellationToken);
+    public virtual Task<bool> AnyAsync<T>(long id, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(t => t.Id == id, cancellationToken: cancellationToken);
 
     /// <inheritdoc />
     public virtual Task<bool> AnyAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(expression);
@@ -188,7 +187,8 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().FirstOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).FirstOrDefaultAsync(expression, cancellationToken);
+    public virtual Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity =>
+        Query<T>(id).FirstOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
     public virtual Task<T> SingleAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).SingleAsync();
@@ -212,7 +212,8 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().SingleOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).SingleOrDefaultAsync(expression, cancellationToken);
+    public virtual Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity =>
+        Query<T>(id).SingleOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
     public virtual Task SaveAsync() => _context.SaveChangesAsync();
@@ -244,27 +245,25 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     }
 
     /// <inheritdoc />
-    public void Dispose()
+    public virtual void Dispose()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        if (_context is IDisposable contextDisposable)
+        {
+            contextDisposable.Dispose();
+        }
+        else if (_context != null)
+        {
+            _ = _context.DisposeAsync().AsTask();
+        }
     }
 
-    /// <summary>
-    /// Releases unmanaged and - optionally - managed resources.
-    /// </summary>
-    /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-    protected virtual void Dispose(bool disposing)
+    /// <inheritdoc />
+    public virtual async ValueTask DisposeAsync()
     {
-        if (_disposed)
-            return;
-
-        if (disposing)
+        if (_context != null)
         {
-            _context.Dispose();
+            await _context.DisposeAsync();
         }
-
-        _disposed = true;
     }
 
     private void AuditCreate<T>(T entity) where T : IAuditableEntity
@@ -280,6 +279,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 
     private void AuditDelete<T>(T entity) where T : IAuditableEntity
     {
+        entity.IsActive = false;
         entity.IsDeleted = true;
         entity.DeleteDate = DateTime.UtcNow;
     }
