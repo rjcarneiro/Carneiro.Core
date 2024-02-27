@@ -4,7 +4,7 @@
 /// Unit of work.
 /// </summary>
 /// <seealso cref="IDisposable" />
-public interface IUnitOfWork : IDisposable
+public interface IUnitOfWork : IDisposable, IAsyncDisposable
 {
     /// <summary>
     /// Adds the specified entity.
