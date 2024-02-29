@@ -57,7 +57,7 @@ public class DateTimeExtensionsTests
     {
         foreach ((DateTime key, var value) in _items)
         {
-            Assert.That(key.GetHumanReadableDateDifference(), Is.EqualTo(value));
+            Assert.That(key.ToHumanReadableDateDifference(), Is.EqualTo(value));
         }
     }
 }
