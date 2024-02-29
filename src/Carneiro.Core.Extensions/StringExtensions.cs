@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text.RegularExpressions;
-
-namespace Carneiro.Core.Extensions;
+﻿namespace Carneiro.Core.Extensions;
 
 /// <summary>
 /// <see cref="string"/> Extensions.

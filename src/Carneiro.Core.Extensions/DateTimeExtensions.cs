@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Carneiro.Core.Extensions;
+﻿namespace Carneiro.Core.Extensions;
 
 /// <summary>
 /// <see cref="DateTime"/> Extensions.
@@ -89,7 +87,6 @@ public static class DateTimeExtensions
 
         return $"{(zeroTime + s).Year - 1} years ago";
     }
-
 
     /// <summary>
     /// Converts a <see cref="DateTime"/> into a string format of <c>HH:mm:ss</c>.
