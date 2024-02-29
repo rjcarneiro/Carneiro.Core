@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Carneiro.Core.Extensions;
+﻿namespace Carneiro.Core.Extensions;
 
 /// <summary>
 /// Extensions for collections
