@@ -9,3 +9,4 @@ global using System.IO;
 global using System.Reflection;
 global using System.Data;
 global using Carneiro.Core.Entities.Abstractions;
+global using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Carneiro.Core.Repository.Abstractions;
+﻿namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// Paginated list class.
@@ -24,6 +22,16 @@ public class PaginatedList<T> : List<T>
     /// The total pages.
     /// </value>
     public int TotalPages { get; }
+
+    /// <summary>
+    /// Gets the total number of items.
+    /// </summary>
+    public int Total { get; }
+
+    /// <summary>
+    /// Gets the page size.
+    /// </summary>
+    public int PageSize { get; }
 
     /// <summary>
     /// Gets the next page.
@@ -67,24 +75,19 @@ public class PaginatedList<T> : List<T>
     public PaginatedList(List<T> items, int count, int pageIndex, int pageSize)
     {
         PageIndex = pageIndex;
+        PageSize = pageSize;
         TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+        Total = count;
 
         AddRange(items);
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PaginatedList{T}"/> class.
+    /// Creates the paginated list using page <c>1</c> asynchronously.
     /// </summary>
-    /// <param name="items">The items.</param>
-    /// <param name="pageIndex">Index of the page.</param>
-    /// <param name="totalPages">The total pages.</param>
-    public PaginatedList(IEnumerable<T> items, int pageIndex, int totalPages)
-    {
-        PageIndex = pageIndex;
-        TotalPages = totalPages;
-
-        AddRange(items);
-    }
+    /// <param name="source"></param>
+    /// <param name="pageSize"></param>
+    public static Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageSize) => CreateAsync(source, 1, pageSize);
 
     /// <summary>
     /// Creates the paginated list asynchronously.
@@ -92,7 +95,6 @@ public class PaginatedList<T> : List<T>
     /// <param name="source">The source.</param>
     /// <param name="pageIndex">Index of the page.</param>
     /// <param name="pageSize">Size of the page.</param>
-    /// <returns></returns>
     public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
     {
         var count = await source.CountAsync();
