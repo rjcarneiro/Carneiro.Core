@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-
-namespace Carneiro.Core.Logging;
+﻿namespace Carneiro.Core.Logging;
 
 /// <summary>
 /// Logging Extensions for <see cref="IHostBuilder"/>.
@@ -26,6 +22,30 @@ public static class LoggingExtensions
         {
             loggerConfiguration
                 .ReadFrom.Configuration(hostingContext.Configuration);
+
+            action?.Invoke(loggerConfiguration);
+        });
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Adds <c>Serilog</c>.
+    /// </summary>
+    /// <param name="builder"></param>
+    public static IHostApplicationBuilder UseLogging(this IHostApplicationBuilder builder) => builder.UseLogging(action: null);
+
+    /// <summary>
+    /// Adds <c>Serilog</c> and overrides with <paramref name="action"/>.
+    /// </summary>
+    /// <param name="builder"></param>
+    /// <param name="action"></param>
+    public static IHostApplicationBuilder UseLogging(this IHostApplicationBuilder builder, Action<LoggerConfiguration> action)
+    {
+        builder.Services.AddSerilog(loggerConfiguration =>
+        {
+            loggerConfiguration
+                .ReadFrom.Configuration(builder.Configuration);
 
             action?.Invoke(loggerConfiguration);
         });
