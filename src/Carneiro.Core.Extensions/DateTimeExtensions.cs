@@ -212,6 +212,18 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
+    /// Gets the start of the month based on <paramref name="dateTime"/>.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static DateTime GetStartOfMonth(this DateTime dateTime) => new(dateTime.Year, dateTime.Month, 1);
+
+    /// <summary>
+    /// Gets the end of the month based on <paramref name="dateTime"/>.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static DateTime GetEndOfMonth(this DateTime dateTime) => dateTime.GetStartOfMonth().AddMonths(1).AddSeconds(-1);
+
+    /// <summary>
     /// Gets the start of the week based on <paramref name="dateTime"/>.
     /// </summary>
     /// <param name="dateTime"></param>
