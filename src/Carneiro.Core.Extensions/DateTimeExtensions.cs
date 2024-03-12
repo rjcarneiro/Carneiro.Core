@@ -233,7 +233,7 @@ public static class DateTimeExtensions
     /// Gets the end of the week based on <paramref name="dateTime"/>.
     /// </summary>
     /// <param name="dateTime"></param>
-    public static DateTime GetEndOfWeek(this DateTime dateTime) => GetStartOfWeek(dateTime).AddDays(7).Date;
+    public static DateTime GetEndOfWeek(this DateTime dateTime) => GetStartOfWeek(dateTime).AddDays(8).AddSeconds(-1);
 
     /// <summary>
     /// Checks either <paramref name="dateTime"/> is future date.
