@@ -241,5 +241,11 @@ public static class DateTimeExtensions
     /// <param name="dateTime"></param>
     public static bool IsFutureDate(this DateTime dateTime) => dateTime > DateTime.UtcNow;
 
+    /// <summary>
+    /// Checks either <paramref name="dateTime"/> is past date.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static bool IsPastDate(this DateTime dateTime) => dateTime < DateTime.UtcNow;
+
     private static int MonthDifference(this DateTime lValue, DateTime rValue) => Math.Abs(lValue.Month - rValue.Month + 12 * (lValue.Year - rValue.Year));
 }
