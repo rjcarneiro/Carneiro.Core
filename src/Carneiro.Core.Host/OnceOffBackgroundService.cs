@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Health;
-
-namespace Carneiro.Core.Host;
+﻿namespace Carneiro.Core.Host;
 
 /// <summary>
 /// Default background service that just runs once.
@@ -20,7 +18,6 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var isSuccess = true;
         var version = VersionHelper.GetSimplerVersion();
 
         try
@@ -36,7 +33,6 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
         {
             if (e is not OperationCanceledException)
             {
-                isSuccess = false;
                 Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
             }
         }
@@ -44,7 +40,5 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
         {
             Logger.LogInformation("Finish service '{TaskName}' v{Version}", TaskName, version);
         }
-
-        Environment.Exit(isSuccess ? 0 : 1);
     }
 }
