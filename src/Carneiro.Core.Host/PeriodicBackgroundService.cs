@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Health;
-
-namespace Carneiro.Core.Host;
+﻿namespace Carneiro.Core.Host;
 
 /// <summary>
 /// Periodic Background Service based in <see cref="PeriodicBackgroundServiceOptions" />.
@@ -26,8 +24,6 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        var isSuccess = true;
-
         try
         {
             Logger.LogInformation("Starting periodic service '{TaskName}' version {Version} using options {Options}", TaskName, VersionHelper.GetVersion(), Options);
@@ -57,7 +53,6 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
         {
             if (e is not OperationCanceledException)
             {
-                isSuccess = false;
                 Logger.LogCritical(e, "An unknown error happening when running {TaskName}", TaskName);
             }
         }
@@ -65,7 +60,5 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
         {
             Logger.LogInformation("Finish service '{TaskName}' v{Version}", TaskName, VersionHelper.GetSimplerVersion());
         }
-
-        Environment.Exit(isSuccess ? 0 : 1);
     }
 }
