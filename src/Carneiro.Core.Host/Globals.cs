@@ -8,3 +8,6 @@ global using Microsoft.Extensions.Hosting;
 global using Carneiro.Core.Logging;
 global using Microsoft.Extensions.DependencyInjection;
 global using Carneiro.Core.Health;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Diagnostics;
