@@ -5,17 +5,14 @@
 /// </summary>
 public abstract class OnceOffScopedBackgroundService : OnceOffBackgroundService
 {
-    private readonly IServiceProvider _serviceProvider;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="OnceOffScopedBackgroundService" /> class.
     /// </summary>
     /// <param name="logger"></param>
     /// <param name="serviceProvider"></param>
     protected OnceOffScopedBackgroundService(ILogger<OnceOffScopedBackgroundService> logger, IServiceProvider serviceProvider)
-        : base(logger)
+        : base(logger, serviceProvider)
     {
-        _serviceProvider = serviceProvider;
     }
 
     /// <inheritdoc />
@@ -23,7 +20,7 @@ public abstract class OnceOffScopedBackgroundService : OnceOffBackgroundService
     {
         if (!cancellationToken.IsCancellationRequested)
         {
-            await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
+            await using AsyncServiceScope asyncServiceScope = ServiceProvider.CreateAsyncScope();
             await RunScopedAsync(asyncServiceScope, cancellationToken);
         }
     }

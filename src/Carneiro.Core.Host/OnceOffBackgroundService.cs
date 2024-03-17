@@ -7,18 +7,26 @@
 public abstract class OnceOffBackgroundService : BaseBackgroundService
 {
     /// <summary>
+    /// Gets the <see cref="IServiceProvider"/>.
+    /// </summary>
+    protected IServiceProvider ServiceProvider { get; }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="OnceOffBackgroundService" /> class.
     /// </summary>
     /// <param name="logger"></param>
-    protected OnceOffBackgroundService(ILogger<OnceOffBackgroundService> logger)
+    /// <param name="serviceProvider"></param>
+    protected OnceOffBackgroundService(ILogger<OnceOffBackgroundService> logger, IServiceProvider serviceProvider)
         : base(logger)
     {
+        ServiceProvider = serviceProvider;
     }
 
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         var version = VersionHelper.GetSimplerVersion();
+        var stopwatch = Stopwatch.StartNew();
 
         try
         {
@@ -38,7 +46,11 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
         }
         finally
         {
-            Logger.LogInformation("Finish service '{TaskName}' v{Version}", TaskName, version);
+            stopwatch.Stop();
+            Logger.LogInformation("Finish service '{TaskName}' v{Version}. Elapsed time: {StopwatchElapsed}", TaskName, version, stopwatch.Elapsed);
+
+            IHostApplicationLifetime host = ServiceProvider.GetRequiredService<IHostApplicationLifetime>();
+            host.StopApplication();
         }
     }
 }
