@@ -31,7 +31,7 @@ public class WorkerService(ILogger<WorkerService> logger, IServiceProvider servi
             }, cancellationToken));
         });
 
-        while (tasks.Any())
+        while (tasks.Count != 0)
         {
             var finishedTask = await Task.WhenAny(tasks);
             tasks.Remove(finishedTask);
