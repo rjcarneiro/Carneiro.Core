@@ -49,8 +49,7 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
             stopwatch.Stop();
             Logger.LogInformation("Finish service '{TaskName}' v{Version}. Elapsed time: {StopwatchElapsed}", TaskName, version, stopwatch.Elapsed);
 
-            IHostApplicationLifetime host = ServiceProvider.GetRequiredService<IHostApplicationLifetime>();
-            host.StopApplication();
+            ServiceProvider.GetRequiredService<IHostApplicationLifetime>().StopApplication();
         }
     }
 }
