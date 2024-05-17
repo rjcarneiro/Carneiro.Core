@@ -13,39 +13,29 @@ public class WorkerService(ILogger<WorkerService> logger, IServiceProvider servi
     /// <inheritdoc />
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
-        try
+        var workers = ServiceProvider.GetRequiredService<IEnumerable<IWorker>>().ToList();
+        var tasks = new List<Task<string>>(workers.Count);
+
+        workers.ForEach(worker =>
         {
-            var workers = ServiceProvider.GetRequiredService<IEnumerable<IWorker>>().ToList();
-            var tasks = new List<Task<string>>(workers.Count);
+            Logger.LogInformation("Adding {WorkerName} into task list", worker.WorkerName);
 
-            workers.ForEach(worker =>
+            tasks.Add(Task.Run(async () =>
             {
-                Logger.LogInformation("Adding {WorkerName} into task list", worker.WorkerName);
+                Logger.LogInformation("Starting new async scope for task {WorkerName}", worker.WorkerName);
 
-                tasks.Add(Task.Run(async () =>
-                {
-                    Logger.LogInformation("Starting new async scope for task {WorkerName}", worker.WorkerName);
+                await using AsyncServiceScope asyncScope = ServiceProvider.CreateAsyncScope();
+                await worker.ExecuteAsync(asyncScope.ServiceProvider, cancellationToken);
 
-                    await using AsyncServiceScope asyncScope = ServiceProvider.CreateAsyncScope();
-                    await worker.ExecuteAsync(asyncScope.ServiceProvider, cancellationToken);
+                return worker.WorkerName;
+            }, cancellationToken));
+        });
 
-                    return worker.WorkerName;
-                }, cancellationToken));
-            });
-
-            while (tasks.Any())
-            {
-                var finishedTask = await Task.WhenAny(tasks);
-                tasks.Remove(finishedTask);
-                Logger.LogInformation("{TaskName} task finished with status {TaskStatus}", finishedTask.Result, finishedTask.Status);
-            }
-        }
-        catch (Exception e)
+        while (tasks.Any())
         {
-            if (e is not OperationCanceledException)
-            {
-                Logger.LogError(e, "Unable to run {WorkerName} properly", TaskName);
-            }
+            var finishedTask = await Task.WhenAny(tasks);
+            tasks.Remove(finishedTask);
+            Logger.LogInformation("{TaskName} task finished with status {TaskStatus}", finishedTask.Result, finishedTask.Status);
         }
     }
 }
