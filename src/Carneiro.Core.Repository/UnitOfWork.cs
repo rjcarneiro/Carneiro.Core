@@ -6,8 +6,15 @@
 /// <seealso cref="IUnitOfWork" />
 public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 {
-    private readonly TDbContext _context;
-    private readonly ILogger<UnitOfWork<TDbContext>> _logger;
+    /// <summary>
+    /// Gets the <typeparamref name="TDbContext"/>.
+    /// </summary>
+    protected TDbContext DbContext { get; }
+    
+    /// <summary>
+    /// Gets the logger.
+    /// </summary>
+    protected ILogger<UnitOfWork<TDbContext>> Logger { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnitOfWork{TDbContext}" /> class.
@@ -16,15 +23,15 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     /// <param name="logger">The logger.</param>
     public UnitOfWork(TDbContext dbContext, ILogger<UnitOfWork<TDbContext>> logger)
     {
-        _context = dbContext;
-        _logger = logger;
+        DbContext = dbContext;
+        Logger = logger;
     }
 
     /// <inheritdoc />
     public virtual void Add<T>(T entity) where T : class, IAuditableEntity
     {
         AuditCreate(entity);
-        _context.Add(entity);
+        DbContext.Add(entity);
     }
 
     /// <inheritdoc />
@@ -34,7 +41,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual async Task AddAsync<T>(T entity, CancellationToken cancellationToken) where T : class, IAuditableEntity
     {
         AuditCreate(entity);
-        await _context.AddAsync(entity, cancellationToken);
+        await DbContext.AddAsync(entity, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -45,7 +52,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         foreach (T entity in iAuditableEntities)
             AuditCreate(entity);
 
-        _context.AddRange(iAuditableEntities);
+        DbContext.AddRange(iAuditableEntities);
     }
 
     /// <inheritdoc />
@@ -58,14 +65,14 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         foreach (T entity in iAuditableEntities)
             AuditCreate(entity);
 
-        return _context.AddRangeAsync(iAuditableEntities, cancellationToken);
+        return DbContext.AddRangeAsync(iAuditableEntities, cancellationToken);
     }
 
     /// <inheritdoc />
     public virtual void Update<T>(T entity) where T : class, IAuditableEntity
     {
         AuditUpdate(entity);
-        _context.Update(entity);
+        DbContext.Update(entity);
     }
 
     /// <inheritdoc />
@@ -75,7 +82,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         foreach (T entity in iAuditableEntities)
             AuditUpdate(entity);
 
-        _context.UpdateRange(iAuditableEntities);
+        DbContext.UpdateRange(iAuditableEntities);
     }
 
     /// <inheritdoc />
@@ -86,12 +93,12 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     {
         if (hardDelete)
         {
-            _context.Set<T>().Remove(entity);
+            DbContext.Set<T>().Remove(entity);
         }
         else
         {
             AuditDelete(entity);
-            _context.Update(entity);
+            DbContext.Update(entity);
         }
     }
 
@@ -103,7 +110,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     {
         if (hardDelete)
         {
-            _context.Set<T>().RemoveRange(entities);
+            DbContext.Set<T>().RemoveRange(entities);
         }
         else
         {
@@ -113,7 +120,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
                 AuditDelete(entity);
             }
 
-            _context.UpdateRange(baseEntities);
+            DbContext.UpdateRange(baseEntities);
         }
     }
 
@@ -130,16 +137,16 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<List<T>> GetAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query(expression).ToListAsync(cancellationToken);
 
     /// <inheritdoc />
-    public virtual IQueryable<T> Query<T>() where T : class, IAuditableEntity => _context.Set<T>().Where(t => t.IsDeleted == false);
+    public virtual IQueryable<T> Query<T>() where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false);
 
     /// <inheritdoc />
-    public virtual IQueryable<T> Query<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => _context.Set<T>().Where(t => t.IsDeleted == false).Where(expression);
+    public virtual IQueryable<T> Query<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false).Where(expression);
 
     /// <inheritdoc />
-    public virtual IQueryable<T> Query<T>(long id) where T : class, IAuditableEntity => _context.Set<T>().Where(t => t.IsDeleted == false && t.Id == id);
+    public virtual IQueryable<T> Query<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false && t.Id == id);
 
     /// <inheritdoc />
-    public virtual IQueryable<T> Query<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => _context.Set<T>().Where(t => t.IsDeleted == false && t.Id == id).Where(expression);
+    public virtual IQueryable<T> Query<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false && t.Id == id).Where(expression);
 
     /// <inheritdoc />
     public virtual Task<bool> AnyAsync<T>() where T : class, IAuditableEntity => AnyAsync<T>(CancellationToken.None);
@@ -175,7 +182,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<T> FirstAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).FirstAsync();
 
     /// <inheritdoc />
-    public virtual Task<T> FirstOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => _context.Set<T>().FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+    public virtual Task<T> FirstOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
 
     /// <inheritdoc />
     public virtual Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().FirstOrDefaultAsync(expression);
@@ -200,7 +207,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     public virtual Task<T> SingleAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).SingleAsync();
 
     /// <inheritdoc />
-    public virtual Task<T> SingleOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => _context.Set<T>().SingleOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+    public virtual Task<T> SingleOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
 
     /// <inheritdoc />
     public virtual Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().SingleOrDefaultAsync(expression);
@@ -216,53 +223,30 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         Query<T>(id).SingleOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task SaveAsync() => _context.SaveChangesAsync();
+    public virtual Task SaveAsync() => DbContext.SaveChangesAsync();
 
     /// <inheritdoc />
-    public virtual Task SaveAsync(CancellationToken cancellationToken) => _context.SaveChangesAsync(cancellationToken);
-
-    /// <inheritdoc />
-    public virtual Task ExecuteInTransactionScopeAsync(Func<Task> action, IsolationLevel isolationLevel = IsolationLevel.Serializable)
-    {
-        IExecutionStrategy strategy = _context.Database.CreateExecutionStrategy();
-
-        return strategy.ExecuteAsync(async () =>
-        {
-            await using IDbContextTransaction transaction = await _context.Database.BeginTransactionAsync();
-            try
-            {
-                await action();
-
-                await SaveAsync();
-                await transaction.CommitAsync();
-            }
-            catch (Exception e)
-            {
-                _logger.LogCritical(e, "Transaction failed while creating an execution strategy with transaction scopes");
-                throw;
-            }
-        });
-    }
+    public virtual Task SaveAsync(CancellationToken cancellationToken) => DbContext.SaveChangesAsync(cancellationToken);
 
     /// <inheritdoc />
     public virtual void Dispose()
     {
-        if (_context is IDisposable contextDisposable)
+        if (DbContext is IDisposable contextDisposable)
         {
             contextDisposable.Dispose();
         }
-        else if (_context != null)
+        else if (DbContext != null)
         {
-            _ = _context.DisposeAsync().AsTask();
+            _ = DbContext.DisposeAsync().AsTask();
         }
     }
 
     /// <inheritdoc />
     public virtual async ValueTask DisposeAsync()
     {
-        if (_context != null)
+        if (DbContext != null)
         {
-            await _context.DisposeAsync();
+            await DbContext.DisposeAsync();
         }
     }
 

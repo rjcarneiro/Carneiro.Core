@@ -26,7 +26,7 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="entity">The entity.</param>
     Task AddAsync<T>(T entity) where T : class, IAuditableEntity;
-    
+
     /// <summary>
     /// Adds the specified entity asynchronously.
     /// </summary>
@@ -99,7 +99,7 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     Task<List<T>> GetAsync<T>() where T : class, IAuditableEntity;
-    
+
     /// <summary>
     /// Gets the entities asynchronously.
     /// </summary>
@@ -338,11 +338,4 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
     Task SaveAsync(CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Executes the in transaction scope asynchronously.
-    /// </summary>
-    /// <param name="action">The action.</param>
-    /// <param name="isolationLevel">The isolation level. Default is <see cref="System.Data.IsolationLevel.Serializable"/></param>
-    Task ExecuteInTransactionScopeAsync(Func<Task> action, IsolationLevel isolationLevel = IsolationLevel.Serializable);
 }
