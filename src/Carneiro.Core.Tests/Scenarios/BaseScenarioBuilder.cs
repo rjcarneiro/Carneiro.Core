@@ -186,11 +186,13 @@ public abstract class BaseScenarioBuilder : IBaseScenarioBuilder
         {
             Options.Services.Add(s => s.Add(new ServiceDescriptor(typeof(T), _ => new Mock<T>().Object, ServiceLifetime.Scoped)));
             Options.Services.Add(s => s.Add(new ServiceDescriptor(typeof(IUnitOfWork), _ => new Mock<IUnitOfWork>().Object, ServiceLifetime.Scoped)));
+            Options.Services.Add(s => s.Add(new ServiceDescriptor(typeof(ITransactionalUnitOfWork), _ => new Mock<ITransactionalUnitOfWork>().Object, ServiceLifetime.Scoped)));
         }
         else
         {
             Options.DatabaseServices.Add(AddDatabaseStrategy<T>());
             Options.Services.Add(s => s.Add(new ServiceDescriptor(typeof(IUnitOfWork), typeof(UnitOfWork<T>), ServiceLifetime.Scoped)));
+            Options.Services.Add(s => s.Add(new ServiceDescriptor(typeof(ITransactionalUnitOfWork), typeof(TransactionalUnitOfWork<T>), ServiceLifetime.Scoped)));
         }
 
         return this;
