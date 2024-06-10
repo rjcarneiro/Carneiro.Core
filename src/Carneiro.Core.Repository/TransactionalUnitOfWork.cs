@@ -17,7 +17,7 @@ public class TransactionalUnitOfWork<TDbContext> : ITransactionalUnitOfWork<TDbC
     protected ILogger<TransactionalUnitOfWork<TDbContext>> Logger { get; }
 
     /// <summary>
-    /// Gets the <see cref="TDbContext"/>.
+    /// Gets the <typeparamref name="TDbContext"/>.
     /// </summary>
     protected TDbContext DbContext { get; }
 

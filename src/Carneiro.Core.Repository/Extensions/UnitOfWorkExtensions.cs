@@ -12,7 +12,7 @@ public static class UnitOfWorkExtensions
     public static IServiceCollection AddUnitOfWork<T>(this IServiceCollection services) where T : DbContext
     {
         services.Add(new ServiceDescriptor(typeof(IUnitOfWork), typeof(UnitOfWork<T>), ServiceLifetime.Scoped));
-        services.Add(new ServiceDescriptor(typeof(ITransactionalUnitOfWork), typeof(TransactionalUnitOfWork<T>), ServiceLifetime.Scoped));
+        services.Add(new ServiceDescriptor(typeof(ITransactionalUnitOfWork<T>), typeof(TransactionalUnitOfWork<T>), ServiceLifetime.Scoped));
 
         return services;
     }
@@ -31,7 +31,7 @@ public static class UnitOfWorkExtensions
         where TImplementation : UnitOfWork<TDbContext>, TService
     {
         services.AddScoped<TService, TImplementation>();
-        services.AddScoped<ITransactionalUnitOfWork, TransactionalUnitOfWork<TDbContext>>();
+        services.AddScoped<ITransactionalUnitOfWork<TDbContext>, TransactionalUnitOfWork<TDbContext>>();
 
         return services;
     }
