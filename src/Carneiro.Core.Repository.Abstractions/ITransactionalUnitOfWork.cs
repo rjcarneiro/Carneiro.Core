@@ -5,7 +5,8 @@ namespace Carneiro.Core.Repository.Abstractions;
 /// <summary>
 /// The unit of work transactional interface.
 /// </summary>
-public interface ITransactionalUnitOfWork : IUnitOfWork
+/// <typeparam name="TDbContext"></typeparam>
+public interface ITransactionalUnitOfWork<TDbContext> where TDbContext : DbContext
 {
     /// <summary>
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>.
@@ -94,4 +95,104 @@ public interface ITransactionalUnitOfWork : IUnitOfWork
     /// <param name="cancellationToken"></param>
     /// <typeparam name="T">The class or interface which should be resolved to make the transaction commit.</typeparam>
     Task ExecuteWithAsync<T>(Func<T, Task> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IServiceProvider"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="isolationLevel"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, IsolationLevel isolationLevel);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="isolationLevel"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IServiceProvider"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IServiceProvider, Task<T>> action);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IServiceProvider"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="isolationLevel"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IServiceProvider, Task<T>> action, IsolationLevel isolationLevel);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IServiceProvider"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IServiceProvider, Task<T>> action, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IServiceProvider"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="isolationLevel"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    Task<T> ExecuteWithResultAsync<T>(Func<IServiceProvider, Task<T>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <typeparamref name="T"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="Y"></typeparam>
+    Task<Y> ExecuteWithResultAsync<T, Y>(Func<T, Task<Y>> action);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <typeparamref name="T"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="isolationLevel"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="Y"></typeparam>
+    Task<Y> ExecuteWithResultAsync<T, Y>(Func<T, Task<Y>> action, IsolationLevel isolationLevel);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <typeparamref name="T"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="Y"></typeparam>
+    Task<Y> ExecuteWithResultAsync<T, Y>(Func<T, Task<Y>> action, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <typeparamref name="T"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="isolationLevel"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="Y"></typeparam>
+    Task<Y> ExecuteWithResultAsync<T, Y>(Func<T, Task<Y>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
 }

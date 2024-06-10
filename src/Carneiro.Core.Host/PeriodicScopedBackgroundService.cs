@@ -25,14 +25,14 @@ public abstract class PeriodicScopedBackgroundService : PeriodicBackgroundServic
         if (!cancellationToken.IsCancellationRequested)
         {
             await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
-            await RunScopedAsync(asyncServiceScope, cancellationToken);
+            await RunScopedAsync(asyncServiceScope.ServiceProvider, cancellationToken);
         }
     }
 
     /// <summary>
     /// Executes the <see cref="PeriodicScopedBackgroundService"/> with a new <see cref="AsyncServiceScope"/>.
     /// </summary>
-    /// <param name="asyncServiceScope"></param>
+    /// <param name="serviceProvider"></param>
     /// <param name="cancellationToken"></param>
-    protected abstract Task RunScopedAsync(AsyncServiceScope asyncServiceScope, CancellationToken cancellationToken);
+    protected abstract Task RunScopedAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken);
 }
