@@ -19,13 +19,13 @@ public abstract class OnceOffScopedBackgroundService : OnceOffBackgroundService
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
         await using AsyncServiceScope asyncServiceScope = ServiceProvider.CreateAsyncScope();
-        await RunScopedAsync(asyncServiceScope, cancellationToken);
+        await RunScopedAsync(asyncServiceScope.ServiceProvider, cancellationToken);
     }
 
     /// <summary>
     /// Executes the <see cref="OnceOffBackgroundService"/> with a new <see cref="AsyncServiceScope"/>.
     /// </summary>
-    /// <param name="asyncServiceScope"></param>
+    /// <param name="serviceProvider"></param>
     /// <param name="cancellationToken"></param>
-    protected abstract Task RunScopedAsync(AsyncServiceScope asyncServiceScope, CancellationToken cancellationToken);
+    protected abstract Task RunScopedAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken);
 }
