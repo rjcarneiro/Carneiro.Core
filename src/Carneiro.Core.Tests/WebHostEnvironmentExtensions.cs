@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-
-namespace Carneiro.Core.Tests;
+﻿namespace Carneiro.Core.Tests;
 
 /// <summary>
 /// Extensions for <see cref="IWebHostEnvironment"/>.
