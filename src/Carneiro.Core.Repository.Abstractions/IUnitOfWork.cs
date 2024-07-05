@@ -277,20 +277,20 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
 
     /// <summary>
-    /// Singles the asynchronously.
+    /// Gets a single entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     Task<T> SingleAsync<T>(long id) where T : class, IAuditableEntity;
 
     /// <summary>
-    /// Singles the asynchronously.
+    /// Gets a single entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     Task<T> SingleAsync<T>() where T : class, IAuditableEntity;
 
     /// <summary>
-    /// Singles the asynchronously.
+    /// Gets a single entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="expression">The expression.</param>
@@ -334,6 +334,65 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     /// <param name="expression">The expression.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
     Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    Task<T> LastAsync<T>(long id) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    Task<T> LastAsync<T>() where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<T> LastAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last or default entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    Task<T> LastOrDefaultAsync<T>(long id) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last or default entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last or default entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    /// <param name="expression">The expression.</param>
+    Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last or default entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id">The identifier.</param>
+    /// <param name="expression">The expression.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Gets the last or default entity asynchronously.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <param name="cancellationToken">The cancellation token.</param>
+    Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
 
     /// <summary>
     /// Saves the context asynchronously.
