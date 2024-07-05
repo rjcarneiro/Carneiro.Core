@@ -254,6 +254,25 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         Query<T>(id).LastOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
+    public virtual Task<int> CountAsync<T>() where T : class, IAuditableEntity => Query<T>().CountAsync();
+
+    /// <inheritdoc />
+    public virtual Task<int> CountAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).CountAsync();
+
+    /// <inheritdoc />
+    public virtual Task<decimal> SumAsync<T>(Expression<Func<T, decimal>> expression) where T : class, IAuditableEntity => Query<T>().SumAsync(expression);
+
+    /// <inheritdoc />
+    public virtual Task<decimal?> SumAsync<T>(Expression<Func<T, decimal?>> expression) where T : class, IAuditableEntity => Query<T>().SumAsync(expression);
+
+
+    /// <inheritdoc />
+    public virtual Task<int> SumAsync<T>(Expression<Func<T, int>> expression) where T : class, IAuditableEntity => Query<T>().SumAsync(expression);
+
+    /// <inheritdoc />
+    public virtual Task<int?> SumAsync<T>(Expression<Func<T, int?>> expression) where T : class, IAuditableEntity => Query<T>().SumAsync(expression);
+
+    /// <inheritdoc />
     public virtual Task SaveAsync() => DbContext.SaveChangesAsync();
 
     /// <inheritdoc />
