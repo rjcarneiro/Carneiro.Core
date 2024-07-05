@@ -395,6 +395,47 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
 
     /// <summary>
+    /// Counts the number of entities.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    Task<int> CountAsync<T>() where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Counts the number of entities.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<int> CountAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Sums an <paramref name="expression"/>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<decimal> SumAsync<T>(Expression<Func<T, decimal>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Sums an <paramref name="expression"/>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<decimal?> SumAsync<T>(Expression<Func<T, decimal?>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Sums an <paramref name="expression"/>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<int> SumAsync<T>(Expression<Func<T, int>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
+    /// Sums an <paramref name="expression"/>.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    Task<int?> SumAsync<T>(Expression<Func<T, int?>> expression) where T : class, IAuditableEntity;
+
+    /// <summary>
     /// Saves the context asynchronously.
     /// </summary>
     Task SaveAsync();
