@@ -31,6 +31,9 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     }
 
     /// <inheritdoc />
+    public virtual Task<bool> CanConnectAsync() => DbContext.Database.CanConnectAsync();
+
+    /// <inheritdoc />
     public virtual void Add<T>(T entity) where T : class, IAuditableEntity
     {
         AuditCreate(entity);
