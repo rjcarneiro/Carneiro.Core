@@ -9,6 +9,11 @@ namespace Carneiro.Core.Repository.Abstractions;
 public interface IUnitOfWork : IDisposable, IAsyncDisposable
 {
     /// <summary>
+    /// Checks either it can connect to the database asynchronously.
+    /// </summary>
+    Task<bool> CanConnectAsync();
+
+    /// <summary>
     /// Adds the specified entity.
     /// </summary>
     /// <typeparam name="T"></typeparam>
