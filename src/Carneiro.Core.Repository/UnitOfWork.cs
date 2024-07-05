@@ -229,6 +229,31 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
         Query<T>(id).SingleOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
+    public virtual Task<T> LastAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).LastAsync();
+
+    /// <inheritdoc />
+    public virtual Task<T> LastAsync<T>() where T : class, IAuditableEntity => Query<T>().LastAsync();
+
+    /// <inheritdoc />
+    public virtual Task<T> LastAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).LastAsync();
+
+    /// <inheritdoc />
+    public virtual Task<T> LastOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().LastOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+
+    /// <inheritdoc />
+    public virtual Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().LastOrDefaultAsync(expression);
+
+    /// <inheritdoc />
+    public virtual Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).LastOrDefaultAsync(expression);
+
+    /// <inheritdoc />
+    public virtual Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().LastOrDefaultAsync(expression, cancellationToken);
+
+    /// <inheritdoc />
+    public virtual Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity =>
+        Query<T>(id).LastOrDefaultAsync(expression, cancellationToken);
+
+    /// <inheritdoc />
     public virtual Task SaveAsync() => DbContext.SaveChangesAsync();
 
     /// <inheritdoc />
