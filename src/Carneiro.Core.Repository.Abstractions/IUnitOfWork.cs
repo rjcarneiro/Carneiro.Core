@@ -1,4 +1,6 @@
-﻿namespace Carneiro.Core.Repository.Abstractions;
+﻿using System.Data.Common;
+
+namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// Unit of work.
@@ -338,4 +340,18 @@ public interface IUnitOfWork : IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
     Task SaveAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Executes a certain stored procedure.
+    /// </summary>
+    /// <param name="sql"></param>
+    /// <param name="sqlParameters"></param>
+    /// <param name="commandBehavior"></param>
+    /// <param name="action"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="S"></typeparam>
+    /// <typeparam name="T"></typeparam>
+    Task<StoreProcedureResult<T>> ExecuteStoredProcedureAsync<S, T>(string sql, IEnumerable<S> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken)
+        where S : DbParameter
+        where T : class;
 }

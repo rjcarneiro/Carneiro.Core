@@ -1,4 +1,7 @@
-﻿namespace Carneiro.Core.Repository;
+﻿using System.Data.Common;
+using Microsoft.Data.SqlClient;
+
+namespace Carneiro.Core.Repository;
 
 /// <summary>
 /// Working implementation of Entity Framework for <see cref="IUnitOfWork"/>.
@@ -10,7 +13,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
     /// Gets the <typeparamref name="TDbContext"/>.
     /// </summary>
     protected TDbContext DbContext { get; }
-    
+
     /// <summary>
     /// Gets the logger.
     /// </summary>
@@ -227,6 +230,59 @@ public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
 
     /// <inheritdoc />
     public virtual Task SaveAsync(CancellationToken cancellationToken) => DbContext.SaveChangesAsync(cancellationToken);
+
+    /// <inheritdoc />
+    public virtual async Task<StoreProcedureResult<T>> ExecuteStoredProcedureAsync<S, T>(string sql, IEnumerable<S> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action,
+        CancellationToken cancellationToken)
+        where S : DbParameter
+        where T : class
+    {
+        Logger.LogInformation("Building new {StoredProcedure} with sql {Sql}", nameof(CommandType.StoredProcedure), sql);
+
+        await using DbConnection connection = DbContext.Database.GetDbConnection();
+        await using DbCommand command = connection.CreateCommand();
+
+        command.CommandText = sql;
+        command.CommandType = CommandType.StoredProcedure;
+
+        S[] dbParameters = sqlParameters as S[] ?? sqlParameters.ToArray();
+
+        if (dbParameters.Length != 0)
+        {
+            Logger.LogInformation("Adding {SqlParametersCount} parameters to the database command", dbParameters.Length);
+            command.Parameters.AddRange(dbParameters);
+        }
+
+        Logger.LogInformation("Executing sql '{Sql}' as '{CommandCommandType}'", sql, command.CommandType);
+
+        await connection.OpenAsync(cancellationToken);
+        command.Transaction = await connection.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
+
+        try
+        {
+            await using DbDataReader dbDataReader = await command.ExecuteReaderAsync(commandBehavior, cancellationToken);
+            T result = await action(dbDataReader);
+            await dbDataReader.CloseAsync();
+
+            await command.Transaction.CommitAsync(cancellationToken);
+
+            var model = new StoreProcedureResult<T>
+            {
+                Result = result,
+                Output = command.Parameters.Cast<SqlParameter>()
+                    .Where(p => p.Direction is ParameterDirection.Output or ParameterDirection.InputOutput)
+                    .ToDictionary(p => p.ParameterName, p => p.Value),
+            };
+
+            return model;
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "Unable to process Stored Procedure '{Sql}'", sql);
+            await command.Transaction.RollbackAsync(cancellationToken);
+            throw;
+        }
+    }
 
     /// <inheritdoc />
     public virtual void Dispose()
