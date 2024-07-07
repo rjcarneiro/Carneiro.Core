@@ -26,7 +26,7 @@ public static class VersionHelper
 
         return new VersionModel
         {
-            Date = File.GetLastWriteTime(assembly.Location),
+            Date = File.GetLastWriteTime(string.IsNullOrEmpty(assembly.Location) ? AppContext.BaseDirectory : assembly.Location),
             Version = assembly.GetName().Version!.ToString()
         };
     }
