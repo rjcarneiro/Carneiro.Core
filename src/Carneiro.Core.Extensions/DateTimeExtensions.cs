@@ -247,5 +247,63 @@ public static class DateTimeExtensions
     /// <param name="dateTime"></param>
     public static bool IsPastDate(this DateTime dateTime) => dateTime < DateTime.UtcNow;
 
+    /// <summary>
+    /// Transforms <paramref name="dateTime"/> into the current date format timezone.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static string ToDisplayDateTime(this DateTime? dateTime) => dateTime?.ToDisplayDateTime();
+
+    /// <summary>
+    /// Transforms <paramref name="dateTime"/> into the current date format timezone.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static string ToDisplayDateTime(this DateTime dateTime) => dateTime.ToTimeZoneTime().ToDateTimeString();
+
+    /// <summary>
+    /// Transforms <paramref name="dateTime"/> into the current date format timezone.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static string ToDisplayDate(this DateTime dateTime) => dateTime.ToTimeZoneTime().ToDateString();
+
+    /// <summary>
+    /// Transforms <paramref name="dateTime"/> into the current time format timezone.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static string ToDisplayTime(this DateTime dateTime) => dateTime.ToTimeZoneTime().ToTimeString();
+
+    /// <summary>
+    /// Converts a <paramref name="str"/> into a <see cref="DateTime"/>.
+    /// </summary>
+    /// <param name="str"></param>
+    public static DateTime? FromSearchDisplayDateTime(this string str)
+    {
+        if (!string.IsNullOrEmpty(str))
+        {
+            return DateTime.Parse(str);
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Converts a <paramref name="str"/> into a <see cref="DateTime"/>.
+    /// </summary>
+    /// <param name="str"></param>
+    public static DateTime? FromSearchDisplayDate(this string str)
+    {
+        if (!string.IsNullOrEmpty(str))
+        {
+            return DateTime.Parse(str).Date;
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Converts a <paramref name="dateTime"/> into a <see cref="string"/> using <c>s</c> <see cref="DateTime"/> format.
+    /// </summary>
+    /// <param name="dateTime"></param>
+    public static string ToSearchDisplayDateTime(this DateTime dateTime) => dateTime.ToString("s");
+
     private static int MonthDifference(this DateTime lValue, DateTime rValue) => Math.Abs(lValue.Month - rValue.Month + 12 * (lValue.Year - rValue.Year));
 }
