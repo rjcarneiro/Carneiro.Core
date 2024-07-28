@@ -61,7 +61,7 @@ public static class ClaimsExtensions
     /// <param name="claim"></param>
     /// <param name="throwIfNotFound"></param>
     /// <exception cref="KeyNotFoundException">Case <paramref name="claim"/> does not exist and <paramref name="throwIfNotFound"/> is set to <c>true</c>.</exception>
-    public static string GetClaim(this ClaimsPrincipal identity, string claim, bool throwIfNotFound = true)
+    public static string GetClaim(this ClaimsIdentity identity, string claim, bool throwIfNotFound = true)
     {
         Claim value = identity.FindFirst(claim);
 
