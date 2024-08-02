@@ -1,12 +1,12 @@
 namespace Carneiro.Core.Entities.Abstractions;
 
 /// <summary>
-/// Interface for a default database entity. Defaults as <see cref="int"/> type.
+/// Interface for a default database entity.
 /// </summary>
-public interface IEntity
+public interface IEntityDistributed
 {
     /// <summary>
     /// Gets or sets the identifier.
     /// </summary>
-    public int Id { get; set; }
+    Guid Id { get; set; }
 }

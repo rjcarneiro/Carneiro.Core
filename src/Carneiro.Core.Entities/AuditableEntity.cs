@@ -12,7 +12,7 @@ public abstract class AuditableEntity : Entity, IAuditableEntity
     /// <value>
     /// <c>true</c> if this instance is active; otherwise, <c>false</c>.
     /// </value>
-    public virtual bool IsActive { get; set; }
+    public virtual bool IsActive { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the create date.
@@ -20,7 +20,7 @@ public abstract class AuditableEntity : Entity, IAuditableEntity
     /// <value>
     /// The create date.
     /// </value>
-    public virtual DateTime CreateDate { get; set; }
+    public virtual DateTime CreateDate { get; set; } = DateTimeOffset.UtcNow.DateTime;
 
     /// <summary>
     /// Gets or sets the update date.
@@ -44,5 +44,5 @@ public abstract class AuditableEntity : Entity, IAuditableEntity
     /// <value>
     /// <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
     /// </value>
-    public virtual bool IsDeleted { get; set; }
+    public virtual bool IsDeleted { get; set; } = false;
 }
