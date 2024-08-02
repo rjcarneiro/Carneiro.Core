@@ -1,9 +1,9 @@
-﻿namespace Carneiro.Core.Entities.Abstractions;
+namespace Carneiro.Core.Entities.Abstractions;
 
 /// <summary>
 /// Interface for a default auditable database entity.
 /// </summary>
-public interface IAuditableEntity : IEntity
+public interface IAuditableDistributedEntity : IEntityDistributed
 {
     /// <summary>
     /// Gets or sets a value indicating whether this instance is active.

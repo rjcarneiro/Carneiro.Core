@@ -1,17 +1,18 @@
-﻿namespace Carneiro.Core.Entities.Abstractions;
+namespace Carneiro.Core.Entities;
 
 /// <summary>
-/// Interface for a default auditable database entity.
+/// Default implementation for <see cref="IAuditableDistributedEntity"/>.
 /// </summary>
-public interface IAuditableEntity : IEntity
+/// <seealso cref="IAuditableEntity" />
+public abstract class AuditableDistributedEntity : EntityDistributed, IAuditableDistributedEntity
 {
     /// <summary>
     /// Gets or sets a value indicating whether this instance is active.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is active; otherwise, <c>false</c>.
+    /// <c>true</c> if this instance is active; otherwise, <c>false</c>.
     /// </value>
-    bool IsActive { get; set; }
+    public virtual bool IsActive { get; set; } = true;
 
     /// <summary>
     /// Gets or sets the create date.
@@ -19,7 +20,7 @@ public interface IAuditableEntity : IEntity
     /// <value>
     /// The create date.
     /// </value>
-    DateTime CreateDate { get; set; }
+    public virtual DateTime CreateDate { get; set; } = DateTimeOffset.UtcNow.DateTime;
 
     /// <summary>
     /// Gets or sets the update date.
@@ -27,7 +28,7 @@ public interface IAuditableEntity : IEntity
     /// <value>
     /// The update date.
     /// </value>
-    DateTime? UpdateDate { get; set; }
+    public virtual DateTime? UpdateDate { get; set; }
 
     /// <summary>
     /// Gets or sets the delete date.
@@ -35,13 +36,13 @@ public interface IAuditableEntity : IEntity
     /// <value>
     /// The delete date.
     /// </value>
-    DateTime? DeleteDate { get; set; }
+    public virtual DateTime? DeleteDate { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is deleted.
     /// </summary>
     /// <value>
-    ///   <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
+    /// <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
     /// </value>
-    bool IsDeleted { get; set; }
+    public virtual bool IsDeleted { get; set; } = false;
 }
