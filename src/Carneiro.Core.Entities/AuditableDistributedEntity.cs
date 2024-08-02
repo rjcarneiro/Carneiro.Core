@@ -12,15 +12,15 @@ public abstract class AuditableDistributedEntity : EntityDistributed, IAuditable
     /// <value>
     /// <c>true</c> if this instance is active; otherwise, <c>false</c>.
     /// </value>
-    public virtual bool IsActive { get; set; } = true;
+    public virtual bool IsActive { get; set; }
 
     /// <summary>
-    /// Gets or sets the create date.
+    /// Gets or sets the creation date.
     /// </summary>
     /// <value>
     /// The create date.
     /// </value>
-    public virtual DateTime CreateDate { get; set; } = DateTimeOffset.UtcNow.DateTime;
+    public virtual DateTime CreateDate { get; set; }
 
     /// <summary>
     /// Gets or sets the update date.
@@ -44,5 +44,5 @@ public abstract class AuditableDistributedEntity : EntityDistributed, IAuditable
     /// <value>
     /// <c>true</c> if this instance is deleted; otherwise, <c>false</c>.
     /// </value>
-    public virtual bool IsDeleted { get; set; } = false;
+    public virtual bool IsDeleted { get; set; }
 }
