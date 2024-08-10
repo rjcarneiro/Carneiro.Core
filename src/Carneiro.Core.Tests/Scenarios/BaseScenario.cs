@@ -1,13 +1,8 @@
-﻿using Carneiro.Core.Repository.Abstractions;
-using Carneiro.Core.Tests.Builders.EntityBuilders;
+﻿using Carneiro.Core.Tests.Builders.EntityBuilders;
 using Carneiro.Core.Tests.Core;
 using Carneiro.Core.Utils.Abstractions;
-using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Moq;
 
 namespace Carneiro.Core.Tests.Scenarios;
 

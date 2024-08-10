@@ -13,12 +13,10 @@ public static class DataProtectionExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="services">The services.</param>
     /// <returns></returns>
-    public static IServiceCollection AddRzDataProtection<T>(this IServiceCollection services) where T : DbContext, IDataProtectionKeyContext
+    public static IDataProtectionBuilder AddRzDataProtection<T>(this IServiceCollection services) where T : DbContext, IDataProtectionKeyContext
     {
-        services.AddDataProtection()
+        return services.AddDataProtection()
             .PersistKeysToDbContext<T>();
-
-        return services;
     }
 
     /// <summary>
@@ -28,13 +26,11 @@ public static class DataProtectionExtensions
     /// <param name="services">The services.</param>
     /// <param name="appName">Name of the application.</param>
     /// <returns></returns>
-    public static IServiceCollection AddRzDataProtection<T>(this IServiceCollection services, string appName) where T : DbContext, IDataProtectionKeyContext
+    public static IDataProtectionBuilder AddRzDataProtection<T>(this IServiceCollection services, string appName) where T : DbContext, IDataProtectionKeyContext
     {
-        services.AddDataProtection()
+        return services.AddDataProtection()
             .PersistKeysToDbContext<T>()
             .SetApplicationName(appName);
-
-        return services;
     }
 
     /// <summary>
@@ -44,13 +40,11 @@ public static class DataProtectionExtensions
     /// <param name="services">The services.</param>
     /// <param name="keyLifeTime">The key life time.</param>
     /// <returns></returns>
-    public static IServiceCollection AddRzDataProtection<T>(this IServiceCollection services, TimeSpan keyLifeTime) where T : DbContext, IDataProtectionKeyContext
+    public static IDataProtectionBuilder AddRzDataProtection<T>(this IServiceCollection services, TimeSpan keyLifeTime) where T : DbContext, IDataProtectionKeyContext
     {
-        services.AddDataProtection()
+        return services.AddDataProtection()
             .PersistKeysToDbContext<T>()
             .SetDefaultKeyLifetime(keyLifeTime);
-
-        return services;
     }
 
     /// <summary>
@@ -61,13 +55,11 @@ public static class DataProtectionExtensions
     /// <param name="appName">Name of the application.</param>
     /// <param name="keyLifeTime">The key lie time.</param>
     /// <returns></returns>
-    public static IServiceCollection AddRzDataProtection<T>(this IServiceCollection services, string appName, TimeSpan keyLifeTime) where T : DbContext, IDataProtectionKeyContext
+    public static IDataProtectionBuilder AddRzDataProtection<T>(this IServiceCollection services, string appName, TimeSpan keyLifeTime) where T : DbContext, IDataProtectionKeyContext
     {
-        services.AddDataProtection()
+        return services.AddDataProtection()
             .PersistKeysToDbContext<T>()
             .SetApplicationName(appName)
             .SetDefaultKeyLifetime(keyLifeTime);
-
-        return services;
     }
 }

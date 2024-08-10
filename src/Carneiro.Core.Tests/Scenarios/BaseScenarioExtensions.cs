@@ -1,8 +1,5 @@
-﻿using Carneiro.Core.Repository.Abstractions;
-using Carneiro.Core.Tests.Core;
-using Carneiro.Core.Tests.Generators;
+﻿using Carneiro.Core.Tests.Core;
 using Carneiro.Core.Tests.Scenarios.Builders;
-using Microsoft.EntityFrameworkCore;
 
 namespace Carneiro.Core.Tests.Scenarios;
 
