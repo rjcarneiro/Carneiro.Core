@@ -83,6 +83,15 @@ public abstract class RzIdentityDbContext<TUser, TRole, TKey, TUserClaim, TUserR
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="RzIdentityDbContext{TUser, TRole, TKey}" /> class.
+    /// </summary>
+    /// <param name="dbContextOptions">The database context options.</param>
+    protected RzIdentityDbContext(DbContextOptions dbContextOptions)
+        : base(dbContextOptions)
+    {
+    }
+
+    /// <summary>
     /// Configures the schema needed for the identity framework.
     /// </summary>
     /// <param name="builder">The builder being used to construct the model for this context.</param>
