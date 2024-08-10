@@ -1,7 +1,4 @@
-﻿using Carneiro.Core.Tests.Generators;
-using Moq;
-
-namespace Carneiro.Core.Tests.Core;
+﻿namespace Carneiro.Core.Tests.Core;
 
 /// <summary>
 /// Base test class.

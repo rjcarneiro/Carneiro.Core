@@ -16,3 +16,7 @@ global using System.Reflection;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Routing;
 global using Microsoft.Extensions.DependencyInjection;
+global using Carneiro.Core.Repository.Options;
+global using Microsoft.AspNetCore.Antiforgery;
+global using Microsoft.EntityFrameworkCore;
+global using Moq;

@@ -1,9 +1,4 @@
-﻿using Carneiro.Core.Repository;
-using Carneiro.Core.Repository.Options;
-using Microsoft.AspNetCore.Antiforgery;
-using Moq;
-
-namespace Carneiro.Core.Tests.Abstractions;
+﻿namespace Carneiro.Core.Tests.Abstractions;
 
 /// <summary>
 /// Base scenario builder interface.
@@ -14,31 +9,31 @@ public interface IBaseScenarioBuilder
     /// Uses the in memory database.
     /// </summary>
     /// <returns></returns>
-    IBaseScenarioBuilder UseInMemoryDatabase<T>() where T : RzDbContext;
+    IBaseScenarioBuilder UseInMemoryDatabase<T>() where T : DbContext;
 
     /// <summary>
     /// Uses the SQL lite.
     /// </summary>
     /// <returns></returns>
-    IBaseScenarioBuilder UseSqlLite<T>() where T : RzDbContext;
+    IBaseScenarioBuilder UseSqlLite<T>() where T : DbContext;
 
     /// <summary>
     /// Uses the SQL server.
     /// </summary>
     /// <returns></returns>
-    IBaseScenarioBuilder UseSqlServer<T>() where T : RzDbContext;
+    IBaseScenarioBuilder UseSqlServer<T>() where T : DbContext;
 
     /// <summary>
     /// Uses the SQL lite in memory.
     /// </summary>
     /// <returns></returns>
-    IBaseScenarioBuilder UseSqlLiteInMemory<T>() where T : RzDbContext;
+    IBaseScenarioBuilder UseSqlLiteInMemory<T>() where T : DbContext;
 
     /// <summary>
     /// Uses the no data.
     /// </summary>
     /// <returns></returns>
-    IBaseScenarioBuilder UseNoData<T>() where T : RzDbContext;
+    IBaseScenarioBuilder UseNoData<T>() where T : DbContext;
 
     /// <summary>
     /// Starts the HTTP server.

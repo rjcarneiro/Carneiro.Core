@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Repository.Options;
-using Microsoft.Extensions.Configuration;
-using Moq;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace Carneiro.Core.Tests.Abstractions;
 

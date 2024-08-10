@@ -1,19 +1,4 @@
-﻿using System.Data.Common;
-using System.Diagnostics;
-using System.Globalization;
-using Carneiro.Core.Repository;
-using Carneiro.Core.Repository.Abstractions;
-using Carneiro.Core.Repository.Options;
-using Carneiro.Core.Tests.Generators;
-using Carneiro.Core.Tests.Tasks;
-using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.Configuration;
-using Moq;
-
-namespace Carneiro.Core.Tests.Scenarios;
+﻿namespace Carneiro.Core.Tests.Scenarios;
 
 /// <summary>
 /// Base scenario builder.
@@ -39,19 +24,19 @@ public abstract class BaseScenarioBuilder : IBaseScenarioBuilder
     }
 
     /// <inheritdoc />
-    public virtual IBaseScenarioBuilder UseInMemoryDatabase<T>() where T : RzDbContext => Use<T>(ScenarioType.InMemory);
+    public virtual IBaseScenarioBuilder UseInMemoryDatabase<T>() where T : DbContext => Use<T>(ScenarioType.InMemory);
 
     /// <inheritdoc />
-    public virtual IBaseScenarioBuilder UseSqlLite<T>() where T : RzDbContext => Use<T>(ScenarioType.SqlLite);
+    public virtual IBaseScenarioBuilder UseSqlLite<T>() where T : DbContext => Use<T>(ScenarioType.SqlLite);
 
     /// <inheritdoc />
-    public virtual IBaseScenarioBuilder UseSqlServer<T>() where T : RzDbContext => Use<T>(ScenarioType.SqlServer);
+    public virtual IBaseScenarioBuilder UseSqlServer<T>() where T : DbContext => Use<T>(ScenarioType.SqlServer);
 
     /// <inheritdoc />
-    public virtual IBaseScenarioBuilder UseSqlLiteInMemory<T>() where T : RzDbContext => Use<T>(ScenarioType.SqlLiteInMemory);
+    public virtual IBaseScenarioBuilder UseSqlLiteInMemory<T>() where T : DbContext => Use<T>(ScenarioType.SqlLiteInMemory);
 
     /// <inheritdoc />
-    public virtual IBaseScenarioBuilder UseNoData<T>() where T : RzDbContext => Use<T>(ScenarioType.NoData);
+    public virtual IBaseScenarioBuilder UseNoData<T>() where T : DbContext => Use<T>(ScenarioType.NoData);
 
     /// <inheritdoc />
     public virtual IBaseScenarioBuilder StartHttpServer()
@@ -178,7 +163,7 @@ public abstract class BaseScenarioBuilder : IBaseScenarioBuilder
         return Options;
     }
 
-    private IBaseScenarioBuilder Use<T>(ScenarioType scenarioType) where T : RzDbContext
+    private IBaseScenarioBuilder Use<T>(ScenarioType scenarioType) where T : DbContext
     {
         Options.ScenarioType = scenarioType;
 

@@ -1,7 +1,4 @@
-﻿using Carneiro.Core.Repository.Abstractions;
-using Microsoft.EntityFrameworkCore;
-
-namespace Carneiro.Core.Tests.Builders.EntityBuilders;
+﻿namespace Carneiro.Core.Tests.Builders.EntityBuilders;
 
 /// <summary>
 /// The base scenario entity builder.
