@@ -13,10 +13,26 @@ public abstract class RzDataProtectionDbContext : DbContext, IDataProtectionKeyC
     public virtual DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="RzDataProtectionDbContext" /> class.
+    /// </summary>
+    protected RzDataProtectionDbContext()
+    {
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="RzDataProtectionDbContext"/> class.
     /// </summary>
     /// <param name="options">The options.</param>
-    protected RzDataProtectionDbContext(DbContextOptions<RzDataProtectionDbContext> options)
+    protected RzDataProtectionDbContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RzDataProtectionDbContext"/> class.
+    /// </summary>
+    /// <param name="options">The options.</param>
+    public RzDataProtectionDbContext(DbContextOptions<RzDataProtectionDbContext> options)
         : base(options)
     {
     }
