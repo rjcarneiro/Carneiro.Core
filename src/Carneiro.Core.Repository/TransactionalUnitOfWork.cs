@@ -35,16 +35,16 @@ public class TransactionalUnitOfWork<TDbContext> : ITransactionalUnitOfWork<TDbC
     }
 
     /// <inheritdoc />
-    public Task ExecuteAsync(Func<IUnitOfWork, Task> action) => ExecuteAsync(action, IsolationLevel.ReadCommitted, CancellationToken.None);
+    public Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action) => ExecuteAsync(action, IsolationLevel.ReadCommitted, CancellationToken.None);
 
     /// <inheritdoc />
-    public Task ExecuteAsync(Func<IUnitOfWork, Task> action, IsolationLevel isolationLevel) => ExecuteAsync(action, isolationLevel, CancellationToken.None);
+    public Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action, IsolationLevel isolationLevel) => ExecuteAsync(action, isolationLevel, CancellationToken.None);
 
     /// <inheritdoc />
-    public Task ExecuteAsync(Func<IUnitOfWork, Task> action, CancellationToken cancellationToken) => ExecuteAsync(action, IsolationLevel.ReadCommitted, cancellationToken);
+    public Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action, CancellationToken cancellationToken) => ExecuteAsync(action, IsolationLevel.ReadCommitted, cancellationToken);
 
     /// <inheritdoc />
-    public Task ExecuteAsync(Func<IUnitOfWork, Task> action, IsolationLevel isolationLevel, CancellationToken cancellationToken) => ExecuteTransactionAsync(action, isolationLevel, cancellationToken);
+    public Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action, IsolationLevel isolationLevel, CancellationToken cancellationToken) => ExecuteTransactionAsync(action, isolationLevel, cancellationToken);
 
     /// <inheritdoc />
     public Task ExecuteAsync(Func<IServiceProvider, Task> spAction) => ExecuteTransactionAsync(spAction: spAction, IsolationLevel.ReadCommitted, CancellationToken.None);
@@ -71,16 +71,16 @@ public class TransactionalUnitOfWork<TDbContext> : ITransactionalUnitOfWork<TDbC
     public Task ExecuteWithAsync<T>(Func<T, Task> action, IsolationLevel isolationLevel, CancellationToken cancellationToken) => ExecuteTransactionAsync(action, isolationLevel, cancellationToken);
 
     /// <inheritdoc />
-    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action) => ExecuteTransactionWithResultAsync(action, IsolationLevel.ReadCommitted, CancellationToken.None);
+    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action) => ExecuteTransactionWithResultAsync(action, IsolationLevel.ReadCommitted, CancellationToken.None);
 
     /// <inheritdoc />
-    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, IsolationLevel isolationLevel) => ExecuteTransactionWithResultAsync(action, isolationLevel, CancellationToken.None);
+    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action, IsolationLevel isolationLevel) => ExecuteTransactionWithResultAsync(action, isolationLevel, CancellationToken.None);
 
     /// <inheritdoc />
-    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, CancellationToken cancellationToken) => ExecuteTransactionWithResultAsync(action, IsolationLevel.ReadCommitted, cancellationToken);
+    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action, CancellationToken cancellationToken) => ExecuteTransactionWithResultAsync(action, IsolationLevel.ReadCommitted, cancellationToken);
 
     /// <inheritdoc />
-    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken) => ExecuteTransactionWithResultAsync(action, isolationLevel, cancellationToken);
+    public Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken) => ExecuteTransactionWithResultAsync(action, isolationLevel, cancellationToken);
 
     /// <inheritdoc />
     public Task<T> ExecuteWithResultAsync<T>(Func<IServiceProvider, Task<T>> action) => ExecuteTransactionWithResultAsync(action, IsolationLevel.ReadCommitted, CancellationToken.None);
