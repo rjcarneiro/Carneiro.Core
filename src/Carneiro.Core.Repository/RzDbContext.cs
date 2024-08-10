@@ -10,8 +10,24 @@ public abstract class RzDbContext : DbContext
     /// <summary>
     /// Initializes a new instance of the <see cref="RzDbContext"/> class.
     /// </summary>
+    protected RzDbContext()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RzDbContext"/> class.
+    /// </summary>
     /// <param name="options">The options.</param>
-    protected RzDbContext(DbContextOptions<RzDbContext> options)
+    protected RzDbContext(DbContextOptions options)
+        : base(options)
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RzDbContext"/> class.
+    /// </summary>
+    /// <param name="options">The options.</param>
+    public RzDbContext(DbContextOptions<RzDbContext> options)
         : base(options)
     {
     }
