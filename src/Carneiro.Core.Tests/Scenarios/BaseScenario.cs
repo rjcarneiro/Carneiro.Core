@@ -5,6 +5,7 @@ using Carneiro.Core.Utils.Abstractions;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Moq;
 
@@ -111,20 +112,22 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// Executes the scoped asynchronously.
     /// </summary>
     /// <param name="action">The action.</param>
-    public virtual async Task ExecuteScopedAsync(Func<IServiceProvider, IUnitOfWork, Task> action)
+    public virtual async Task ExecuteScopedAsync<TDbContext>(Func<IServiceProvider, IUnitOfWork<TDbContext>, Task> action)
+        where TDbContext : DbContext
     {
         using IServiceScope scope = ServiceProvider.CreateScope();
-        await action(scope.ServiceProvider, scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
+        await action(scope.ServiceProvider, scope.ServiceProvider.GetRequiredService<IUnitOfWork<TDbContext>>());
     }
 
     /// <summary>
     /// Executes the scoped asynchronously.
     /// </summary>
     /// <param name="action">The action.</param>
-    public virtual async Task ExecuteScopedAsync(Func<IUnitOfWork, Task> action)
+    public virtual async Task ExecuteScopedAsync<TDbContext>(Func<IUnitOfWork<TDbContext>, Task> action)
+        where TDbContext : DbContext
     {
         using IServiceScope scope = ServiceProvider.CreateScope();
-        await action(scope.ServiceProvider.GetRequiredService<IUnitOfWork>());
+        await action(scope.ServiceProvider.GetRequiredService<IUnitOfWork<TDbContext>>());
     }
 
     /// <summary>
@@ -510,9 +513,9 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
 
     private async Task AddEntitiesAsync()
     {
-        if (ScenarioOptions.ScenarioType == ScenarioType.NoData)
-            return;
-
-        await AddEntitiesAsync(GetEntityBuilder());
+        if (ScenarioOptions.ScenarioType != ScenarioType.NoData)
+        {
+            await AddEntitiesAsync(GetEntityBuilder());
+        }
     }
 }

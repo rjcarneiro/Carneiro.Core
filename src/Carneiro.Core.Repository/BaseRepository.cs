@@ -4,20 +4,21 @@
 /// The base repository implementation
 /// </summary>
 /// <seealso cref="IBaseRepository" />
-public abstract class BaseRepository : IBaseRepository
+public abstract class BaseRepository<TDbContext> : IBaseRepository
+    where TDbContext : DbContext
 {
     private bool _disposed;
 
     /// <summary>
     /// Gets the unit of work.
     /// </summary>
-    protected IUnitOfWork UnitOfWork { get; }
+    protected IUnitOfWork<TDbContext> UnitOfWork { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseRepository{T}"/> class.
     /// </summary>
     /// <param name="unitOfWork">The unit of work.</param>
-    protected BaseRepository(IUnitOfWork unitOfWork)
+    protected BaseRepository(IUnitOfWork<TDbContext> unitOfWork)
     {
         UnitOfWork = unitOfWork;
     }
@@ -58,14 +59,17 @@ public abstract class BaseRepository : IBaseRepository
 /// The base repository implementation.
 /// </summary>
 /// <typeparam name="T"></typeparam>
+/// <typeparam name="TDbContext">The database context.</typeparam>
 /// <seealso cref="IBaseRepository" />
-public abstract class BaseRepository<T> : BaseRepository, IBaseRepository<T> where T : class, IAuditableEntity
+public abstract class BaseRepository<TDbContext, T> : BaseRepository<TDbContext>, IBaseRepository<T>
+    where T : class, IAuditableEntity
+    where TDbContext : DbContext
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="BaseRepository{T}"/> class.
     /// </summary>
     /// <param name="unitOfWork">The unit of work.</param>
-    protected BaseRepository(IUnitOfWork unitOfWork)
+    protected BaseRepository(IUnitOfWork<TDbContext> unitOfWork)
         : base(unitOfWork)
     {
     }

@@ -12,21 +12,21 @@ public interface ITransactionalUnitOfWork<TDbContext> where TDbContext : DbConte
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>.
     /// </summary>
     /// <param name="action"></param>
-    Task ExecuteAsync(Func<IUnitOfWork, Task> action);
+    Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action);
 
     /// <summary>
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <paramref name="isolationLevel"/>.
     /// </summary>
     /// <param name="action"></param>
     /// <param name="isolationLevel"></param>
-    Task ExecuteAsync(Func<IUnitOfWork, Task> action, IsolationLevel isolationLevel);
+    Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action, IsolationLevel isolationLevel);
 
     /// <summary>
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>.
     /// </summary>
     /// <param name="action"></param>
     /// <param name="cancellationToken"></param>
-    Task ExecuteAsync(Func<IUnitOfWork, Task> action, CancellationToken cancellationToken);
+    Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action, CancellationToken cancellationToken);
 
     /// <summary>
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <paramref name="isolationLevel"/>.
@@ -34,7 +34,7 @@ public interface ITransactionalUnitOfWork<TDbContext> where TDbContext : DbConte
     /// <param name="action"></param>
     /// <param name="isolationLevel"></param>
     /// <param name="cancellationToken"></param>
-    Task ExecuteAsync(Func<IUnitOfWork, Task> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
+    Task ExecuteAsync(Func<IUnitOfWork<TDbContext>, Task> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
 
     /// <summary>
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>.
@@ -101,32 +101,32 @@ public interface ITransactionalUnitOfWork<TDbContext> where TDbContext : DbConte
     /// </summary>
     /// <param name="action"></param>
     /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action);
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action);
 
     /// <summary>
-    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork{TDbContext}"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
     /// </summary>
     /// <param name="action"></param>
     /// <param name="isolationLevel"></param>
     /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, IsolationLevel isolationLevel);
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action, IsolationLevel isolationLevel);
 
     /// <summary>
-    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork{TDbContext}"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
     /// </summary>
     /// <param name="action"></param>
     /// <param name="cancellationToken"></param>
     /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, CancellationToken cancellationToken);
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
+    /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IUnitOfWork{TDbContext}"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.
     /// </summary>
     /// <param name="action"></param>
     /// <param name="isolationLevel"></param>
     /// <param name="cancellationToken"></param>
     /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork, Task<T>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
+    Task<T> ExecuteWithResultAsync<T>(Func<IUnitOfWork<TDbContext>, Task<T>> action, IsolationLevel isolationLevel, CancellationToken cancellationToken);
 
     /// <summary>
     /// Creates a new <see cref="IExecutionStrategy"/> and uses a <see cref="IDbContextTransaction"/> with <see cref="IsolationLevel.ReadCommitted"/>. It will resolve a <see cref="IServiceProvider"/> from a new scope that allow to invoke methods from existing services. It will return <typeparamref name="T"/> as result.

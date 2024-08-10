@@ -2,6 +2,7 @@
 using Carneiro.Core.Tests.Core;
 using Carneiro.Core.Tests.Generators;
 using Carneiro.Core.Tests.Scenarios.Builders;
+using Microsoft.EntityFrameworkCore;
 
 namespace Carneiro.Core.Tests.Scenarios;
 
@@ -15,7 +16,7 @@ public static class BaseScenarioExtensions
     /// </summary>
     /// <param name="baseScenario">The base scenario.</param>
     /// <returns></returns>
-    public static IUnitOfWork GetUnitOfWork(this BaseScenario baseScenario) => baseScenario.GetService<IUnitOfWork>();
+    public static IUnitOfWork<TDbContext> GetUnitOfWork<TDbContext>(this BaseScenario baseScenario) where TDbContext : DbContext => baseScenario.GetService<IUnitOfWork<TDbContext>>();
 
     /// <summary>
     /// Adds authentication based in the <see cref="BaseScenario"/> account organisation user.

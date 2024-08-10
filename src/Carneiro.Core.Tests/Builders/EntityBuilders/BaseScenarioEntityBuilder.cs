@@ -1,4 +1,5 @@
 ﻿using Carneiro.Core.Repository.Abstractions;
+using Microsoft.EntityFrameworkCore;
 
 namespace Carneiro.Core.Tests.Builders.EntityBuilders;
 
@@ -7,14 +8,6 @@ namespace Carneiro.Core.Tests.Builders.EntityBuilders;
 /// </summary>
 public abstract class BaseScenarioEntityBuilder
 {
-    /// <summary>
-    /// Gets the unit of work.
-    /// </summary>
-    /// <value>
-    /// The unit of work.
-    /// </value>
-    protected IUnitOfWork UnitOfWork { get; }
-
     /// <summary>
     /// Gets the service provider.
     /// </summary>
@@ -32,7 +25,6 @@ public abstract class BaseScenarioEntityBuilder
     protected BaseScenarioEntityBuilder(IServiceProvider serviceProvider)
     {
         ServiceProvider = serviceProvider;
-        UnitOfWork = serviceProvider.GetRequiredService<IUnitOfWork>();
         Faker = new Faker();
     }
 }

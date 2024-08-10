@@ -6,7 +6,8 @@ namespace Carneiro.Core.Repository.Abstractions;
 /// Unit of work.
 /// </summary>
 /// <seealso cref="IDisposable" />
-public interface IUnitOfWork : IDisposable, IAsyncDisposable
+public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
+    where TDbContext : DbContext
 {
     /// <summary>
     /// Checks either it can connect to the database asynchronously.

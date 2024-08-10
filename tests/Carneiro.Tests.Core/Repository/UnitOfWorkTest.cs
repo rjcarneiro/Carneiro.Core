@@ -12,7 +12,7 @@ public class UnitOfWorkTest
     public void When_UnitOfWork_Ok()
     {
         var unitOfWork = new UnitOfWork<DbContext>(new Mock<DbContext>().Object, new Mock<ILogger<UnitOfWork<DbContext>>>().Object);
-        Assert.That(unitOfWork, Is.InstanceOf<IUnitOfWork>());
+        Assert.That(unitOfWork, Is.InstanceOf<IUnitOfWork<DbContext>>());
         Assert.That(unitOfWork, Is.InstanceOf<IDisposable>());
     }
 }

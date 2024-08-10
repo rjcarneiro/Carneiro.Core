@@ -4,10 +4,10 @@ using Microsoft.Data.SqlClient;
 namespace Carneiro.Core.Repository;
 
 /// <summary>
-/// Working implementation of Entity Framework for <see cref="IUnitOfWork"/>.
+/// Working implementation of Entity Framework for <see cref="IUnitOfWork{TDbContext}"/>.
 /// </summary>
-/// <seealso cref="IUnitOfWork" />
-public class UnitOfWork<TDbContext> : IUnitOfWork where TDbContext : DbContext
+/// <seealso cref="IUnitOfWork{TDbContext}" />
+public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext : DbContext
 {
     /// <summary>
     /// Gets the <typeparamref name="TDbContext"/>.
