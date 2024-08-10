@@ -77,7 +77,7 @@ public abstract class RzIdentityDbContext<TUser, TRole, TKey, TUserClaim, TUserR
     /// Initializes a new instance of the <see cref="RzIdentityDbContext{TUser, TRole, TKey}" /> class.
     /// </summary>
     /// <param name="dbContextOptions">The database context options.</param>
-    protected RzIdentityDbContext(DbContextOptions<RzDbContext> dbContextOptions)
+    protected RzIdentityDbContext(DbContextOptions<IdentityDbContext> dbContextOptions)
         : base(dbContextOptions)
     {
     }
