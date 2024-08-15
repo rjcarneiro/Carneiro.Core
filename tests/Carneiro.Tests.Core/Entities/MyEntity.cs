@@ -2,6 +2,6 @@
 
 namespace Carneiro.Tests.Core.Entities;
 
-public class MyEntity : AuditableEntity
+public class MyEntity : Entity
 {
 }

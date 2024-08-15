@@ -7,7 +7,7 @@ namespace Carneiro.Core.Repository.Configurations;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <seealso cref="Microsoft.EntityFrameworkCore.IEntityTypeConfiguration{T}" />
-public abstract class RzEntityTypeConfiguration<T> : IEntityTypeConfiguration<T> where T : class, IAuditableEntity
+public abstract class RzEntityTypeConfiguration<T> : IEntityTypeConfiguration<T> where T : class, IEntity
 {
     /// <summary>
     /// Configures the entity of type <typeparamref name="T" />.

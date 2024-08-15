@@ -1,9 +1,7 @@
-﻿using System.Data.Common;
-
-namespace Carneiro.Core.Repository.Abstractions;
+﻿namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
-/// Unit of work.
+/// The Unit of work abstraction.
 /// </summary>
 /// <seealso cref="IDisposable" />
 public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
@@ -148,7 +146,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    IQueryable<T> Query<T>(long id) where T : class, IAuditableEntity;
+    IQueryable<T> Query<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Queries the specified identifier.
@@ -156,7 +154,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
-    IQueryable<T> Query<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+    IQueryable<T> Query<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Checks if the entity <typeparamref name="T"/> has any records.
@@ -176,7 +174,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<bool> AnyAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<bool> AnyAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Checks if exists any record based on <paramref name="id"/> asynchronously.
@@ -184,7 +182,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
     /// <typeparam name="T"></typeparam>
-    Task<bool> AnyAsync<T>(long id, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+    Task<bool> AnyAsync<T>(int id, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Checks if exists any record based on <paramref name="id"/> and an <paramref name="expression"/> asynchronously.
@@ -192,7 +190,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
-    Task<bool> AnyAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+    Task<bool> AnyAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Checks if exists any record based on <paramref name="id"/> and an <paramref name="expression"/> asynchronously.
@@ -201,7 +199,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    Task<bool> AnyAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+    Task<bool> AnyAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Checks if <paramref name="expression"/> is true or false, asynchronously.
@@ -223,7 +221,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<T> FirstAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<T> FirstAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Firsts the asynchronously.
@@ -243,7 +241,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<T> FirstOrDefaultAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<T> FirstOrDefaultAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Firsts the or default asynchronously.
@@ -258,7 +256,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
-    Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+    Task<T> FirstOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Firsts the or default asynchronously.
@@ -267,7 +265,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+    Task<T> FirstOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Firsts the or default asynchronously.
@@ -282,7 +280,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<T> SingleAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<T> SingleAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Gets a single entity.
@@ -302,7 +300,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<T> SingleOrDefaultAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<T> SingleOrDefaultAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Singles the or default asynchronously.
@@ -317,7 +315,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
-    Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+    Task<T> SingleOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Singles the or default asynchronously.
@@ -326,7 +324,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+    Task<T> SingleOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Singles the or default asynchronously.
@@ -341,7 +339,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<T> LastAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<T> LastAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Gets the last entity asynchronously.
@@ -361,7 +359,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
-    Task<T> LastOrDefaultAsync<T>(long id) where T : class, IAuditableEntity;
+    Task<T> LastOrDefaultAsync<T>(int id) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Gets the last or default entity asynchronously.
@@ -376,7 +374,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
-    Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity;
+    Task<T> LastOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Gets the last or default entity asynchronously.
@@ -385,7 +383,7 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// <param name="id">The identifier.</param>
     /// <param name="expression">The expression.</param>
     /// <param name="cancellationToken">The cancellation token.</param>
-    Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity;
+    Task<T> LastOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity;
 
     /// <summary>
     /// Gets the last or default entity asynchronously.
@@ -446,91 +444,4 @@ public interface IUnitOfWork<TDbContext> : IDisposable, IAsyncDisposable
     /// </summary>
     /// <param name="cancellationToken">The cancellation token.</param>
     Task SaveAsync(CancellationToken cancellationToken);
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="action"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, Func<DbDataReader, Task<T>> action)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="action"></param>
-    /// <param name="cancellationToken"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="commandBehavior"></param>
-    /// <param name="action"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="sqlParameters"></param>
-    /// <param name="action"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, Func<DbDataReader, Task<T>> action)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="sqlParameters"></param>
-    /// <param name="action"></param>
-    /// <param name="cancellationToken"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="sqlParameters"></param>
-    /// <param name="commandBehavior"></param>
-    /// <param name="action"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> asynchronously.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="sqlParameters"></param>
-    /// <param name="commandBehavior"></param>
-    /// <param name="action"></param>
-    /// <param name="cancellationToken"></param>
-    /// <typeparam name="T"></typeparam>
-    Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken)
-        where T : class;
-
-    /// <summary>
-    /// Executes a <see cref="CommandType.StoredProcedure"/> based on <paramref name="sql"/> with <paramref name="sqlParameters"/> under <paramref name="commandBehavior"/>.
-    /// </summary>
-    /// <param name="sql"></param>
-    /// <param name="sqlParameters"></param>
-    /// <param name="commandBehavior"></param>
-    /// <param name="action"></param>
-    /// <param name="cancellationToken"></param>
-    /// <typeparam name="S"></typeparam>
-    /// <typeparam name="T"></typeparam>
-    Task<StoreProcedureResult<T>> ExecuteStoredProcedureAsync<S, T>(string sql, IEnumerable<S> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken)
-        where S : DbParameter
-        where T : class;
 }
