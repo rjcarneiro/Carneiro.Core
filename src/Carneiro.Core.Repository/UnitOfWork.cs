@@ -1,7 +1,4 @@
-﻿using System.Data.Common;
-using Microsoft.Data.SqlClient;
-
-namespace Carneiro.Core.Repository;
+﻿namespace Carneiro.Core.Repository;
 
 /// <summary>
 /// Working implementation of Entity Framework for <see cref="IUnitOfWork{TDbContext}"/>.
@@ -149,10 +146,10 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     public virtual IQueryable<T> Query<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false).Where(expression);
 
     /// <inheritdoc />
-    public virtual IQueryable<T> Query<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false && t.Id == id);
+    public virtual IQueryable<T> Query<T>(int id) where T : class, IAuditableEntity, IEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false && t.Id == id);
 
     /// <inheritdoc />
-    public virtual IQueryable<T> Query<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false && t.Id == id).Where(expression);
+    public virtual IQueryable<T> Query<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity => DbContext.Set<T>().Where(t => t.IsDeleted == false && t.Id == id).Where(expression);
 
     /// <inheritdoc />
     public virtual Task<bool> AnyAsync<T>() where T : class, IAuditableEntity => AnyAsync<T>(CancellationToken.None);
@@ -161,16 +158,16 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     public virtual Task<bool> AnyAsync<T>(CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().AnyAsync(cancellationToken: cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>(long id) where T : class, IAuditableEntity => AnyAsync<T>(id, CancellationToken.None);
+    public virtual Task<bool> AnyAsync<T>(int id) where T : class, IAuditableEntity, IEntity => AnyAsync<T>(id, CancellationToken.None);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>(long id, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(t => t.Id == id, cancellationToken: cancellationToken);
+    public virtual Task<bool> AnyAsync<T>(int id, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity => Query<T>(id).AnyAsync(t => t.Id == id, cancellationToken: cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(expression);
+    public virtual Task<bool> AnyAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity => Query<T>(id).AnyAsync(expression);
 
     /// <inheritdoc />
-    public virtual Task<bool> AnyAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>(id).AnyAsync(expression, cancellationToken);
+    public virtual Task<bool> AnyAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity => Query<T>(id).AnyAsync(expression, cancellationToken);
 
     /// <inheritdoc />
     public virtual Task<bool> AnyAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().AnyAsync(expression);
@@ -179,7 +176,7 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     public virtual Task<bool> AnyAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().AnyAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> FirstAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).FirstAsync();
+    public virtual Task<T> FirstAsync<T>(int id) where T : class, IAuditableEntity, IEntity => Query<T>(id).FirstAsync();
 
     /// <inheritdoc />
     public virtual Task<T> FirstAsync<T>() where T : class, IAuditableEntity => Query<T>().FirstAsync();
@@ -188,23 +185,23 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     public virtual Task<T> FirstAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).FirstAsync();
 
     /// <inheritdoc />
-    public virtual Task<T> FirstOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+    public virtual Task<T> FirstOrDefaultAsync<T>(int id) where T : class, IAuditableEntity, IEntity => DbContext.Set<T>().FirstOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
 
     /// <inheritdoc />
     public virtual Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().FirstOrDefaultAsync(expression);
 
     /// <inheritdoc />
-    public virtual Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).FirstOrDefaultAsync(expression);
+    public virtual Task<T> FirstOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity => Query<T>(id).FirstOrDefaultAsync(expression);
 
     /// <inheritdoc />
     public virtual Task<T> FirstOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().FirstOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> FirstOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity =>
+    public virtual Task<T> FirstOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity =>
         Query<T>(id).FirstOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> SingleAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).SingleAsync();
+    public virtual Task<T> SingleAsync<T>(int id) where T : class, IAuditableEntity, IEntity => Query<T>(id).SingleAsync();
 
     /// <inheritdoc />
     public virtual Task<T> SingleAsync<T>() where T : class, IAuditableEntity => Query<T>().SingleAsync();
@@ -213,23 +210,23 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     public virtual Task<T> SingleAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).SingleAsync();
 
     /// <inheritdoc />
-    public virtual Task<T> SingleOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+    public virtual Task<T> SingleOrDefaultAsync<T>(int id) where T : class, IAuditableEntity, IEntity => DbContext.Set<T>().SingleOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
 
     /// <inheritdoc />
     public virtual Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().SingleOrDefaultAsync(expression);
 
     /// <inheritdoc />
-    public virtual Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).SingleOrDefaultAsync(expression);
+    public virtual Task<T> SingleOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity => Query<T>(id).SingleOrDefaultAsync(expression);
 
     /// <inheritdoc />
     public virtual Task<T> SingleOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().SingleOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> SingleOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity =>
+    public virtual Task<T> SingleOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity =>
         Query<T>(id).SingleOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> LastAsync<T>(long id) where T : class, IAuditableEntity => Query<T>(id).LastAsync();
+    public virtual Task<T> LastAsync<T>(int id) where T : class, IAuditableEntity, IEntity => Query<T>(id).LastAsync();
 
     /// <inheritdoc />
     public virtual Task<T> LastAsync<T>() where T : class, IAuditableEntity => Query<T>().LastAsync();
@@ -238,19 +235,19 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     public virtual Task<T> LastAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query(expression).LastAsync();
 
     /// <inheritdoc />
-    public virtual Task<T> LastOrDefaultAsync<T>(long id) where T : class, IAuditableEntity => DbContext.Set<T>().LastOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
+    public virtual Task<T> LastOrDefaultAsync<T>(int id) where T : class, IAuditableEntity, IEntity => DbContext.Set<T>().LastOrDefaultAsync(t => t.Id == id && t.IsDeleted == false);
 
     /// <inheritdoc />
     public virtual Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>().LastOrDefaultAsync(expression);
 
     /// <inheritdoc />
-    public virtual Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity => Query<T>(id).LastOrDefaultAsync(expression);
+    public virtual Task<T> LastOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression) where T : class, IAuditableEntity, IEntity => Query<T>(id).LastOrDefaultAsync(expression);
 
     /// <inheritdoc />
     public virtual Task<T> LastOrDefaultAsync<T>(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity => Query<T>().LastOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task<T> LastOrDefaultAsync<T>(long id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity =>
+    public virtual Task<T> LastOrDefaultAsync<T>(int id, Expression<Func<T, bool>> expression, CancellationToken cancellationToken) where T : class, IAuditableEntity, IEntity =>
         Query<T>(id).LastOrDefaultAsync(expression, cancellationToken);
 
     /// <inheritdoc />
@@ -265,7 +262,6 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
     /// <inheritdoc />
     public virtual Task<decimal?> SumAsync<T>(Expression<Func<T, decimal?>> expression) where T : class, IAuditableEntity => Query<T>().SumAsync(expression);
 
-
     /// <inheritdoc />
     public virtual Task<int> SumAsync<T>(Expression<Func<T, int>> expression) where T : class, IAuditableEntity => Query<T>().SumAsync(expression);
 
@@ -277,118 +273,6 @@ public class UnitOfWork<TDbContext> : IUnitOfWork<TDbContext> where TDbContext :
 
     /// <inheritdoc />
     public virtual Task SaveAsync(CancellationToken cancellationToken) => DbContext.SaveChangesAsync(cancellationToken);
-
-    /// <inheritdoc />
-    public virtual Task<T> ExecuteStoredProcedureAsync<T>(string sql, Func<DbDataReader, Task<T>> action) where T : class =>
-        ExecuteStoredProcedureAsync(sql, sqlParameters: new Dictionary<string, object>(), CommandBehavior.Default, action, CancellationToken.None);
-
-    /// <inheritdoc />
-    public Task<T> ExecuteStoredProcedureAsync<T>(string sql, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken) where T : class =>
-        ExecuteStoredProcedureAsync(sql, new Dictionary<string, object>(), CommandBehavior.Default, action, cancellationToken);
-
-    /// <inheritdoc />
-    public Task<T> ExecuteStoredProcedureAsync<T>(string sql, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action) where T : class =>
-        ExecuteStoredProcedureAsync(sql, new Dictionary<string, object>(), commandBehavior, action, CancellationToken.None);
-
-    /// <inheritdoc />
-    public Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, Func<DbDataReader, Task<T>> action) where T : class =>
-        ExecuteStoredProcedureAsync(sql, sqlParameters, CommandBehavior.Default, action, CancellationToken.None);
-
-    /// <inheritdoc />
-    public Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken) where T : class =>
-        ExecuteStoredProcedureAsync(sql, sqlParameters, CommandBehavior.Default, action, cancellationToken);
-
-    /// <inheritdoc />
-    public Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action) where T : class =>
-        ExecuteStoredProcedureAsync(sql, sqlParameters, commandBehavior, action, CancellationToken.None);
-
-    /// <inheritdoc />
-    public virtual async Task<T> ExecuteStoredProcedureAsync<T>(string sql, Dictionary<string, object> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action, CancellationToken cancellationToken)
-        where T : class
-    {
-        Logger.LogInformation("Building new {StoredProcedure} with sql {Sql}", nameof(CommandType.StoredProcedure), sql);
-
-        await using DbConnection connection = DbContext.Database.GetDbConnection();
-        await using DbCommand command = connection.CreateCommand();
-
-        command.CommandText = sql;
-        command.CommandType = CommandType.StoredProcedure;
-
-        if (sqlParameters.Count > 0)
-        {
-            Logger.LogInformation("Adding {SqlParametersCount} parameters to the database command", sqlParameters.Count);
-
-            foreach (KeyValuePair<string, object> sqlParameter in sqlParameters)
-            {
-                DbParameter parameter = command.CreateParameter();
-                parameter.ParameterName = sqlParameter.Key;
-                parameter.Value = sqlParameter.Value;
-
-                Logger.LogInformation("Parameter: {ParameterParameterName} Value: {ParameterValue}", parameter.ParameterName, parameter.Value);
-
-                command.Parameters.Add(parameter);
-            }
-        }
-
-        Logger.LogInformation("Executing sql '{Sql}' as '{CommandCommandType}'", sql, command.CommandType);
-
-        await connection.OpenAsync(cancellationToken);
-        await using DbDataReader dbDataReader = await command.ExecuteReaderAsync(commandBehavior, cancellationToken);
-        return await action(dbDataReader);
-    }
-
-    /// <inheritdoc />
-    public virtual async Task<StoreProcedureResult<T>> ExecuteStoredProcedureAsync<S, T>(string sql, IEnumerable<S> sqlParameters, CommandBehavior commandBehavior, Func<DbDataReader, Task<T>> action,
-        CancellationToken cancellationToken)
-        where S : DbParameter
-        where T : class
-    {
-        Logger.LogInformation("Building new {StoredProcedure} with sql {Sql}", nameof(CommandType.StoredProcedure), sql);
-
-        await using DbConnection connection = DbContext.Database.GetDbConnection();
-        await using DbCommand command = connection.CreateCommand();
-
-        command.CommandText = sql;
-        command.CommandType = CommandType.StoredProcedure;
-
-        S[] dbParameters = sqlParameters as S[] ?? sqlParameters.ToArray();
-
-        if (dbParameters.Length != 0)
-        {
-            Logger.LogInformation("Adding {SqlParametersCount} parameters to the database command", dbParameters.Length);
-            command.Parameters.AddRange(dbParameters);
-        }
-
-        Logger.LogInformation("Executing sql '{Sql}' as '{CommandCommandType}'", sql, command.CommandType);
-
-        await connection.OpenAsync(cancellationToken);
-        command.Transaction = await connection.BeginTransactionAsync(IsolationLevel.ReadCommitted, cancellationToken);
-
-        try
-        {
-            await using DbDataReader dbDataReader = await command.ExecuteReaderAsync(commandBehavior, cancellationToken);
-            T result = await action(dbDataReader);
-            await dbDataReader.CloseAsync();
-
-            await command.Transaction.CommitAsync(cancellationToken);
-
-            var model = new StoreProcedureResult<T>
-            {
-                Result = result,
-                Output = command.Parameters.Cast<SqlParameter>()
-                    .Where(p => p.Direction is ParameterDirection.Output or ParameterDirection.InputOutput)
-                    .ToDictionary(p => p.ParameterName, p => p.Value),
-            };
-
-            return model;
-        }
-        catch (Exception e)
-        {
-            Logger.LogError(e, "Unable to process Stored Procedure '{Sql}'", sql);
-            await command.Transaction.RollbackAsync(cancellationToken);
-            throw;
-        }
-    }
 
     /// <inheritdoc />
     public virtual void Dispose()

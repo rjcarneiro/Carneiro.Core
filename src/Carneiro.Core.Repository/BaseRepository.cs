@@ -62,7 +62,7 @@ public abstract class BaseRepository<TDbContext> : IBaseRepository
 /// <typeparam name="TDbContext">The database context.</typeparam>
 /// <seealso cref="IBaseRepository" />
 public abstract class BaseRepository<TDbContext, T> : BaseRepository<TDbContext>, IBaseRepository<T>
-    where T : class, IAuditableEntity
+    where T : class, IEntity
     where TDbContext : DbContext
 {
     /// <summary>

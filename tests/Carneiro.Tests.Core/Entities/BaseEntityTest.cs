@@ -15,7 +15,7 @@ public class BaseEntityTest
     [Test]
     public void When_NewInstance_Ok()
     {
-        var instance = new MyEntity
+        IEntity instance = new MyEntity
         {
             Id = _faker.Random.Int(min: 1),
             IsActive = _faker.PickRandom(true, false),

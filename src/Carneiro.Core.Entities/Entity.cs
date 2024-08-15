@@ -3,10 +3,8 @@
 /// <summary>
 /// Default implementation for <see cref="IEntity"/>.
 /// </summary>
-public abstract class Entity : IEntity
+public abstract class Entity : AuditableEntity, IEntity
 {
-    /// <summary>
-    /// Gets or sets the identifier.
-    /// </summary>
+    /// <inheritdoc />
     public virtual int Id { get; set; }
 }
