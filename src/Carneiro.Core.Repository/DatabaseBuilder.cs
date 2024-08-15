@@ -23,6 +23,7 @@ public class DatabaseBuilder : IDatabaseBuilder
     public virtual IDatabaseBuilder AddUnitOfWork<T>() where T : DbContext
     {
         _services.Add(new ServiceDescriptor(typeof(IUnitOfWork<T>), typeof(UnitOfWork<T>), ServiceLifetime.Scoped));
+        _services.Add(new ServiceDescriptor(typeof(IStoredProcedureUnitOfWork<T>), typeof(StoredProcedureUnitOfWork<T>), ServiceLifetime.Scoped));
         _services.Add(new ServiceDescriptor(typeof(ITransactionalUnitOfWork<T>), typeof(TransactionalUnitOfWork<T>), ServiceLifetime.Scoped));
 
         return this;
@@ -36,6 +37,7 @@ public class DatabaseBuilder : IDatabaseBuilder
     {
         _services.AddScoped<TService, TImplementation>();
         _services.AddScoped<ITransactionalUnitOfWork<TDbContext>, TransactionalUnitOfWork<TDbContext>>();
+        _services.AddScoped<IStoredProcedureUnitOfWork<TDbContext>, StoredProcedureUnitOfWork<TDbContext>>();
 
         return this;
     }

@@ -3,11 +3,11 @@
 namespace Carneiro.Core.Repository.Configurations;
 
 /// <summary>
-/// Default configuration of <see cref="IAuditableEntity"/>.
+/// Default configuration of <see cref="IEntity"/>.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <seealso cref="Microsoft.EntityFrameworkCore.IEntityTypeConfiguration{T}" />
-public abstract class RzEntityTypeConfiguration<T> : IEntityTypeConfiguration<T> where T : class, IEntity
+public abstract class EntityTypeConfiguration<T> : IEntityTypeConfiguration<T> where T : class, IEntity
 {
     /// <summary>
     /// Configures the entity of type <typeparamref name="T" />.
@@ -21,7 +21,7 @@ public abstract class RzEntityTypeConfiguration<T> : IEntityTypeConfiguration<T>
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RzEntityTypeConfiguration{T}"/> class.
+    /// Initializes a new instance of the <see cref="EntityTypeConfiguration{T}"/> class.
     /// </summary>
     /// <param name="builder">The builder.</param>
     protected abstract void ConfigureEntity(EntityTypeBuilder<T> builder);
