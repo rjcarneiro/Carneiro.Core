@@ -134,40 +134,19 @@ public static class DatabaseExtensions
     private static IDatabaseBuilder AddDatabaseContext<TDbContext>(this IServiceCollection services, string connectionString, DatabaseOptions databaseOptions, Action<DbContextOptionsBuilder> dbContextOptionsBuilder = null)
         where TDbContext : DbContext
     {
-        Action<DbContextOptionsBuilder> d = options =>
-        {
-            options.EnableSensitiveDataLogging(databaseOptions.EnableSensitiveDataLogging);
-            options.EnableDetailedErrors(databaseOptions.EnableDetailedErrors);
-            options.UseSqlServer(connectionString, providerOptions =>
-            {
-                if (databaseOptions.QuerySplittingBehavior.HasValue)
-                    providerOptions.UseQuerySplittingBehavior(databaseOptions.QuerySplittingBehavior.Value);
-
-                if (databaseOptions.UseRelationalNulls.HasValue)
-                    providerOptions.UseRelationalNulls(databaseOptions.UseRelationalNulls.Value);
-
-                if (databaseOptions.MinBatchSize.HasValue)
-                    providerOptions.MinBatchSize(databaseOptions.MinBatchSize.Value);
-
-                if (databaseOptions.MaxBatchSize.HasValue)
-                    providerOptions.MaxBatchSize(databaseOptions.MaxBatchSize.Value);
-
-                providerOptions.CommandTimeout(databaseOptions.Timeout);
-                providerOptions.EnableRetryOnFailure(
-                    maxRetryCount: databaseOptions.Failure.Retries,
-                    maxRetryDelay: TimeSpan.FromSeconds(databaseOptions.Failure.Seconds),
-                    errorNumbersToAdd: null);
-            });
-            dbContextOptionsBuilder?.Invoke(options);
-        };
-
         if (databaseOptions.UseDbContextPool)
         {
-            services.AddDbContextPool<TDbContext>(d);
+            services.AddDbContextPool<TDbContext>(o =>
+            {
+                o.UseSqlServerWithOptions(connectionString, databaseOptions);
+            });
         }
         else
         {
-            services.AddDbContext<TDbContext>(d);
+            services.AddDbContext<TDbContext>(o =>
+            {
+                o.UseSqlServerWithOptions(connectionString, databaseOptions);
+            });
         }
 
         return new DatabaseBuilder(services, databaseOptions);
