@@ -138,14 +138,14 @@ public static class DatabaseExtensions
         {
             services.AddDbContextPool<TDbContext>(o =>
             {
-                o.UseSqlServerWithOptions(connectionString, databaseOptions);
+                o.UseSqlServerWithOptions(connectionString, databaseOptions, dbContextOptionsBuilder);
             });
         }
         else
         {
             services.AddDbContext<TDbContext>(o =>
             {
-                o.UseSqlServerWithOptions(connectionString, databaseOptions);
+                o.UseSqlServerWithOptions(connectionString, databaseOptions, dbContextOptionsBuilder);
             });
         }
 

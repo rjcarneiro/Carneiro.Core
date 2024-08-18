@@ -11,7 +11,8 @@ public static class DbContextOptionsBuilderExtensions
     /// <param name="options"></param>
     /// <param name="connectionString"></param>
     /// <param name="databaseOptions"></param>
-    public static DbContextOptionsBuilder UseSqlServerWithOptions(this DbContextOptionsBuilder options, string connectionString, DatabaseOptions databaseOptions)
+    /// <param name="dbContextOptionsBuilder"></param>
+    public static DbContextOptionsBuilder UseSqlServerWithOptions(this DbContextOptionsBuilder options, string connectionString, DatabaseOptions databaseOptions, Action<DbContextOptionsBuilder> dbContextOptionsBuilder = null)
     {
         Action<DbContextOptionsBuilder> d = o =>
         {
@@ -48,6 +49,7 @@ public static class DbContextOptionsBuilderExtensions
         };
 
         d.Invoke(options);
+        dbContextOptionsBuilder?.Invoke(options);
 
         return options;
     }
