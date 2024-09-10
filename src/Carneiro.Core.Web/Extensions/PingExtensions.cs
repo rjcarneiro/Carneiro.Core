@@ -11,7 +11,6 @@ public static class PingExtensions
     /// Adds the <see cref="VersionModel"/> using <c>PingOptions</c> as section.
     /// </summary>
     /// <param name="services">The services.</param>
-    /// <param name="configuration"></param>
     public static IServiceCollection AddPing(this IServiceCollection services) => services.AddPing(new PingOptions());
 
     /// <summary>
@@ -19,7 +18,7 @@ public static class PingExtensions
     /// </summary>
     /// <param name="services">The services.</param>
     /// <param name="configuration"></param>
-    public static IServiceCollection AddPing(this IServiceCollection services, IConfiguration configuration) 
+    public static IServiceCollection AddPing(this IServiceCollection services, IConfiguration configuration)
         => services.AddPing(configuration.GetSection("PingOptions"));
 
     /// <summary>
@@ -27,7 +26,7 @@ public static class PingExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configurationSection"></param>
-    public static IServiceCollection AddPing(this IServiceCollection services, IConfigurationSection configurationSection) 
+    public static IServiceCollection AddPing(this IServiceCollection services, IConfigurationSection configurationSection)
         => services.AddPing(configurationSection.Get<PingOptions>() ?? new PingOptions());
 
     /// <summary>

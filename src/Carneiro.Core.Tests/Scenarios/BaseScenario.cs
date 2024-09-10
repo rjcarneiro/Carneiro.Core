@@ -1,10 +1,4 @@
-﻿using Carneiro.Core.Tests.Builders.EntityBuilders;
-using Carneiro.Core.Tests.Core;
-using Carneiro.Core.Utils.Abstractions;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.TestHost;
-
-namespace Carneiro.Core.Tests.Scenarios;
+﻿namespace Carneiro.Core.Tests.Scenarios;
 
 /// <summary>
 /// Base class for all scenarios.

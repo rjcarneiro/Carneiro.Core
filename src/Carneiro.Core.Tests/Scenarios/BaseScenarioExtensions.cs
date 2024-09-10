@@ -1,5 +1,4 @@
-﻿using Carneiro.Core.Tests.Core;
-using Carneiro.Core.Tests.Scenarios.Builders;
+﻿using Carneiro.Core.Tests.Scenarios.Builders;
 
 namespace Carneiro.Core.Tests.Scenarios;
 

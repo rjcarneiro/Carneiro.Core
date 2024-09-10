@@ -1,7 +1,6 @@
 ﻿using Carneiro.Core.Repository;
 using Carneiro.Core.Repository.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using Moq;
 
 namespace Carneiro.Tests.Core.Repository;
 

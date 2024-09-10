@@ -1,1 +1,0 @@
-# Carneiro.Core.Utils.Abstractions

@@ -45,7 +45,6 @@
         <ProjectReference Include="..\Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj"/>
         <ProjectReference Include="..\Carneiro.Core.Health\Carneiro.Core.Health.csproj"/>
         <ProjectReference Include="..\Carneiro.Core.Json\Carneiro.Core.Json.csproj"/>
-        <ProjectReference Include="..\Carneiro.Core.Web.Abstractions\Carneiro.Core.Web.Abstractions.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

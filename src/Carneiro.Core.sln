@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7F081951
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Exceptions", "Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj", "{E2E93FD2-232D-40CA-A99C-D0329075C061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Web.Abstractions", "Carneiro.Core.Web.Abstractions\Carneiro.Core.Web.Abstractions.csproj", "{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Json", "Carneiro.Core.Json\Carneiro.Core.Json.csproj", "{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Tests", "Carneiro.Core.Tests\Carneiro.Core.Tests.csproj", "{58DBD781-FCB2-4B5E-81FF-188DFCB3F5F4}"
@@ -22,8 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Repository", "Carneiro.Core.Repository\Carneiro.Core.Repository.csproj", "{55D2FC29-82B9-47DF-97B8-5EDAAB62743F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Utils", "Carneiro.Core.Utils\Carneiro.Core.Utils.csproj", "{FBE0F355-388F-4777-82A0-62C20AE0197E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Utils.Abstractions", "Carneiro.Core.Utils.Abstractions\Carneiro.Core.Utils.Abstractions.csproj", "{02F9D263-719A-48A7-8751-AD01563FC921}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Web", "Carneiro.Core.Web\Carneiro.Core.Web.csproj", "{75EDEDD1-2727-43AE-AB08-324E54CC0FC7}"
 EndProject
@@ -51,10 +47,6 @@ Global
 		{E2E93FD2-232D-40CA-A99C-D0329075C061}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2E93FD2-232D-40CA-A99C-D0329075C061}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2E93FD2-232D-40CA-A99C-D0329075C061}.Release|Any CPU.Build.0 = Release|Any CPU
-		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{32F5771F-7998-49C2-A0B9-3A2CEAF95F23}.Release|Any CPU.Build.0 = Release|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{531A30A5-7F9F-47AA-A04D-6BB21E4195F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,10 +75,6 @@ Global
 		{FBE0F355-388F-4777-82A0-62C20AE0197E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBE0F355-388F-4777-82A0-62C20AE0197E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBE0F355-388F-4777-82A0-62C20AE0197E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02F9D263-719A-48A7-8751-AD01563FC921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02F9D263-719A-48A7-8751-AD01563FC921}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{02F9D263-719A-48A7-8751-AD01563FC921}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{02F9D263-719A-48A7-8751-AD01563FC921}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75EDEDD1-2727-43AE-AB08-324E54CC0FC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{75EDEDD1-2727-43AE-AB08-324E54CC0FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75EDEDD1-2727-43AE-AB08-324E54CC0FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
