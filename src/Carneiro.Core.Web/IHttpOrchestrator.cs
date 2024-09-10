@@ -1,4 +1,4 @@
-﻿namespace Carneiro.Core.Web.Abstractions;
+﻿namespace Carneiro.Core.Web;
 
 /// <summary>
 /// Interface that abstracts the complexity of using default <see cref="HttpClient"/>.

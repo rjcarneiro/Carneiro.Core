@@ -1,4 +1,4 @@
-﻿namespace Carneiro.Core.Web.Abstractions;
+﻿namespace Carneiro.Core.Web;
 
 /// <summary>
 /// Default Api Error Response.

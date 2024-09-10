@@ -24,7 +24,6 @@ global using Carneiro.Core.Tests.Generators;
 global using Carneiro.Core.Tests.Options;
 global using Carneiro.Core.Tests.Scenarios;
 global using Carneiro.Core.Tests.Tasks;
-global using Carneiro.Core.Utils.Abstractions;
 global using Carneiro.Core.Web.Extensions;
 global using Microsoft.AspNetCore.Antiforgery;
 global using Microsoft.AspNetCore.Hosting;

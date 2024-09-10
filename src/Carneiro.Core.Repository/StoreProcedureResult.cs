@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Carneiro.Core.Repository.Abstractions;
+namespace Carneiro.Core.Repository;
 
 /// <summary>
 /// Class that represents the result of a stored procedure.

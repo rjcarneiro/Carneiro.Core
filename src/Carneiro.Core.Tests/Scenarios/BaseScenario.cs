@@ -1,4 +1,6 @@
-﻿namespace Carneiro.Core.Tests.Scenarios;
+﻿using Carneiro.Core.Utils;
+
+namespace Carneiro.Core.Tests.Scenarios;
 
 /// <summary>
 /// Base class for all scenarios.

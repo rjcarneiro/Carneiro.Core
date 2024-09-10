@@ -1,1 +1,0 @@
-# Carneiro.Core.Repository.Abstractions

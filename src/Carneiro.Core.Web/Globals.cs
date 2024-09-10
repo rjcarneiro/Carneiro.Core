@@ -17,7 +17,6 @@ global using Microsoft.Extensions.Options;
 global using Microsoft.AspNetCore.Http;
 global using Carneiro.Core.Health;
 global using System.Text;
-global using Carneiro.Core.Web.Abstractions;
 global using Carneiro.Core.Web.Exceptions;
 global using Microsoft.Extensions.Logging;
 global using Carneiro.Core.Json;

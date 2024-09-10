@@ -15,8 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Entities", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Entities.Abstractions", "Carneiro.Core.Entities.Abstractions\Carneiro.Core.Entities.Abstractions.csproj", "{C948B5CD-3680-4B03-BD68-F5399C71F598}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Repository.Abstractions", "Carneiro.Core.Repository.Abstractions\Carneiro.Core.Repository.Abstractions.csproj", "{9F278389-C872-44E2-B446-BEA086C86CF0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Repository", "Carneiro.Core.Repository\Carneiro.Core.Repository.csproj", "{55D2FC29-82B9-47DF-97B8-5EDAAB62743F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Utils", "Carneiro.Core.Utils\Carneiro.Core.Utils.csproj", "{FBE0F355-388F-4777-82A0-62C20AE0197E}"
@@ -63,10 +61,6 @@ Global
 		{C948B5CD-3680-4B03-BD68-F5399C71F598}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C948B5CD-3680-4B03-BD68-F5399C71F598}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C948B5CD-3680-4B03-BD68-F5399C71F598}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F278389-C872-44E2-B446-BEA086C86CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F278389-C872-44E2-B446-BEA086C86CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F278389-C872-44E2-B446-BEA086C86CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F278389-C872-44E2-B446-BEA086C86CF0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{55D2FC29-82B9-47DF-97B8-5EDAAB62743F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55D2FC29-82B9-47DF-97B8-5EDAAB62743F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55D2FC29-82B9-47DF-97B8-5EDAAB62743F}.Release|Any CPU.ActiveCfg = Release|Any CPU

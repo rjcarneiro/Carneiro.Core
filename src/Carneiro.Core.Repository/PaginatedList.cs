@@ -1,4 +1,4 @@
-﻿namespace Carneiro.Core.Repository.Abstractions;
+﻿namespace Carneiro.Core.Repository;
 
 /// <summary>
 /// Paginated list class.

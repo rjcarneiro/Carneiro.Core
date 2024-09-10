@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Utils.Abstractions;
-
-namespace Carneiro.Core.Utils;
+﻿namespace Carneiro.Core.Utils;
 
 /// <summary>
 /// The file utility implementation.
