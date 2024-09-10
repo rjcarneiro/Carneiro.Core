@@ -1,4 +1,4 @@
-﻿namespace Carneiro.Core.Tests.Abstractions;
+﻿namespace Carneiro.Core.Tests;
 
 /// <summary>
 /// Enum that sets how a scenario should be initialized.
