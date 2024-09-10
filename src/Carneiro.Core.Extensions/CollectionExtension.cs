@@ -10,7 +10,6 @@ public static class CollectionExtension
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="list">The list.</param>
-    /// <returns></returns>
     public static T RandomElement<T>(this IList<T> list) => list[Random.Shared.Next(list.Count)];
 
     /// <summary>
@@ -18,7 +17,6 @@ public static class CollectionExtension
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="array">The array.</param>
-    /// <returns></returns>
     public static T RandomElement<T>(this T[] array) => array[Random.Shared.Next(array.Length)];
 
     /// <summary>
@@ -27,7 +25,6 @@ public static class CollectionExtension
     /// <typeparam name="T"></typeparam>
     /// <param name="source">The source.</param>
     /// <param name="chunkSize">Size of the chunk.</param>
-    /// <returns></returns>
     public static List<List<T>> ChunkBy<T>(this IList<T> source, int chunkSize) => source
         .Select((x, i) => new { Index = i, Value = x })
         .GroupBy(x => x.Index / chunkSize)

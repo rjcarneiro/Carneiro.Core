@@ -13,7 +13,6 @@ public static class WorkerExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <typeparam name="THostedService"></typeparam>
-    /// <returns></returns>
     public static IServiceCollection AddWorker<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] THostedService>(this IServiceCollection services)
         where THostedService : class, IWorker
     {

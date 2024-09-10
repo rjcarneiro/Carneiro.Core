@@ -9,6 +9,5 @@ public interface IBeforeBuilderAsyncTask
     /// Executes a task before the <see cref="IBaseScenario" /> starts building asynchronously.
     /// </summary>
     /// <param name="baseScenario">The base scenario.</param>
-    /// <returns></returns>
     Task ExecuteBeforeAsync(IBaseScenario baseScenario);
 }
