@@ -9,6 +9,5 @@ public static class WebHostEnvironmentExtensions
     /// Checks either the current <see cref="IWebHostEnvironment"/> is <see cref="WebHostEnvironmentConstants.Testing"/> or not.
     /// </summary>
     /// <param name="webHostEnvironment"></param>
-    /// <returns></returns>
     public static bool IsTestingEnvironment(this IWebHostEnvironment webHostEnvironment) => webHostEnvironment.IsEnvironment(WebHostEnvironmentConstants.Testing);
 }

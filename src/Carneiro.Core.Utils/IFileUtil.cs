@@ -22,6 +22,5 @@ public interface IFileUtil
     /// Checks if a certain <paramref name="fullPhysicalPath"/> exists.
     /// </summary>
     /// <param name="fullPhysicalPath"></param>
-    /// <returns></returns>
     bool Exists(string fullPhysicalPath);
 }

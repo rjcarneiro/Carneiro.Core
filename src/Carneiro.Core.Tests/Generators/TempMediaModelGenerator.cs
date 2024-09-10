@@ -1,4 +1,6 @@
-﻿namespace Carneiro.Core.Web.Tests;
+﻿using Carneiro.Core.Web;
+
+namespace Carneiro.Core.Tests.Generators;
 
 /// <summary>
 /// Generator for <see cref="TempMediaModel"/>.
@@ -9,7 +11,6 @@ public static class TempMediaModelGenerator
     /// Generates a random <see cref="TempMediaModel"/>.
     /// </summary>
     /// <param name="faker"></param>
-    /// <returns></returns>
     public static TempMediaModel GenerateTempMediaModel(this Faker faker) => faker.GenerateTempMediaModel(action: null);
 
     /// <summary>
@@ -17,7 +18,6 @@ public static class TempMediaModelGenerator
     /// </summary>
     /// <param name="faker"></param>
     /// <param name="action"></param>
-    /// <returns></returns>
     public static TempMediaModel GenerateTempMediaModel(this Faker faker, Action<TempMediaModel> action)
     {
         var model = new TempMediaModel

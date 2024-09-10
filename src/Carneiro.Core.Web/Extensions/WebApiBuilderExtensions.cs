@@ -10,7 +10,6 @@ public static class WebApiBuilderExtensions
     /// </summary>
     /// <param name="mvcBuilder">The MVC builder.</param>
     /// <param name="jsonOptions">The json options.</param>
-    /// <returns></returns>
     public static IMvcBuilder AddJsonProvider(this IMvcBuilder mvcBuilder, Action<MvcNewtonsoftJsonOptions> jsonOptions = null)
     {
         mvcBuilder.AddNewtonsoftJson(j =>

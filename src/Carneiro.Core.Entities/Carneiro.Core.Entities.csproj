@@ -41,8 +41,4 @@
     <None Include="readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Carneiro.Core.Entities.Abstractions\Carneiro.Core.Entities.Abstractions.csproj"/>
-  </ItemGroup>
-
 </Project>

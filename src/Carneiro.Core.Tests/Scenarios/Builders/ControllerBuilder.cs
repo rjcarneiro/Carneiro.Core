@@ -29,12 +29,10 @@ public class ControllerBuilder : IControllerBuilder
     /// <summary>
     /// Builds this instance.
     /// </summary>
-    /// <returns></returns>
     public IControllerBuilderOptions Build() => _controllerBuilderOptions;
 
     /// <summary>
     /// Initializes this instance.
     /// </summary>
-    /// <returns></returns>
     public static IControllerBuilder Init() => new ControllerBuilder();
 }

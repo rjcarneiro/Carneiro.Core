@@ -11,7 +11,6 @@ public static class BaseScenarioExtensions
     /// Gets the unit of work.
     /// </summary>
     /// <param name="baseScenario">The base scenario.</param>
-    /// <returns></returns>
     public static IUnitOfWork<TDbContext> GetUnitOfWork<TDbContext>(this BaseScenario baseScenario) where TDbContext : DbContext => baseScenario.GetService<IUnitOfWork<TDbContext>>();
 
     /// <summary>
@@ -36,7 +35,6 @@ public static class BaseScenarioExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="baseScenario">The scenario.</param>
-    /// <returns></returns>
     public static T GetControllerWithAuthentication<T>(this BaseScenario baseScenario) where T : ControllerBase => baseScenario.GetControllerWithAuthentication<T>(controllerBuilder: null);
 
     /// <summary>
@@ -45,7 +43,6 @@ public static class BaseScenarioExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="baseScenario">The scenario.</param>
     /// <param name="controllerBuilder">The controller builder.</param>
-    /// <returns></returns>
     public static T GetControllerWithAuthentication<T>(this BaseScenario baseScenario, Action<IControllerBuilder> controllerBuilder) where T : ControllerBase
     {
         T controller = baseScenario.GetRequiredService<T>();
@@ -58,7 +55,6 @@ public static class BaseScenarioExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="baseScenario">The scenario.</param>
-    /// <returns></returns>
     public static T GetControllerWithAnonymousAuthentication<T>(this BaseScenario baseScenario) where T : ControllerBase => baseScenario.GetControllerWithAnonymousAuthentication<T>(controllerBuilderAction: null);
 
     /// <summary>
@@ -67,7 +63,6 @@ public static class BaseScenarioExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="baseScenario">The base scenario.</param>
     /// <param name="controllerBuilderAction">The controller builder action.</param>
-    /// <returns></returns>
     public static T GetControllerWithAnonymousAuthentication<T>(this BaseScenario baseScenario, Action<IControllerBuilder> controllerBuilderAction) where T : ControllerBase
     {
         T controller = baseScenario.GetRequiredService<T>();
@@ -80,7 +75,6 @@ public static class BaseScenarioExtensions
     /// Generates the email.
     /// </summary>
     /// <param name="baseScenario">The base scenario.</param>
-    /// <returns></returns>
     public static string GenerateEmail(this BaseScenario baseScenario) => baseScenario.Faker.GenerateEmail();
 
     /// <summary>
