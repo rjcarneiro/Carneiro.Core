@@ -45,8 +45,4 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\Carneiro.Core.Utils.Abstractions\Carneiro.Core.Utils.Abstractions.csproj"/>
-    </ItemGroup>
-
 </Project>

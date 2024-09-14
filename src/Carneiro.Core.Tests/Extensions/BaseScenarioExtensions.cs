@@ -1,6 +1,6 @@
-﻿using Carneiro.Core.Tests.Scenarios;
+﻿using Carneiro.Core.Web;
 
-namespace Carneiro.Core.Web.Tests;
+namespace Carneiro.Core.Tests.Extensions;
 
 /// <summary>
 /// Web extensions for <see cref="BaseScenario"/>.
@@ -12,7 +12,6 @@ public static class BaseScenarioExtensions
     /// </summary>
     /// <param name="baseScenario"></param>
     /// <param name="file"></param>
-    /// <returns></returns>
     public static TempMediaModel ConvertToTempMediaModel(this BaseScenario baseScenario, IFormFile file) => new()
     {
         FullPhysicalPath = $"{UploadConstants.WwwrootPath}/Temporary/{file.FileName}",
@@ -27,7 +26,6 @@ public static class BaseScenarioExtensions
     /// </summary>
     /// <param name="scenario"></param>
     /// <param name="file"></param>
-    /// <returns></returns>
     public static Mock<IFormFile> ConvertToIFormFileMock(this BaseScenario scenario, TempMediaModel file)
     {
         var fileMock = new Mock<IFormFile>();

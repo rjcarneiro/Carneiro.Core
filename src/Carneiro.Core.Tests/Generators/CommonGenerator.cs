@@ -9,34 +9,29 @@ public static class CommonGenerator
     /// Generates the unique identifier.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static string GenerateUniqueId(this Faker faker) => faker.Random.Guid().ToString("N");
 
     /// <summary>
     /// Generates the email.
     /// </summary>
-    /// <returns></returns>
     public static string GenerateEmail(this Faker faker) => $"{faker.Random.String2(5)}{faker.GetTicks()}{faker.Random.String2(7)}@{faker.Internet.DomainWord()}.{faker.Internet.DomainSuffix()}";
 
     /// <summary>
     /// Generates the name.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static string GenerateName(this Faker faker) => $"{faker.Random.String2(5)}{faker.GetTicks()}{faker.Commerce.Product()}{faker.Random.String2(7)}";
 
     /// <summary>
     /// Generates the phone number.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static string GeneratePhoneNumber(this Faker faker) => faker.Random.Replace("89#######");
 
     /// <summary>
     /// Generates the password.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static string GeneratePassword(this Faker faker) => faker.Random.Replace("??#?#?#?##%/#?#???3?#?##=?ºç»#?3csx??xf%67#$###");
 
     /// <summary>
@@ -44,7 +39,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="baseScenario">The scenario.</param>
     /// <param name="unexpectedValue">The unexpected value.</param>
-    /// <returns></returns>
     public static long PickRandomLongExcept(this BaseScenario baseScenario, long unexpectedValue) => baseScenario.Faker.PickRandomLongExcept(unexpectedValue);
 
     /// <summary>
@@ -52,7 +46,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker">The faker.</param>
     /// <param name="unexpectedValue">The unexpected value.</param>
-    /// <returns></returns>
     public static long PickRandomLongExcept(this Faker faker, long unexpectedValue)
     {
         long randomAccountId;
@@ -70,7 +63,6 @@ public static class CommonGenerator
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="items">The items.</param>
-    /// <returns></returns>
     public static List<T> Shuffle<T>(this List<T> items) => items.OrderBy(_ => Guid.NewGuid()).ToList();
 
     /// <summary>
@@ -78,7 +70,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="baseScenario">The scenario.</param>
     /// <param name="unexpectedValue">The unexpected value.</param>
-    /// <returns></returns>
     public static int PickRandomIntExcept(this BaseScenario baseScenario, int unexpectedValue) => baseScenario.Faker.PickRandomIntExcept(unexpectedValue);
 
     /// <summary>
@@ -86,7 +77,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker">The faker.</param>
     /// <param name="unexpectedValue">The unexpected value.</param>
-    /// <returns></returns>
     public static int PickRandomIntExcept(this Faker faker, int unexpectedValue)
     {
         int randomAccountId;
@@ -104,7 +94,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker">The faker.</param>
     /// <param name="unexpectedValue">The unexpected value.</param>
-    /// <returns></returns>
     public static decimal PickRandomDecimalExcept(this Faker faker, decimal unexpectedValue)
     {
         decimal randomAccountId;
@@ -122,7 +111,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker">The faker.</param>
     /// <param name="unexpectedStr">The unexpected string.</param>
-    /// <returns></returns>
     public static string PickRandomStringExcept(this Faker faker, string unexpectedStr) => faker.PickRandomStringExcept(unexpectedStr, maxLength: 10);
 
     /// <summary>
@@ -131,7 +119,6 @@ public static class CommonGenerator
     /// <param name="faker">The faker.</param>
     /// <param name="unexpectedStr">The unexpected string.</param>
     /// <param name="maxLength">The maximum length.</param>
-    /// <returns></returns>
     public static string PickRandomStringExcept(this Faker faker, string unexpectedStr, int maxLength) => faker.PickRandomStringExcept(unexpectedStr, minLength: 2, maxLength: 10);
 
     /// <summary>
@@ -141,7 +128,6 @@ public static class CommonGenerator
     /// <param name="unexpectedStr">The unexpected string.</param>
     /// <param name="minLength">The minimum length.</param>
     /// <param name="maxLength">The maximum length.</param>
-    /// <returns></returns>
     public static string PickRandomStringExcept(this Faker faker, string unexpectedStr, int minLength, int maxLength)
     {
         string newStr;
@@ -157,7 +143,6 @@ public static class CommonGenerator
     /// Generates the decimal with two places.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithTwoPlaces(this Faker faker) => faker.Random.GenerateDecimalWithTwoPlaces();
 
     /// <summary>
@@ -166,14 +151,12 @@ public static class CommonGenerator
     /// <param name="faker">The faker.</param>
     /// <param name="min">The minimum value in decimal.</param>
     /// <param name="max">The maximum value in decimal.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithTwoPlaces(this Faker faker, decimal min, decimal max) => faker.Random.GenerateDecimalWithPlaces(2, min, max);
 
     /// <summary>
     /// Generates the decimal with two places.
     /// </summary>
     /// <param name="randomizer">The randomizer.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithTwoPlaces(this Randomizer randomizer) => randomizer.GenerateDecimalWithPlaces(2);
 
     /// <summary>
@@ -181,7 +164,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker">The faker.</param>
     /// <param name="places">The places.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithPlaces(this Faker faker, int places) => faker.Random.GenerateDecimalWithPlaces(places);
 
     /// <summary>
@@ -189,7 +171,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="randomizer">The randomizer.</param>
     /// <param name="places">The places.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithPlaces(this Randomizer randomizer, int places) => randomizer.GenerateDecimalWithPlaces(places, min: .01M, max: 25000);
 
     /// <summary>
@@ -199,7 +180,6 @@ public static class CommonGenerator
     /// <param name="places">The places.</param>
     /// <param name="min">The minimum.</param>
     /// <param name="max">The maximum.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithPlaces(this Randomizer randomizer, int places, int min, int max) => Math.Round(randomizer.Decimal(min, max), places);
 
     /// <summary>
@@ -209,21 +189,18 @@ public static class CommonGenerator
     /// <param name="places">The places.</param>
     /// <param name="min">The minimum value in decimal.</param>
     /// <param name="max">The maximum value in decimal.</param>
-    /// <returns></returns>
     public static decimal GenerateDecimalWithPlaces(this Randomizer randomizer, int places, decimal min, decimal max) => Math.Round(randomizer.Decimal(min, max), places);
 
     /// <summary>
     /// Generates the identifier.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static long GenerateLongId(this Faker faker) => faker.Random.Long(min: 1);
 
     /// <summary>
     /// Generates the identifier.
     /// </summary>
     /// <param name="faker">The faker.</param>
-    /// <returns></returns>
     public static int GenerateIntId(this Faker faker) => faker.Random.Int(min: 1);
 
     /// <summary>
@@ -231,7 +208,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker">The faker.</param>
     /// <param name="min">The minimum.</param>
-    /// <returns></returns>
     public static int GenerateIntId(this Faker faker, int min) => faker.Random.Int(min: min);
 
     /// <summary>
@@ -240,21 +216,18 @@ public static class CommonGenerator
     /// <param name="faker">The faker.</param>
     /// <param name="list">The list.</param>
     /// <param name="without">The without.</param>
-    /// <returns></returns>
     public static string PickRandomWithout(this Faker faker, IEnumerable<string> list, IEnumerable<string> without) => faker.PickRandom<string>(list.Except(without));
 
     /// <summary>
     /// Gets the <see cref="DateTime.Ticks"/> from <see cref="DateTime.UtcNow"/>.
     /// </summary>
     /// <param name="faker"></param>
-    /// <returns></returns>
     public static string GetTicks(this Faker faker) => DateTime.UtcNow.Ticks.ToString();
 
     /// <summary>
     /// Converts a <see cref="DateTime"/> from <see cref="DateTime.UtcNow"/> into a random hour, minute and second of the same day.
     /// </summary>
     /// <param name="faker"></param>
-    /// <returns></returns>
     public static DateTime ToRandomTimeInSameDay(this Faker faker) => faker.ToRandomTimeInSameDay(DateTime.UtcNow);
 
     /// <summary>
@@ -262,7 +235,6 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker"></param>
     /// <param name="dateTime"></param>
-    /// <returns></returns>
     public static DateTime ToRandomTimeInSameDay(this Faker faker, DateTime dateTime) => new(dateTime.Year, dateTime.Month, dateTime.Day, faker.Random.Int(0, 23), faker.Random.Int(0, 59), faker.Random.Int(0, 59), DateTimeKind.Utc);
 
     /// <summary>
@@ -270,6 +242,5 @@ public static class CommonGenerator
     /// </summary>
     /// <param name="faker"></param>
     /// <param name="dateTime"></param>
-    /// <returns></returns>
     public static DateTime ToRandomTimeInSameDay(this Bogus.DataSets.Date faker, DateTime dateTime) => new(dateTime.Year, dateTime.Month, dateTime.Day, faker.Random.Int(0, 23), faker.Random.Int(0, 59), faker.Random.Int(0, 59), DateTimeKind.Utc);
 }

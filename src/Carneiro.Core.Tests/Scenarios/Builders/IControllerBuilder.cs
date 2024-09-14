@@ -10,7 +10,6 @@ public interface IControllerBuilder
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
-    /// <returns></returns>
     IControllerBuilder WithCookie(string key, string value);
 
     /// <summary>
@@ -18,12 +17,10 @@ public interface IControllerBuilder
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
-    /// <returns></returns>
     public IControllerBuilder WithForm(string key, string value);
 
     /// <summary>
     /// Builds this instance.
     /// </summary>
-    /// <returns></returns>
     IControllerBuilderOptions Build();
 }

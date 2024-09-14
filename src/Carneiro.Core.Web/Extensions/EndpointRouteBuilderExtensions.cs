@@ -9,7 +9,6 @@ public static class EndpointRouteBuilderExtensions
     /// Maps the ping request as <c>GET</c> using <see cref="PingOptions"/>.
     /// </summary>
     /// <param name="endpoints"></param>
-    /// <returns></returns>
     public static IEndpointRouteBuilder MapPing(this IEndpointRouteBuilder endpoints)
     {
         PingOptions pingOptions = endpoints.ServiceProvider.GetRequiredService<IOptions<PingOptions>>().Value 

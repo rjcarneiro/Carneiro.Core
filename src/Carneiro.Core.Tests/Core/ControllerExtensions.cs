@@ -6,7 +6,6 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -22,7 +21,6 @@ public static class ControllerExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="controller">The controller.</param>
-    /// <returns></returns>
     public static void WithAnonymousAuthentication<T>(this T controller) where T : ControllerBase
     {
         controller.EnsureHttpContext();
@@ -47,7 +45,6 @@ public static class ControllerExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="controller">The controller.</param>
-    /// <returns></returns>
     public static void EnsureHttpContext<T>(this T controller) where T : ControllerBase
     {
         var defaultHttpContext = new DefaultHttpContext();

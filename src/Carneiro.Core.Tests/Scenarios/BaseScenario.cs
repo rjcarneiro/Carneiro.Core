@@ -1,8 +1,4 @@
-﻿using Carneiro.Core.Tests.Builders.EntityBuilders;
-using Carneiro.Core.Tests.Core;
-using Carneiro.Core.Utils.Abstractions;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.TestHost;
+﻿using Carneiro.Core.Utils;
 
 namespace Carneiro.Core.Tests.Scenarios;
 
@@ -76,21 +72,18 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// Gets the required service.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
     public virtual T GetRequiredService<T>() => ServiceProvider.GetRequiredService<T>();
 
     /// <summary>
     /// Gets the service.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
     public virtual T GetService<T>() => ServiceProvider.GetService<T>();
 
     /// <summary>
     /// Gets the options.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
     public virtual T GetOptions<T>() where T : class, new() => ServiceProvider.GetService<IOptions<T>>()?.Value;
 
     /// <summary>
@@ -130,7 +123,6 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// </summary>
     /// <typeparam name="TReturn">The type of the return.</typeparam>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     public virtual Task<TReturn> ExecuteScopedAsync<TReturn>(Func<IServiceProvider, Task<TReturn>> action)
     {
         using IServiceScope scope = ServiceProvider.CreateScope();
@@ -140,20 +132,17 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// <summary>
     /// Gets the service provider.
     /// </summary>
-    /// <returns></returns>
     public virtual IServiceProvider GetServiceProvider() => ServiceProvider;
 
     /// <summary>
     /// Gets the scenario options.
     /// </summary>
-    /// <returns></returns>
     public virtual IBaseScenarioOptions GetScenarioOptions() => ScenarioOptions;
 
     /// <summary>
     /// Gets the 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <returns></returns>
     public virtual Mock<T> GetMock<T>() where T : class
     {
         if (Mocks.Count == 0)
@@ -173,7 +162,6 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     public virtual void SetupMock<T>(Action<Mock<T>> action) where T : class
     {
         Mock<T> mock = GetMock<T>();
@@ -186,7 +174,6 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="I"></typeparam>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     public virtual void SetupMock<T, I>(Action<Mock<T>, I> action)
         where T : class
         where I : class, T
@@ -296,14 +283,12 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// <summary>
     /// Gets the entity builder.
     /// </summary>
-    /// <returns></returns>
     public virtual BaseScenarioEntityBuilder GetEntityBuilder() => throw new NotImplementedException();
 
     /// <summary>
     /// Adds the entities asynchronously.
     /// </summary>
     /// <param name="scenarioEntityBuilder">The scenario entity builder.</param>
-    /// <returns></returns>
     public abstract Task AddEntitiesAsync(BaseScenarioEntityBuilder scenarioEntityBuilder);
 
     /// <summary>
@@ -344,25 +329,21 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// <summary>
     /// Gets a list of <see cref="IBeforeBuilderAsyncTask"/>.
     /// </summary>
-    /// <returns></returns>
     protected virtual ICollection<IBeforeBuilderAsyncTask> GetBeforeBuilderAsyncTasks() => ScenarioOptions.TaskBuilderOptions.BeforeBuilderAsyncTasks;
 
     /// <summary>
     /// Gets a list of <see cref="IBeforeBuilderTask"/>.
     /// </summary>
-    /// <returns></returns>
     protected virtual ICollection<IBeforeBuilderTask> GetBeforeBuilderTasks() => ScenarioOptions.TaskBuilderOptions.BeforeBuilderTasks;
 
     /// <summary>
     /// Gets a list of <see cref="IAfterBuilderAsyncTask"/>.
     /// </summary>
-    /// <returns></returns>
     protected virtual ICollection<IAfterBuilderAsyncTask> GetAfterBuilderAsyncTasks() => ScenarioOptions.TaskBuilderOptions.AfterBuilderAsyncTasks;
 
     /// <summary>
     /// Gets a list of <see cref="IAfterBuilderTask"/>.
     /// </summary>
-    /// <returns></returns>
     protected virtual ICollection<IAfterBuilderTask> GetAfterBuilderTasks() => ScenarioOptions.TaskBuilderOptions.AfterBuilderTasks;
 
     /// <summary>
@@ -490,7 +471,6 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
     /// <summary>
     /// Releases unmanaged and - optionally - managed resources.
     /// </summary>
-    /// <returns></returns>
     protected virtual async ValueTask DisposeAsyncCore()
     {
         TestServer?.Dispose();

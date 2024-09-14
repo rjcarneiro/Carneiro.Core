@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Tests.Core;
-
-namespace Carneiro.Core.Tests.Options;
+﻿namespace Carneiro.Core.Tests.Options;
 
 /// <summary>
 /// Options for sending an <see cref="HttpMethod.Post"/> from <see cref="AjaxRequestHandler.PostAsync"/> methods.

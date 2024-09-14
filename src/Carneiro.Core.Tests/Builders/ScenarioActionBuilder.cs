@@ -12,7 +12,6 @@ public static class ScenarioActionBuilder
     /// <param name="numberOfItems">The number of items.</param>
     /// <param name="defaultAction">The default action.</param>
     /// <param name="actions">The actions.</param>
-    /// <returns></returns>
     public static ICollection<Action<T>> BuildActions<T>(int numberOfItems, Action<T> defaultAction, ICollection<Action<T>> actions)
     {
         if (defaultAction is null)

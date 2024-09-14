@@ -42,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Carneiro.Core.Entities.Abstractions\Carneiro.Core.Entities.Abstractions.csproj"/>
     <ProjectReference Include="..\Carneiro.Core.Health\Carneiro.Core.Health.csproj"/>
     <ProjectReference Include="..\Carneiro.Core.Logging\Carneiro.Core.Logging.csproj"/>
   </ItemGroup>

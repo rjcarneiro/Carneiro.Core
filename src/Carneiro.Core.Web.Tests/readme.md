@@ -1,1 +1,0 @@
-# Carneiro.Core.Web.Tests

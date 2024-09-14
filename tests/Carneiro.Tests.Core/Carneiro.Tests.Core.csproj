@@ -24,7 +24,6 @@
     <ProjectReference Include="..\..\src\Carneiro.Core.Extensions\Carneiro.Core.Extensions.csproj" />
     <ProjectReference Include="..\..\src\Carneiro.Core.Host\Carneiro.Core.Host.csproj" />
     <ProjectReference Include="..\..\src\Carneiro.Core.Repository\Carneiro.Core.Repository.csproj" />
-    <ProjectReference Include="..\..\src\Carneiro.Core.Utils.Abstractions\Carneiro.Core.Utils.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\Carneiro.Core.Utils\Carneiro.Core.Utils.csproj" />
     <ProjectReference Include="..\..\src\Carneiro.Core.Web\Carneiro.Core.Web.csproj" />
   </ItemGroup>

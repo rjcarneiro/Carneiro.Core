@@ -9,14 +9,12 @@ public static class StringExtensions
     /// Removes the duplicated white spaces.
     /// </summary>
     /// <param name="str">The string.</param>
-    /// <returns></returns>
     public static string RemoveDuplicatedWhiteSpaces(this string str) => Regex.Replace(str, @"\s+", " ");
 
     /// <summary>
     /// Generates the slug.
     /// </summary>
     /// <param name="phrase">The phrase.</param>
-    /// <returns></returns>
     public static string GenerateSlug(this string phrase)
     {
         var str = RemoveAccent(phrase).ToLower(culture: CultureInfo.DefaultThreadCurrentUICulture);

@@ -51,7 +51,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Carneiro.Core.Repository.Abstractions\Carneiro.Core.Repository.Abstractions.csproj"/>
+    <ProjectReference Include="..\Carneiro.Core.Entities\Carneiro.Core.Entities.csproj" />
   </ItemGroup>
 
 </Project>

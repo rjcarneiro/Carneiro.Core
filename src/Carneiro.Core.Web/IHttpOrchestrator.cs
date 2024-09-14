@@ -1,4 +1,4 @@
-﻿namespace Carneiro.Core.Web.Abstractions;
+﻿namespace Carneiro.Core.Web;
 
 /// <summary>
 /// Interface that abstracts the complexity of using default <see cref="HttpClient"/>.
@@ -46,7 +46,6 @@ public interface IHttpOrchestrator
     /// </summary>
     /// <param name="uri">The URI.</param>
     /// <param name="errorAction">The action.</param>
-    /// <returns></returns>
     Task GetAsync(string uri, Action<Exception> errorAction);
 
     /// <summary>
@@ -82,7 +81,6 @@ public interface IHttpOrchestrator
     /// <param name="uri"></param>
     /// <param name="cancellationToken"></param>
     /// <typeparam name="TOutput"></typeparam>
-    /// <returns></returns>
     Task<TOutput> PostAsync<TOutput>(string uri, CancellationToken cancellationToken) where TOutput : class;
 
     /// <summary>
@@ -156,7 +154,6 @@ public interface IHttpOrchestrator
     /// <typeparam name="TInput">The type of the input.</typeparam>
     /// <param name="uri">The URI.</param>
     /// <param name="model">The model.</param>
-    /// <returns></returns>
     Task PutAsync<TInput>(string uri, TInput model) where TInput : class;
 
     /// <summary>
@@ -166,7 +163,6 @@ public interface IHttpOrchestrator
     /// <param name="uri">The URI.</param>
     /// <param name="model">The model.</param>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     Task PutAsync<TInput>(string uri, TInput model, Action<Exception> action) where TInput : class;
 
     /// <summary>
@@ -176,7 +172,6 @@ public interface IHttpOrchestrator
     /// <typeparam name="TOutput">The output class object.</typeparam>
     /// <param name="uri">The URI.</param>
     /// <param name="model">The model.</param>
-    /// <returns></returns>
     Task<TOutput> PutAsync<TInput, TOutput>(string uri, TInput model) where TInput : class where TOutput : class;
 
     /// <summary>
@@ -187,14 +182,12 @@ public interface IHttpOrchestrator
     /// <param name="uri">The URI.</param>
     /// <param name="model">The model.</param>
     /// <param name="action">The specific error handling action case something goes wrong.</param>
-    /// <returns></returns>
     Task<TOutput> PutAsync<TInput, TOutput>(string uri, TInput model, Action<Exception> action) where TInput : class where TOutput : class;
 
     /// <summary>
     /// Performs a request using the DELETE verb asynchronously
     /// </summary>
     /// <param name="uri">The URI.</param>
-    /// <returns></returns>
     Task DeleteAsync(string uri);
 
     /// <summary>
@@ -202,6 +195,5 @@ public interface IHttpOrchestrator
     /// </summary>
     /// <param name="uri">The URI.</param>
     /// <param name="action">The specific error handling action case something goes wrong.</param>
-    /// <returns></returns>
     Task DeleteAsync(string uri, Action<Exception> action);
 }

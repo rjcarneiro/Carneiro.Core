@@ -47,7 +47,6 @@ public static class JsonHelper
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
-    /// <returns></returns>
     public static string Serialize<T>(T input) => JsonConvert.SerializeObject(input, JsonSettings);
 
     /// <summary>
@@ -56,7 +55,6 @@ public static class JsonHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     /// <exception cref="System.ArgumentNullException">action</exception>
     public static string Serialize<T>(T input, Action<JsonSerializerSettings> action)
     {
@@ -73,7 +71,6 @@ public static class JsonHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
     /// <param name="settings">The settings.</param>
-    /// <returns></returns>
     public static string Serialize<T>(T input, JsonSerializerSettings settings) => JsonConvert.SerializeObject(input, settings);
 
     /// <summary>
@@ -81,7 +78,6 @@ public static class JsonHelper
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
-    /// <returns></returns>
     public static T Deserialize<T>(string input) => JsonConvert.DeserializeObject<T>(input, JsonSettings);
 
     /// <summary>
@@ -89,7 +85,6 @@ public static class JsonHelper
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
-    /// <returns></returns>
     public static Task<T> DeserializeAsync<T>(string input) => Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(input, JsonSettings));
 
     /// <summary>
@@ -98,7 +93,6 @@ public static class JsonHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
     /// <param name="settings">The settings.</param>
-    /// <returns></returns>
     public static T Deserialize<T>(string input, JsonSerializerSettings settings) => JsonConvert.DeserializeObject<T>(input, settings);
 
     /// <summary>
@@ -107,7 +101,6 @@ public static class JsonHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="input">The input.</param>
     /// <param name="action">The action.</param>
-    /// <returns></returns>
     /// <exception cref="System.ArgumentNullException">action</exception>
     public static T Deserialize<T>(string input, Action<JsonSerializerSettings> action)
     {
@@ -123,7 +116,6 @@ public static class JsonHelper
     /// </summary>
     /// <param name="input">The input.</param>
     /// <param name="type">The type.</param>
-    /// <returns></returns>
     public static object Deserialize(string input, Type type) => Deserialize(input, type, JsonSettings);
 
     /// <summary>
@@ -132,6 +124,5 @@ public static class JsonHelper
     /// <param name="input">The input.</param>
     /// <param name="type">The type.</param>
     /// <param name="settings">The settings.</param>
-    /// <returns></returns>
     public static object Deserialize(string input, Type type, JsonSerializerSettings settings) => JsonConvert.DeserializeObject(input, type, settings);
 }

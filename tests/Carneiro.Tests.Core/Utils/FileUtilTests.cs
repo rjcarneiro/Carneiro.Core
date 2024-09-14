@@ -1,8 +1,4 @@
-﻿using Carneiro.Core.Utils;
-using Carneiro.Core.Utils.Abstractions;
-using Moq;
-
-namespace Carneiro.Tests.Core.Utils;
+﻿namespace Carneiro.Tests.Core.Utils;
 
 [TestFixture]
 [Parallelizable(ParallelScope.Fixtures)]

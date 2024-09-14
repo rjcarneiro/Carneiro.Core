@@ -5,3 +5,5 @@ global using System.IO;
 global using Microsoft.Extensions.Logging;
 global using Carneiro.Core.Extensions;
 global using NUnit.Framework;
+global using Carneiro.Core.Utils;
+global using Moq;

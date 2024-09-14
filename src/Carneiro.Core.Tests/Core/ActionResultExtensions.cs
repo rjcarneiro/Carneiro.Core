@@ -9,7 +9,6 @@ public static class ActionResultExtensions
     /// Gets the view model as <typeparam name="T"></typeparam> based in a <paramref name="actionResult"/> as <see cref="ViewResult"/>.
     /// </summary>
     /// <param name="actionResult">The action result.</param>
-    /// <returns></returns>
     public static T GetViewModel<T>(this IActionResult actionResult) where T : class => ((ViewResult)actionResult).Model as T;
 
     /// <summary>
@@ -17,14 +16,12 @@ public static class ActionResultExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="actionResult">The action result.</param>
-    /// <returns></returns>
     public static T GetViewModel<T>(this ObjectResult actionResult) where T : class => actionResult.Value as T;
 
     /// <summary>
     /// Gets the view model as <typeparam name="T"></typeparam> based in a <paramref name="actionResult"/> as <see cref="JsonResult"/>.
     /// </summary>
     /// <param name="actionResult">The action result.</param>
-    /// <returns></returns>
     public static T GetJsonModel<T>(this IActionResult actionResult) where T : class => ((JsonResult)actionResult).Value as T;
 
     /// <summary>
@@ -33,6 +30,5 @@ public static class ActionResultExtensions
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="R"></typeparam>
     /// <param name="actionResult">The action result.</param>
-    /// <returns></returns>
     public static T GetObjectResult<T, R>(this IActionResult actionResult) where T : class where R : ObjectResult => ((R)actionResult).Value as T;
 }
