@@ -18,16 +18,14 @@ public static class PingExtensions
     /// </summary>
     /// <param name="services">The services.</param>
     /// <param name="configuration"></param>
-    public static IServiceCollection AddPing(this IServiceCollection services, IConfiguration configuration)
-        => services.AddPing(configuration.GetSection("PingOptions"));
+    public static IServiceCollection AddPing(this IServiceCollection services, IConfiguration configuration) => services.AddPing(configuration.GetSection("PingOptions"));
 
     /// <summary>
     /// Adds the <see cref="VersionModel"/> using <paramref name="configurationSection"/> section as options.
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configurationSection"></param>
-    public static IServiceCollection AddPing(this IServiceCollection services, IConfigurationSection configurationSection)
-        => services.AddPing(configurationSection.Get<PingOptions>() ?? new PingOptions());
+    public static IServiceCollection AddPing(this IServiceCollection services, IConfigurationSection configurationSection) => services.AddPing(configurationSection.Get<PingOptions>() ?? new PingOptions());
 
     /// <summary>
     /// Adds the <see cref="VersionModel"/> using <paramref name="action"/> as options.
@@ -37,7 +35,6 @@ public static class PingExtensions
     public static IServiceCollection AddPing(this IServiceCollection services, Action<PingOptions> action)
     {
         var pingOptions = new PingOptions();
-
         action?.Invoke(pingOptions);
 
         return services.AddPing(pingOptions);
