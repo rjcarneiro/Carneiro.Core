@@ -16,6 +16,7 @@ if (Test-Path $Path)
 
 dotnet restore ./src/Carneiro.Core.sln --nologo 3>&1 2>&1 $null
 dotnet build ./src/Carneiro.Core.sln -c $Configuration -p:Version=$Version --nologo 3>&1 2>&1 $null
+
 # entities
 dotnet pack ./src/Carneiro.Core.Entities/Carneiro.Core.Entities.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
 
@@ -23,8 +24,10 @@ dotnet pack ./src/Carneiro.Core.Entities/Carneiro.Core.Entities.csproj -c $Confi
 dotnet pack ./src/Carneiro.Core.Exceptions/Carneiro.Core.Exceptions.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
 dotnet pack ./src/Carneiro.Core.Extensions/Carneiro.Core.Extensions.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
 
-# more generic
+# health checks
 dotnet pack ./src/Carneiro.Core.Health/Carneiro.Core.Health.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
+
+# hosts
 dotnet pack ./src/Carneiro.Core.Host/Carneiro.Core.Host.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
 
 # json
@@ -44,4 +47,3 @@ dotnet pack ./src/Carneiro.Core.Utils/Carneiro.Core.Utils.csproj -c $Configurati
 
 # web
 dotnet pack ./src/Carneiro.Core.Web/Carneiro.Core.Web.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
-dotnet pack ./src/Carneiro.Core.Web.Tests/Carneiro.Core.Web.Tests.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
