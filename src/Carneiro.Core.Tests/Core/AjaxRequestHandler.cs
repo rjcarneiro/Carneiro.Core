@@ -1,4 +1,6 @@
-﻿namespace Carneiro.Core.Tests.Core;
+﻿using Binder = System.Reflection.Binder;
+
+namespace Carneiro.Core.Tests.Core;
 
 /// <summary>
 /// Class that sends ajax requests.
@@ -50,10 +52,7 @@ public class AjaxRequestHandler
     /// </summary>
     /// <param name="uri">The URI.</param>
     /// <param name="model">The model.</param>
-    public virtual Task<HttpResponseMessage> PostAsync<T>(string uri, T model) where T : class => MakePostWithAntiForgeryTokenAsync<T>(uri, model, new HttpPostOptions
-    {
-        SendAsForm = true
-    });
+    public virtual Task<HttpResponseMessage> PostAsync<T>(string uri, T model) where T : class => MakePostWithAntiForgeryTokenAsync<T>(uri, model, new HttpPostOptions { SendAsForm = true });
 
     /// <summary>
     /// Sends an <see cref="HttpMethod.Post"/> request with certain <paramref name="options"/> asynchronously.
@@ -143,7 +142,6 @@ public class AjaxRequestHandler
     /// Sets the authentication.
     /// </summary>
     /// <param name="cookie">The cookie.</param>
-
     public virtual void SetAuthentication(string cookie) => _httpClient.DefaultRequestHeaders.Add(HeaderNames.Cookie, cookie);
 
     /// <summary>
@@ -152,7 +150,20 @@ public class AjaxRequestHandler
     /// <param name="antiForgeryTokenOptions">The anti forgery token set.</param>
     /// <exception cref="ArgumentNullException"></exception>
     public virtual void SetAntiForgeryToken(AntiForgeryTokenOptions antiForgeryTokenOptions) => _antiForgeryTokenOptions = antiForgeryTokenOptions
-        ?? throw new ArgumentNullException(nameof(antiForgeryTokenOptions));
+                                                                                                                           ?? throw new ArgumentNullException(nameof(antiForgeryTokenOptions));
+
+    /// <summary>
+    /// Adds a http header <paramref name="name"/> with <paramref name="value"/>.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="value"></param>
+    public virtual void AddHeader(string name, string value) => _httpClient.DefaultRequestHeaders.Add(name, value);
+
+    /// <summary>
+    /// Removes a http header <paramref name="name"/> from the <see cref="HttpClient"/>.
+    /// </summary>
+    /// <param name="name"></param>
+    public virtual bool RemoveHeader(string name) => _httpClient.DefaultRequestHeaders.Remove(name);
 
     /// <summary>
     /// Before it sends any scenario http request, this method is called asynchronously.
@@ -197,10 +208,7 @@ public class AjaxRequestHandler
         _httpClient.DefaultRequestHeaders.Add(_antiForgeryTokenOptions.HeaderName!, _antiForgeryTokenOptions.RequestToken);
         _httpClient.DefaultRequestHeaders.Add(HeaderNames.Cookie, new CookieHeaderValue(_antiForgeryTokenOptions.CookieName, _antiForgeryTokenOptions.CookieToken).ToString());
 
-        return new Dictionary<string, string>
-        {
-            { _antiForgeryTokenOptions.FormFieldName, _antiForgeryTokenOptions.RequestToken }
-        };
+        return new Dictionary<string, string> { { _antiForgeryTokenOptions.FormFieldName, _antiForgeryTokenOptions.RequestToken } };
     }
 
     private void ClearSetAntiForgeryToken()
