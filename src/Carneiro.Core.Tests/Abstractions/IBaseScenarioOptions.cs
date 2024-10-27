@@ -10,27 +10,18 @@ public interface IBaseScenarioOptions
     /// <summary>
     /// Gets or sets the startup.
     /// </summary>
-    /// <value>
-    /// The startup.
-    /// </value>
     Type Startup { get; set; }
 
     /// <summary>
     /// Gets the environment. Default is <c>Testing</c>.
     /// </summary>
-    /// <value>
-    /// The environment.
-    /// </value>
     string Environment { get; set; }
 
     /// <summary>
     /// Gets the json settings.
     /// </summary>
-    /// <value>
-    /// The json settings.
-    /// </value>
     /// <remarks>The key is the json file name and the value is either optional or not.</remarks>
-    Dictionary<string, bool> JsonSettings { get; }
+    List<JsonSettingsItem> JsonSettings { get; }
 
     /// <summary>
     /// Gets the services.
@@ -59,17 +50,11 @@ public interface IBaseScenarioOptions
     /// <summary>
     /// Gets or sets the type.
     /// </summary>
-    /// <value>
-    /// The type.
-    /// </value>
     ScenarioType ScenarioType { get; set; }
 
     /// <summary>
     /// Gets the list of actions to perform when dispose.
     /// </summary>
-    /// <value>
-    /// The when dispose.
-    /// </value>
     ICollection<Action> WhenDispose { get; }
 
     /// <summary>

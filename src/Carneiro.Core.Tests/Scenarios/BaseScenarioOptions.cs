@@ -17,7 +17,11 @@ public class BaseScenarioOptions : IBaseScenarioOptions
     public virtual Type Startup { get; set; } = typeof(TestStartup);
 
     /// <inheritdoc />
-    public virtual Dictionary<string, bool> JsonSettings { get; } = new();
+    public virtual List<JsonSettingsItem> JsonSettings { get; } =
+    [
+        new("appsettings.json", true),
+        new("appsettings.LocalTests.json", true)
+    ];
 
     /// <inheritdoc />
     public virtual string Environment { get; set; } = WebHostEnvironmentConstants.Testing;
