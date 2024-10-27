@@ -50,7 +50,7 @@ public class BaseScenarioOptions : IBaseScenarioOptions
     public virtual IDictionary<string, string> Settings { get; } = new Dictionary<string, string>();
 
     /// <inheritdoc />
-    public virtual ITaskBuilderOptions TaskBuilderOptions { get; set; }
+    public virtual ITaskBuilderOptions TaskBuilderOptions { get; set; } = new TaskBuilderOptions();
 
     /// <inheritdoc />
     public virtual IDictionary<Type, Mock> Mocks { get; } = new Dictionary<Type, Mock>();
