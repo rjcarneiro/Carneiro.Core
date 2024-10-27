@@ -235,15 +235,17 @@ public abstract class BaseScenario : BaseTest, IBaseScenario
             {
                 configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
 
-                foreach (KeyValuePair<string, bool> scenarioOptionsSetting in ScenarioOptions.JsonSettings)
-                    configurationBuilder.AddJsonFile(scenarioOptionsSetting.Key, optional: scenarioOptionsSetting.Value, reloadOnChange: false);
+                foreach (JsonSettingsItem scenarioOptionsSetting in ScenarioOptions.JsonSettings)
+                {
+                    configurationBuilder.AddJsonFile(scenarioOptionsSetting.File, optional: scenarioOptionsSetting.Optional, reloadOnChange: false);
+                }
 
-                configurationBuilder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
                 configurationBuilder.AddJsonFile($"appsettings.{ScenarioOptions.Environment}.json", optional: true, reloadOnChange: false);
-                configurationBuilder.AddJsonFile("appsettings.LocalTests.json", optional: true, reloadOnChange: false);
 
                 if (ScenarioOptions.Settings.Count > 0)
+                {
                     configurationBuilder.AddInMemoryCollection(ScenarioOptions.Settings);
+                }
             })
             .ConfigureWebHost(webHost =>
             {
