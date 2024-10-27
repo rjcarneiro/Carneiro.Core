@@ -43,7 +43,7 @@ public class TrimmingConverter : JsonConverter
     /// <returns>
     /// The object value.
     /// </returns>
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => ((string)reader.Value)?.Trim();
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => (reader.Value?.ToString() ?? string.Empty)?.Trim();
 
     /// <summary>
     /// Writes the JSON representation of the object.
