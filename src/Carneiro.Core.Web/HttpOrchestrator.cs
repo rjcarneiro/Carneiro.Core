@@ -27,23 +27,22 @@ public class HttpOrchestrator : IHttpOrchestrator
     }
 
     /// <inheritdoc />
-    public virtual Task GetAsync(string uri) => SendHttpRequestAsync(HttpMethod.Get, uri, errorAction: null);
+    public virtual Task<HttpResponseMessage> GetAsync(string uri) => SendHttpRequestAsync(HttpMethod.Get, uri, errorAction: null);
 
     /// <inheritdoc />
-    public virtual Task GetAsync(string uri, CancellationToken cancellationToken) => SendHttpRequestAsync(HttpMethod.Get, uri, cancellationToken);
+    public virtual Task<HttpResponseMessage> GetAsync(string uri, CancellationToken cancellationToken) => SendHttpRequestAsync(HttpMethod.Get, uri, cancellationToken);
 
     /// <inheritdoc />
     public virtual Task<TOutput> GetAsync<TOutput>(string uri) where TOutput : class => SendHttpRequestWithContentAsync<TOutput>(HttpMethod.Get, uri);
 
     /// <inheritdoc />
-    public virtual Task<TOutput> GetAsync<TOutput>(string uri, CancellationToken cancellationToken) where TOutput : class
-        => SendHttpRequestWithContentAsync<TOutput>(HttpMethod.Get, uri, cancellationToken);
+    public virtual Task<TOutput> GetAsync<TOutput>(string uri, CancellationToken cancellationToken) where TOutput : class => SendHttpRequestWithContentAsync<TOutput>(HttpMethod.Get, uri, cancellationToken);
 
     /// <inheritdoc />
-    public virtual Task GetAsync(string uri, Action<Exception> action) => SendHttpRequestAsync(HttpMethod.Get, uri, action);
+    public virtual Task<HttpResponseMessage> GetAsync(string uri, Action<Exception> action) => SendHttpRequestAsync(HttpMethod.Get, uri, action);
 
     /// <inheritdoc />
-    public virtual Task GetAsync(string uri, Action<Exception> action, CancellationToken cancellationToken) => SendHttpRequestAsync(HttpMethod.Get, uri, action, cancellationToken);
+    public virtual Task<HttpResponseMessage> GetAsync(string uri, Action<Exception> action, CancellationToken cancellationToken) => SendHttpRequestAsync(HttpMethod.Get, uri, action, cancellationToken);
 
     /// <inheritdoc />
     public virtual Task<TOutput> GetAsync<TOutput>(string uri, Action<Exception> action) where TOutput : class => SendHttpRequestWithContentAsync<TOutput>(HttpMethod.Get, uri, action);
@@ -178,7 +177,7 @@ public class HttpOrchestrator : IHttpOrchestrator
 
         if (httpMethod.AllowsBody(input))
         {
-            request.Content = GetStringContent(input);
+            request.Content = new StringContent(JsonHelper.Serialize(input), Encoding.UTF8, "application/json");
         }
 
         HttpResponseMessage response;
@@ -205,6 +204,4 @@ public class HttpOrchestrator : IHttpOrchestrator
 
         throw new HttpErrorResponseRzException(response.StatusCode, httpContent);
     }
-
-    private static StringContent GetStringContent<TInput>(TInput model) where TInput : class => new(JsonHelper.Serialize(model), Encoding.UTF8, "application/json");
 }

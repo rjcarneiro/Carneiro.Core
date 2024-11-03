@@ -9,14 +9,14 @@ public interface IHttpOrchestrator
     /// Creates a new <see cref="HttpMethod.Get"/> request.
     /// </summary>
     /// <param name="uri">The URI.</param>
-    Task GetAsync(string uri);
+    Task<HttpResponseMessage> GetAsync(string uri);
 
     /// <summary>
     /// Creates a new <see cref="HttpMethod.Get"/> request.
     /// </summary>
     /// <param name="uri"></param>
     /// <param name="cancellationToken"></param>
-    Task GetAsync(string uri, CancellationToken cancellationToken);
+    Task<HttpResponseMessage> GetAsync(string uri, CancellationToken cancellationToken);
 
     /// <summary>
     /// Creates a new <see cref="HttpMethod.Get"/> request.
@@ -46,7 +46,7 @@ public interface IHttpOrchestrator
     /// </summary>
     /// <param name="uri">The URI.</param>
     /// <param name="errorAction">The action.</param>
-    Task GetAsync(string uri, Action<Exception> errorAction);
+    Task<HttpResponseMessage> GetAsync(string uri, Action<Exception> errorAction);
 
     /// <summary>
     /// Creates a new <see cref="HttpMethod.Get"/> request.
@@ -54,7 +54,7 @@ public interface IHttpOrchestrator
     /// <param name="uri"></param>
     /// <param name="action"></param>
     /// <param name="cancellationToken"></param>
-    Task GetAsync(string uri, Action<Exception> action, CancellationToken cancellationToken);
+    Task<HttpResponseMessage> GetAsync(string uri, Action<Exception> action, CancellationToken cancellationToken);
 
     /// <summary>
     /// Creates a new <see cref="HttpMethod.Post"/> request.
