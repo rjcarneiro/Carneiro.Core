@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Authors>Ricardo Carneiro</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -30,12 +30,10 @@
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <Visible>false</Visible>
-      <PackagePath></PackagePath>
     </None>
     <None Include="..\..\images\icon.png">
       <Pack>True</Pack>
       <Visible>false</Visible>
-      <PackagePath></PackagePath>
     </None>
     <None Include="readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
