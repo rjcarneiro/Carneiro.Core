@@ -30,10 +30,12 @@
     <None Include="..\..\LICENSE">
       <Pack>True</Pack>
       <Visible>false</Visible>
+      <PackagePath></PackagePath>
     </None>
     <None Include="..\..\images\icon.png">
       <Pack>True</Pack>
       <Visible>false</Visible>
+      <PackagePath></PackagePath>
     </None>
     <None Include="readme.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
