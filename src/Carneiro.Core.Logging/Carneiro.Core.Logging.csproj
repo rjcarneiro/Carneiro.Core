@@ -5,7 +5,7 @@
     <LangVersion>latest</LangVersion>
     <Authors>Ricardo Carneiro</Authors>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Copyright>Copyright 2024 Ricardo Carneiro</Copyright>
+    <Copyright>Copyright 2025 Ricardo Carneiro</Copyright>
     <PackageIcon>icon.png</PackageIcon>
     <RepositoryUrl>https://github.com/rjcarneiro/Carneiro.Core</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -59,7 +59,7 @@
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.1" />
   </ItemGroup>
 </Project>
