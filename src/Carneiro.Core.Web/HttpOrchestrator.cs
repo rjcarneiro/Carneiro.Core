@@ -1,6 +1,4 @@
-﻿using Carneiro.Core.Web.Extensions;
-
-namespace Carneiro.Core.Web;
+﻿namespace Carneiro.Core.Web;
 
 /// <summary>
 /// Default Http Orchestrator implementation.
@@ -8,7 +6,10 @@ namespace Carneiro.Core.Web;
 /// <seealso cref="IHttpOrchestrator" />
 public class HttpOrchestrator : IHttpOrchestrator
 {
-    private readonly ILogger<HttpOrchestrator> _logger;
+    /// <summary>
+    /// Gets the logger
+    /// </summary>
+    protected ILogger<HttpOrchestrator> Logger { get; }
 
     /// <summary>
     /// The Http Client
@@ -23,7 +24,7 @@ public class HttpOrchestrator : IHttpOrchestrator
     public HttpOrchestrator(HttpClient client, ILogger<HttpOrchestrator> logger)
     {
         HttpClient = client;
-        _logger = logger;
+        Logger = logger;
     }
 
     /// <inheritdoc />
@@ -171,7 +172,7 @@ public class HttpOrchestrator : IHttpOrchestrator
         CancellationToken cancellationToken = default)
         where TInput : class
     {
-        _logger.LogInformation("Creating http request {HttpMethodMethod} {HttpClientBaseAddress} => {Url}", httpMethod.Method, HttpClient.BaseAddress, url);
+        Logger.LogInformation("Creating http request {HttpMethodMethod} {HttpClientBaseAddress} => {Url}", httpMethod.Method, HttpClient.BaseAddress, url);
 
         using var request = new HttpRequestMessage(httpMethod, url);
 
@@ -188,7 +189,7 @@ public class HttpOrchestrator : IHttpOrchestrator
         }
         catch (Exception e)
         {
-            _logger.LogCritical(e, "Unexpected error while making a {HttpMethod} into '{Url}'", httpMethod, url);
+            Logger.LogCritical(e, "Unexpected error while making a {HttpMethod} into '{Url}'", httpMethod, url);
             errorAction?.Invoke(e);
             throw;
         }
@@ -200,7 +201,7 @@ public class HttpOrchestrator : IHttpOrchestrator
 
         // something went wrong
         var httpContent = await response.Content.ReadAsStringAsync(cancellationToken);
-        _logger.LogWarning("Http response with failed status code {StatusCode} and body '{HttpContent}'", response.StatusCode, httpContent);
+        Logger.LogWarning("Http response with failed status code {StatusCode} and body '{HttpContent}'", response.StatusCode, httpContent);
 
         throw new HttpErrorResponseRzException(response.StatusCode, httpContent);
     }

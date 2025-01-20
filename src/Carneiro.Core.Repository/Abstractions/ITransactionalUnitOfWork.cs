@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
-
-namespace Carneiro.Core.Repository.Abstractions;
+﻿namespace Carneiro.Core.Repository.Abstractions;
 
 /// <summary>
 /// The unit of work transactional interface.

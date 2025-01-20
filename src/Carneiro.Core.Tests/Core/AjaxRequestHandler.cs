@@ -1,6 +1,4 @@
-﻿using Binder = System.Reflection.Binder;
-
-namespace Carneiro.Core.Tests.Core;
+﻿namespace Carneiro.Core.Tests.Core;
 
 /// <summary>
 /// Class that sends ajax requests.

@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace Carneiro.Core.Tests.Abstractions;
+﻿namespace Carneiro.Core.Tests.Abstractions;
 
 /// <summary>
 /// Base scenario options interface.
