@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Carneiro.Core.Repository.Abstractions;
 
