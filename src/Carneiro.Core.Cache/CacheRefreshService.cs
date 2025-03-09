@@ -1,7 +1,7 @@
 namespace Carneiro.Core.Cache;
 
 /// <summary>
-/// 
+/// The cache refresh service background service implementation.
 /// </summary>
 /// <param name="cache"></param>
 /// <param name="serviceProvider"></param>

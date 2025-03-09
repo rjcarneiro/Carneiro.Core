@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-using Carneiro.Core.Extensions;
-using Microsoft.AspNetCore.Hosting;
-
-namespace Carneiro.Core.Web;
+﻿namespace Carneiro.Core.Web;
 
 /// <summary>
 /// Extensions for <see cref="IAsyncInitializer"/>.

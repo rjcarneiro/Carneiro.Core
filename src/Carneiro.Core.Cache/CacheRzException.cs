@@ -1,15 +1,12 @@
 namespace Carneiro.Core.Cache;
 
 /// <summary>
-/// 
+/// The base cache exception.
 /// </summary>
-public class CacheRzException : RzException
+public abstract class CacheRzException : RzException
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="message"></param>
-    public CacheRzException(string message)
+    /// <inheritdoc />
+    protected CacheRzException(string message)
         : base(message)
     {
     }

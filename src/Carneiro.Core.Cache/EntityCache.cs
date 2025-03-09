@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using Carneiro.Core.Entities.Abstractions;
-
-namespace Carneiro.Core.Cache;
+﻿namespace Carneiro.Core.Cache;
 
 /// <inheritdoc />
 public abstract class EntityCache<TDbContext, TKey, TEntity>(EntityCacheOptions options) : IEntityCache<TDbContext, TKey, TEntity>
@@ -64,7 +61,7 @@ public abstract class EntityCache<TDbContext, TKey, TEntity>(EntityCacheOptions 
     /// </summary>
     /// <param name="id"></param>
     /// <param name="throwIfNotFound"></param>
-    /// <exception cref="CacheEntityNotFoundPosGatewayException"></exception>
+    /// <exception cref="CacheEntityNotFoundRzException"></exception>
     public virtual TEntity Lookup(TKey id, bool throwIfNotFound)
     {
         Dictionary<TKey, TEntity> cache = CacheOrThrow;
@@ -75,7 +72,7 @@ public abstract class EntityCache<TDbContext, TKey, TEntity>(EntityCacheOptions 
 
         if (throwIfNotFound)
         {
-            throw new CacheEntityNotFoundPosGatewayException(typeof(TEntity).Name, id.ToString());
+            throw new CacheEntityNotFoundRzException(typeof(TEntity).Name, id.ToString());
         }
 
         return null;
