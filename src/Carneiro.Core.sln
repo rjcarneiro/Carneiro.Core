@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Tests.Core", "..\t
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Health", "Carneiro.Core.Health\Carneiro.Core.Health.csproj", "{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Carneiro.Core.Cache", "Carneiro.Core.Cache\Carneiro.Core.Cache.csproj", "{8D6794A8-A20E-4C42-80AE-5FD944C02155}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DD31E0B-0805-49B2-ACB5-7FAE533A4BD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D6794A8-A20E-4C42-80AE-5FD944C02155}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D6794A8-A20E-4C42-80AE-5FD944C02155}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D6794A8-A20E-4C42-80AE-5FD944C02155}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D6794A8-A20E-4C42-80AE-5FD944C02155}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

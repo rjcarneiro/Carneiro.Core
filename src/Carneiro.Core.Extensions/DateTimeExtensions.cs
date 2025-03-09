@@ -6,13 +6,13 @@
 public static class DateTimeExtensions
 {
     /// <summary>
-    /// Gets the human readable date difference.
+    /// Gets the human-readable date difference.
     /// </summary>
     /// <param name="dateTime">The dateTime.</param>
     public static string ToHumanReadableDateDifference(this DateTime dateTime) => dateTime.ToHumanReadableDateDifference(DateTime.UtcNow);
 
     /// <summary>
-    /// Gets the human readable date difference.
+    /// Gets the human-readable date difference.
     /// </summary>
     /// <param name="startDate"></param>
     /// <param name="endDate"></param>

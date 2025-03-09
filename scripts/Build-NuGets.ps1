@@ -47,3 +47,6 @@ dotnet pack ./src/Carneiro.Core.Utils/Carneiro.Core.Utils.csproj -c $Configurati
 
 # web
 dotnet pack ./src/Carneiro.Core.Web/Carneiro.Core.Web.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
+
+# cache
+dotnet pack ./src/Carneiro.Core.Cache/Carneiro.Core.Cache.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
