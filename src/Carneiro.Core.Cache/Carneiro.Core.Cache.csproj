@@ -51,7 +51,6 @@
     <ProjectReference Include="..\Carneiro.Core.Exceptions\Carneiro.Core.Exceptions.csproj" />
     <ProjectReference Include="..\Carneiro.Core.Extensions\Carneiro.Core.Extensions.csproj" />
     <ProjectReference Include="..\Carneiro.Core.Repository\Carneiro.Core.Repository.csproj" />
-    <ProjectReference Include="..\Carneiro.Core.Web\Carneiro.Core.Web.csproj" />
   </ItemGroup>
 
 </Project>
