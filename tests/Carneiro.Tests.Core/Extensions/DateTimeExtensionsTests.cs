@@ -8,7 +8,7 @@ public class DateTimeExtensionsTests
     [TestCaseSource(nameof(s_dateCases))]
     public void When_GetHumanReadableDateDifference_Match(DateTime key, string value) => Assert.That(key.ToHumanReadableDateDifference(), Is.EqualTo(value));
 
-    private static object[] s_dateCases =
+    private static readonly object[] s_dateCases =
     [
         new object[] { DateTime.UtcNow, "just now" },
         new object[] { DateTime.UtcNow.AddMinutes(-1), "1 minute ago" },
@@ -37,7 +37,7 @@ public class DateTimeExtensionsTests
         new object[] { DateTime.UtcNow.AddDays(-22), "4 weeks ago" },
         new object[] { DateTime.UtcNow.AddDays(-30), "5 weeks ago" },
         new object[] { DateTime.UtcNow.AddDays(-31), "1 month ago" },
-        new object[] { DateTime.UtcNow.AddMonths(-2), "2 months ago" },
+        new object[] { DateTime.UtcNow.AddMonths(-2).AddDays(-1), "2 months ago" },
         new object[] { DateTime.UtcNow.AddMonths(-3), "3 months ago" },
         new object[] { DateTime.UtcNow.AddMonths(-4), "4 months ago" },
         new object[] { DateTime.UtcNow.AddMonths(-5), "5 months ago" },
@@ -47,8 +47,8 @@ public class DateTimeExtensionsTests
         new object[] { DateTime.UtcNow.AddMonths(-9), "9 months ago" },
         new object[] { DateTime.UtcNow.AddMonths(-10), "10 months ago" },
         new object[] { DateTime.UtcNow.AddMonths(-11), "11 months ago" },
-        new object[] { DateTime.UtcNow.AddMonths(-12), "one year ago" },
-        new object[] { DateTime.UtcNow.AddYears(-1), "one year ago" },
+        new object[] { DateTime.UtcNow.AddMonths(-12), "1 year ago" },
+        new object[] { DateTime.UtcNow.AddYears(-1), "1 year ago" },
         new object[] { DateTime.UtcNow.AddYears(-2), "2 years ago" },
         new object[] { DateTime.UtcNow.AddYears(-3), "3 years ago" }
     ];

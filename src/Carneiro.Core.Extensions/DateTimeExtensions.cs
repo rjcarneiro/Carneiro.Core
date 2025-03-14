@@ -81,7 +81,7 @@ public static class DateTimeExtensions
             return $"{MonthDifference(endDate, startDate)} months ago";
 
         if (dayDiff < 730)
-            return "one year ago";
+            return "1 year ago";
 
         var zeroTime = new DateTime(1, 1, 1);
 
