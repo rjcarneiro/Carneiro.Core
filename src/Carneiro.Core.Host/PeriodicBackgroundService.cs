@@ -49,12 +49,13 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
                 await Task.Delay(seconds * 1000, cancellationToken);
             }
         }
+        catch (TaskCanceledException)
+        {
+            // do nothing
+        }
         catch (Exception e)
         {
-            if (e is not OperationCanceledException)
-            {
-                Logger.LogCritical(e, "An unknown error happening when running {TaskName}", TaskName);
-            }
+            Logger.LogCritical(e, "An unknown error happening when running {TaskName}", TaskName);
         }
         finally
         {
