@@ -37,12 +37,13 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
                 await RunAsync(cancellationToken);
             }
         }
+        catch (TaskCanceledException)
+        {
+            // do nothing
+        }
         catch (Exception e)
         {
-            if (e is not OperationCanceledException)
-            {
-                Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
-            }
+            Logger.LogError(e, "An unknown error happening when running {TaskName}", TaskName);
         }
         finally
         {
