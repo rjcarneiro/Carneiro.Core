@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Carneiro.Core.Host;
 
 /// <summary>
@@ -10,4 +12,16 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     public static IServiceCollection AddJobService(this IServiceCollection services) => services.AddHostedService<JobOnceOffBackgroundService>();
+
+    /// <summary>
+    /// Adds a new <see cref="IJob"/>.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <typeparam name="TJob"></typeparam>
+    public static IServiceCollection AddJob<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TJob>(this IServiceCollection services)
+        where TJob : class, IJob
+    {
+        services.TryAddEnumerable(ServiceDescriptor.Singleton<IJob, TJob>());
+        return services;
+    }
 }
