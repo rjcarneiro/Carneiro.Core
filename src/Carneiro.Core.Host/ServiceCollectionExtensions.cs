@@ -11,17 +11,34 @@ public static class ServiceCollectionExtensions
     /// Adds <see cref="JobOnceOffBackgroundService"/> as <see cref="IHostedService"/>.
     /// </summary>
     /// <param name="services"></param>
-    public static IServiceCollection AddJobService(this IServiceCollection services) => services.AddHostedService<JobOnceOffBackgroundService>();
+    public static JobServiceBuilder AddJobService(this IServiceCollection services)
+    {
+        services.AddHostedService<JobOnceOffBackgroundService>();
+
+        return new JobServiceBuilder(services);
+    }
+}
+
+/// <summary>
+/// The builder for <see cref="JobOnceOffBackgroundService"/>.
+/// </summary>
+public class JobServiceBuilder
+{
+    private readonly IServiceCollection _services;
+
+    internal JobServiceBuilder(IServiceCollection services)
+    {
+        _services = services;
+    }
 
     /// <summary>
     /// Adds a new <see cref="IJob"/>.
     /// </summary>
-    /// <param name="services"></param>
     /// <typeparam name="TJob"></typeparam>
-    public static IServiceCollection AddJob<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TJob>(this IServiceCollection services)
+    public JobServiceBuilder AddJob<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TJob>()
         where TJob : class, IJob
     {
-        services.TryAddEnumerable(ServiceDescriptor.Scoped<IJob, TJob>());
-        return services;
+        _services.TryAddEnumerable(ServiceDescriptor.Scoped<IJob, TJob>());
+        return this;
     }
 }
