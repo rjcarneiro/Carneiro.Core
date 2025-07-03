@@ -14,5 +14,5 @@ public interface IJob
     /// Executes a simple job.
     /// </summary>
     /// <param name="cancellationToken"></param>
-    Task KickOffAsync(CancellationToken cancellationToken);
+    Task DoAsync(CancellationToken cancellationToken);
 }

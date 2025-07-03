@@ -33,9 +33,24 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
             tasks.Add(Task.Run(async () =>
             {
                 Logger.LogInformation("Starting new job '{JobName}'", worker.JobName);
-                await worker.KickOffAsync(cancellationToken);
 
-                await scope.DisposeAsync();
+                try
+                {
+                    await worker.DoAsync(cancellationToken);
+                }
+                catch (TaskCanceledException)
+                {
+                    // do nothing
+                }
+                catch (Exception e)
+                {
+                    Logger.LogError(e, "Error while running job '{JobName}'", worker.JobName);
+                }
+                finally
+                {
+                    await scope.DisposeAsync();
+                }
+
                 return worker.JobName;
             }, cancellationToken));
         }
