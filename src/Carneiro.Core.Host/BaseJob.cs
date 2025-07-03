@@ -25,11 +25,11 @@ public abstract class BaseJob : IJob
     }
 
     /// <inheritdoc />
-    public async Task KickOffAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken)
+    public async Task KickOffAsync(CancellationToken cancellationToken)
     {
         try
         {
-            await DoAsync(serviceProvider, cancellationToken);
+            await DoAsync(cancellationToken);
         }
         catch (TaskCanceledException)
         {
@@ -44,7 +44,6 @@ public abstract class BaseJob : IJob
     /// <summary>
     /// Starts the job.
     /// </summary>
-    /// <param name="serviceProvider"></param>
     /// <param name="cancellationToken"></param>
-    protected abstract Task DoAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken);
+    protected abstract Task DoAsync(CancellationToken cancellationToken);
 }

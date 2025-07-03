@@ -32,10 +32,9 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
 
             tasks.Add(Task.Run(async () =>
             {
+                using var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
                 Logger.LogInformation("Starting new async scope for job '{JobName}'", worker.JobName);
-
-                await using var asyncScope = ServiceProvider.CreateAsyncScope();
-                await worker.KickOffAsync(asyncScope.ServiceProvider, cancellationToken);
+                await worker.KickOffAsync(tokenSource.Token);
 
                 return worker.JobName;
             }, cancellationToken));

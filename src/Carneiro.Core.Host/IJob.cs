@@ -13,7 +13,6 @@ public interface IJob
     /// <summary>
     /// Executes the simple work.
     /// </summary>
-    /// <param name="serviceProvider"></param>
     /// <param name="cancellationToken"></param>
-    Task KickOffAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken);
+    Task KickOffAsync(CancellationToken cancellationToken);
 }
