@@ -18,7 +18,7 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
 
         while (true)
         {
-            await using var scope = ServiceProvider.CreateAsyncScope();
+            var scope = ServiceProvider.CreateAsyncScope();
 
             var worker = scope.ServiceProvider.GetRequiredService<IEnumerable<IJob>>()
                 .FirstOrDefault(i => !executedInitializers.Contains(i.GetType()));
@@ -35,6 +35,7 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
                 Logger.LogInformation("Starting new job '{JobName}'", worker.JobName);
                 await worker.KickOffAsync(cancellationToken);
 
+                await scope.DisposeAsync();
                 return worker.JobName;
             }, cancellationToken));
         }
