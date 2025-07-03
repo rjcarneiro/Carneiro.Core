@@ -6,12 +6,12 @@ namespace Carneiro.Core.Host;
 public interface IJob
 {
     /// <summary>
-    /// Gets the worker name.
+    /// Gets the job name.
     /// </summary>
     string JobName { get; }
 
     /// <summary>
-    /// Executes the simple work.
+    /// Executes a simple job.
     /// </summary>
     /// <param name="cancellationToken"></param>
     Task KickOffAsync(CancellationToken cancellationToken);

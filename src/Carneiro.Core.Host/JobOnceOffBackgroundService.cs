@@ -32,9 +32,8 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
 
             tasks.Add(Task.Run(async () =>
             {
-                using var tokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
                 Logger.LogInformation("Starting new job '{JobName}'", worker.JobName);
-                await worker.KickOffAsync(tokenSource.Token);
+                await worker.KickOffAsync(cancellationToken);
 
                 return worker.JobName;
             }, cancellationToken));
