@@ -30,12 +30,8 @@ public abstract class OnceOffBackgroundService : BaseBackgroundService
 
         try
         {
-            if (!cancellationToken.IsCancellationRequested)
-            {
-                Logger.LogInformation("Starting service '{TaskName}' v{Version}", TaskName, version);
-
-                await RunAsync(cancellationToken);
-            }
+            Logger.LogInformation("Starting service '{TaskName}' v{Version}", TaskName, version);
+            await RunAsync(cancellationToken);
         }
         catch (TaskCanceledException)
         {

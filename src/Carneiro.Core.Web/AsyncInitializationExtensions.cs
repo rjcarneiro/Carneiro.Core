@@ -13,16 +13,16 @@ public static class AsyncInitializationExtensions
     {
         var executedInitializers = new List<Type>();
 
-        ILogger<IAsyncInitializer> logger = serviceProvider.GetRequiredService<ILogger<IAsyncInitializer>>();
-        IWebHostEnvironment environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
+        var logger = serviceProvider.GetRequiredService<ILogger<IAsyncInitializer>>();
+        var environment = serviceProvider.GetRequiredService<IWebHostEnvironment>();
 
-        logger.LogInformation("Starting async initialization of '{EnvironmentApplicationName}'", environment.ApplicationName);
+        logger.LogInformation("Starting async initialization of '{ApplicationName}'", environment.ApplicationName);
 
         while (true)
         {
-            await using AsyncServiceScope scope = serviceProvider.CreateAsyncScope();
+            await using var scope = serviceProvider.CreateAsyncScope();
 
-            IAsyncInitializer initializer = scope.ServiceProvider.GetRequiredService<IEnumerable<IAsyncInitializer>>()
+            var initializer = scope.ServiceProvider.GetRequiredService<IEnumerable<IAsyncInitializer>>()
                 .FirstOrDefault(i => !executedInitializers.Contains(i.GetType()));
 
             if (initializer is null)
@@ -46,6 +46,6 @@ public static class AsyncInitializationExtensions
             }
         }
 
-        logger.LogInformation("Async initialization of '{EnvironmentApplicationName}' completed", environment.ApplicationName);
+        logger.LogInformation("Async initialization of '{ApplicationName}' completed", environment.ApplicationName);
     }
 }

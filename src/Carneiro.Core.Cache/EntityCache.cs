@@ -5,7 +5,7 @@ public abstract class EntityCache<TDbContext, TKey, TEntity>(EntityCacheOptions 
     where TDbContext : DbContext
     where TEntity : class, IAuditableEntity
 {
-    private readonly object _lock = new object();
+    private readonly Lock _lock = new();
     private Dictionary<TKey, TEntity> _cache;
 
     /// <inheritdoc />
