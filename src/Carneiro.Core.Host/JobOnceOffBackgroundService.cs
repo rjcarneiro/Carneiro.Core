@@ -8,17 +8,27 @@ namespace Carneiro.Core.Host;
 public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> logger, IServiceProvider serviceProvider) : OnceOffBackgroundService(logger, serviceProvider)
 {
     /// <inheritdoc />
-    protected override string TaskName => "HostedService MainWorker";
+    protected override string TaskName => "Main Job Service";
 
     /// <inheritdoc />
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
-        var workers = ServiceProvider.GetRequiredService<IEnumerable<IJob>>().ToList();
-        var tasks = new List<Task<string>>(workers.Count);
+        var executedInitializers = new List<Type>();
+        var tasks = new List<Task<string>>();
 
-        workers.ForEach(worker =>
+        while (true)
         {
-            Logger.LogInformation("Adding '{JobName}' into task list", worker.JobName);
+            await using var scope = ServiceProvider.CreateAsyncScope();
+
+            var worker = scope.ServiceProvider.GetRequiredService<IEnumerable<IJob>>()
+                .FirstOrDefault(i => !executedInitializers.Contains(i.GetType()));
+
+            if (worker is null)
+            {
+                break;
+            }
+
+            executedInitializers.Add(worker.GetType());
 
             tasks.Add(Task.Run(async () =>
             {
@@ -29,7 +39,7 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
 
                 return worker.JobName;
             }, cancellationToken));
-        });
+        }
 
         while (tasks.Count != 0)
         {

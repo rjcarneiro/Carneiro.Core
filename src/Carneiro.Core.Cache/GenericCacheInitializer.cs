@@ -12,10 +12,10 @@ public class GenericCacheInitializer<TDbContext>(IEnumerable<ISingletonEntityCac
     /// <inheritdoc />
     public async Task InitializeAsync()
     {
-        await using AsyncServiceScope scoped = serviceProvider.CreateAsyncScope();
-        IUnitOfWork<TDbContext> db = scoped.ServiceProvider.GetRequiredService<IUnitOfWork<TDbContext>>();
+        await using var scoped = serviceProvider.CreateAsyncScope();
+        var db = scoped.ServiceProvider.GetRequiredService<IUnitOfWork<TDbContext>>();
 
-        foreach (ISingletonEntityCache<TDbContext> cache in singletonEntityCaches)
+        foreach (var cache in singletonEntityCaches)
         {
             await cache.InitializeAsync(db);
         }

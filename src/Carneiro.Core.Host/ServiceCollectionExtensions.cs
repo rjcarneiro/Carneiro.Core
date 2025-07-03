@@ -21,8 +21,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddJob<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)] TJob>(this IServiceCollection services)
         where TJob : class, IJob
     {
-        services.AddSingleton<TJob>();
-        services.TryAddEnumerable(ServiceDescriptor.Singleton<IJob, TJob>(sp => sp.GetRequiredService<TJob>()));
+        services.TryAddEnumerable(ServiceDescriptor.Singleton<IJob, TJob>());
         return services;
     }
 }

@@ -29,10 +29,7 @@ public abstract class BaseJob : IJob
     {
         try
         {
-            if (!cancellationToken.IsCancellationRequested)
-            {
-                await DoAsync(serviceProvider, cancellationToken);
-            }
+            await DoAsync(serviceProvider, cancellationToken);
         }
         catch (TaskCanceledException)
         {
