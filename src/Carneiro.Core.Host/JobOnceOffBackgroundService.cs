@@ -14,6 +14,7 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
         var workers = ServiceProvider.GetRequiredService<IEnumerable<IJob>>().ToList();
+
         var tasks = new List<Task<string>>(workers.Count);
 
         workers.ForEach(worker =>
