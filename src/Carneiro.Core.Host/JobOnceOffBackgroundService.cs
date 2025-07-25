@@ -18,14 +18,17 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
 
         workers.ForEach(worker =>
         {
-            Logger.LogInformation("Adding {JobName} into task list", worker.JobName);
-
             tasks.Add(Task.Run(async () =>
             {
-                Logger.LogInformation("Starting new async scope for task {JobName}", worker.JobName);
+                Logger.LogInformation("Starting new async scope for job {JobName}", worker.JobName);
 
                 await using var asyncScope = ServiceProvider.CreateAsyncScope();
+
+                var stopwatch = Stopwatch.StartNew();
                 await worker.DoAsync(asyncScope.ServiceProvider, cancellationToken);
+
+                stopwatch.Stop();
+                Logger.LogInformation("Finish job {TaskName}. Elapsed time: {StopwatchElapsed}", TaskName, stopwatch.Elapsed);
 
                 return worker.JobName;
             }, cancellationToken));
@@ -35,7 +38,7 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
         {
             var finishedTask = await Task.WhenAny(tasks);
             tasks.Remove(finishedTask);
-            Logger.LogInformation("{TaskName} task finished with status {TaskStatus}", finishedTask.Result, finishedTask.Status);
+            Logger.LogInformation("{TaskName} task finished with status", finishedTask.Result);
         }
     }
 }
