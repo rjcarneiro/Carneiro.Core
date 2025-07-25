@@ -13,53 +13,29 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
     /// <inheritdoc />
     protected override async Task RunAsync(CancellationToken cancellationToken)
     {
-        var executedInitializers = new List<Type>();
-        var tasks = new List<Task<string>>();
+        var workers = ServiceProvider.GetRequiredService<IEnumerable<IJob>>().ToList();
+        var tasks = new List<Task<string>>(workers.Count);
 
-        while (true)
+        workers.ForEach(worker =>
         {
-            var scope = ServiceProvider.CreateAsyncScope();
-
-            var worker = scope.ServiceProvider.GetRequiredService<IEnumerable<IJob>>()
-                .FirstOrDefault(i => !executedInitializers.Contains(i.GetType()));
-
-            if (worker is null)
-            {
-                break;
-            }
-
-            executedInitializers.Add(worker.GetType());
+            Logger.LogInformation("Adding {JobName} into task list", worker.JobName);
 
             tasks.Add(Task.Run(async () =>
             {
-                Logger.LogInformation("Starting new job '{JobName}'", worker.JobName);
+                Logger.LogInformation("Starting new async scope for task {JobName}", worker.JobName);
 
-                try
-                {
-                    await worker.DoAsync(cancellationToken);
-                }
-                catch (TaskCanceledException)
-                {
-                    // do nothing
-                }
-                catch (Exception e)
-                {
-                    Logger.LogError(e, "Error while running job '{JobName}'", worker.JobName);
-                }
-                finally
-                {
-                    await scope.DisposeAsync();
-                }
+                await using var asyncScope = ServiceProvider.CreateAsyncScope();
+                await worker.DoAsync(asyncScope.ServiceProvider, cancellationToken);
 
                 return worker.JobName;
             }, cancellationToken));
-        }
+        });
 
         while (tasks.Count != 0)
         {
             var finishedTask = await Task.WhenAny(tasks);
             tasks.Remove(finishedTask);
-            Logger.LogInformation("Job '{JobName}' finished with status {Status}", finishedTask.Result, finishedTask.Status);
+            Logger.LogInformation("{TaskName} task finished with status {TaskStatus}", finishedTask.Result, finishedTask.Status);
         }
     }
 }

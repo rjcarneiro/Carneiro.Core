@@ -13,6 +13,7 @@ public interface IJob
     /// <summary>
     /// Executes a simple job.
     /// </summary>
+    /// <param name="serviceProvider"></param>
     /// <param name="cancellationToken"></param>
-    Task DoAsync(CancellationToken cancellationToken);
+    Task DoAsync(IServiceProvider serviceProvider, CancellationToken cancellationToken);
 }
