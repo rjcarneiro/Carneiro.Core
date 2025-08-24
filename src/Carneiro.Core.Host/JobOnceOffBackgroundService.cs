@@ -39,7 +39,7 @@ public class JobOnceOffBackgroundService(ILogger<JobOnceOffBackgroundService> lo
         {
             var finishedTask = await Task.WhenAny(tasks);
             tasks.Remove(finishedTask);
-            Logger.LogInformation("{TaskName} task finished with status", finishedTask.Result);
+            Logger.LogInformation("{TaskName} task finished", finishedTask.Result);
         }
     }
 }

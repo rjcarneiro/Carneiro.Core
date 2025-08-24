@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Carneiro.Core.Exceptions;
+﻿using Carneiro.Core.Exceptions;
 
 namespace Carneiro.Tests.Core.Exceptions;
 

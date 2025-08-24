@@ -1,5 +1,4 @@
-﻿using Bogus;
-using Carneiro.Core.Entities;
+﻿using Carneiro.Core.Entities;
 using Carneiro.Core.Entities.Abstractions;
 
 namespace Carneiro.Tests.Core.Entities;
