@@ -3,7 +3,11 @@ using Carneiro.Core.Json;
 namespace Carneiro.Core.IpChecker;
 
 /// <inheritdoc />
-public class IpAddressChecker(ILogger<IpAddressChecker> logger, IOptions<IpAddressCheckerOptions> options, IEnumerable<IIpAddressHttpClient> ipAddressHttpClients) : IIpAddressChecker
+public class IpAddressChecker(
+    ILogger<IpAddressChecker> logger,
+    IOptions<IpAddressCheckerOptions> options,
+    IpIfyIpAddressHttpClient ipIfyIpAddressHttpClient,
+    IfConfigIpAddressHttpClient ifConfigIpAddressHttpClient) : IIpAddressChecker
 {
     private const string CacheFile = "ip_checker.cache";
 
@@ -20,6 +24,12 @@ public class IpAddressChecker(ILogger<IpAddressChecker> logger, IOptions<IpAddre
                 return cacheItem.IpAddress;
             }
         }
+
+        var ipAddressHttpClients = new List<IIpAddressHttpClient>
+        {
+            ipIfyIpAddressHttpClient,
+            ifConfigIpAddressHttpClient
+        };
 
         foreach (var ipChecker in ipAddressHttpClients)
         {

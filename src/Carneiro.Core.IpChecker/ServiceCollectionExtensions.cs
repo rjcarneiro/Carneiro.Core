@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Carneiro.Core.IpChecker;
 
@@ -57,10 +56,10 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IIpAddressChecker, IpAddressChecker>();
 
-        services.AddHttpClient<IIpAddressHttpClient, IfConfigIpAddressHttpClient>()
+        services.AddHttpClient<IfConfigIpAddressHttpClient>()
             .ConfigureHttpClient(client => { client.BaseAddress = new Uri("https://ifconfig.me"); });
 
-        services.AddHttpClient<IIpAddressHttpClient, IpIfyIpAddressHttpClient>()
+        services.AddHttpClient<IpIfyIpAddressHttpClient>()
             .ConfigureHttpClient(client => { client.BaseAddress = new Uri("https://api.ipify.org"); });
 
         return services;

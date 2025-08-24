@@ -12,7 +12,7 @@ public class IpIfyIpAddressHttpClient(ILogger<IpIfyIpAddressHttpClient> logger, 
     {
         try
         {
-            var httpResponse = await httpClient.GetAsync(string.Empty);
+            using var httpResponse = await httpClient.GetAsync(string.Empty);
 
             return new SuccessIpAddressResult(await httpResponse.Content.ReadAsStringAsync());
         }

@@ -7,10 +7,7 @@ namespace Carneiro.Core.IpChecker;
 /// <param name="httpClient"></param>
 public class IfConfigIpAddressHttpClient(ILogger<IfConfigIpAddressHttpClient> logger, HttpClient httpClient) : IIpAddressHttpClient
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
+    /// <inheritdoc />
     public async Task<IpAddressResult> GetIpAddress()
     {
         try

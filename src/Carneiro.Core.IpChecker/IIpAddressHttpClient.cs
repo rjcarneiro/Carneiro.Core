@@ -3,7 +3,7 @@ namespace Carneiro.Core.IpChecker;
 /// <summary>
 /// The Ip Address Http Client abstraction.
 /// </summary>
-public interface IIpAddressHttpClient
+internal interface IIpAddressHttpClient
 {
     /// <summary>
     /// Gets the Ip address from an external provider.
