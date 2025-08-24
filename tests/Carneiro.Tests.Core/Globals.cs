@@ -1,9 +1,10 @@
 ﻿global using System;
 global using System.Collections.Generic;
-global using System.Linq;
 global using System.IO;
-global using Microsoft.Extensions.Logging;
+global using System.Linq;
+global using Bogus;
 global using Carneiro.Core.Extensions;
-global using NUnit.Framework;
 global using Carneiro.Core.Utils;
+global using Microsoft.Extensions.Logging;
 global using Moq;
+global using NUnit.Framework;

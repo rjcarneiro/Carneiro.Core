@@ -10,5 +10,8 @@ public static class IpAddressCheckerCacheItemExtensions
     /// </summary>
     /// <param name="item"></param>
     /// <param name="options"></param>
-    public static bool IsCacheExpired(this IpAddressCheckerCacheItem item, IpAddressCheckerOptions options) => item.Date.Add(options.PersistenceCacheTimeout ?? TimeSpan.FromHours(12)) < DateTime.UtcNow;
+    public static bool IsCacheExpired(this IpAddressCheckerCacheItem item, IpAddressCheckerOptions options)
+    {
+        return item.Date.Add(options.PersistenceCacheTimeout ?? TimeSpan.FromHours(12)) < DateTime.UtcNow;
+    }
 }
