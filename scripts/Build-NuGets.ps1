@@ -44,6 +44,7 @@ dotnet pack ./src/Carneiro.Core.Tests/Carneiro.Core.Tests.csproj -c $Configurati
 
 # utils
 dotnet pack ./src/Carneiro.Core.Utils/Carneiro.Core.Utils.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
+dotnet pack ./src/Carneiro.Core.IpChecker/Carneiro.Core.IpChecker.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null
 
 # web
 dotnet pack ./src/Carneiro.Core.Web/Carneiro.Core.Web.csproj -c $Configuration -p:Version=$Version --no-restore --nologo -o $Path -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg 3>&1 2>&1 $null

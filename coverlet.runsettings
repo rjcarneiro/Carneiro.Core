@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Find more properties for this at
-https://github.com/coverlet-coverage/coverlet/blob/master/Documentation/VSTestIntegration.md -->
-<RunSettings>
-    <NUnit>
-        <NumberOfTestWorkers>1</NumberOfTestWorkers>
-    </NUnit>
-</RunSettings>
