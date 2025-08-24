@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -14,7 +13,7 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="configuration"></param>
-    /// <remarks>It uses <c>IpAddressCheckerOptions</c> section configuration name.</remarks>
+    /// <remarks>It uses <c>IpAddressCheckerOptions</c> as section configuration name.</remarks>
     public static IServiceCollection AddIpChecker(this IServiceCollection services, IConfiguration configuration)
     {
         return services.AddIpChecker(configuration.GetSection(nameof(IpAddressCheckerOptions)));
@@ -57,8 +56,12 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddScoped<IIpAddressChecker, IpAddressChecker>();
-        services.TryAddEnumerable(new ServiceDescriptor(typeof(IIpAddressHttpClient), typeof(IfConfigIpAddressHttpClient), ServiceLifetime.Scoped));
-        services.TryAddEnumerable(new ServiceDescriptor(typeof(IIpAddressHttpClient), typeof(IpIfyIpAddressHttpClient), ServiceLifetime.Scoped));
+
+        services.AddHttpClient<IIpAddressHttpClient, IfConfigIpAddressHttpClient>()
+            .ConfigureHttpClient(client => { client.BaseAddress = new Uri("https://ifconfig.me"); });
+
+        services.AddHttpClient<IIpAddressHttpClient, IpIfyIpAddressHttpClient>()
+            .ConfigureHttpClient(client => { client.BaseAddress = new Uri("https://api.ipify.org"); });
 
         return services;
     }
