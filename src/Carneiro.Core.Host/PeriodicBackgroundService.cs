@@ -49,7 +49,7 @@ public abstract class PeriodicBackgroundService : BaseBackgroundService
                 await Task.Delay(seconds * 1000, cancellationToken);
             }
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException)
         {
             // do nothing
         }

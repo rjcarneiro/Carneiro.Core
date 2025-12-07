@@ -31,7 +31,7 @@ public abstract class BaseJob : IJob
         {
             await DoTaskAsync(serviceProvider, cancellationToken);
         }
-        catch (TaskCanceledException)
+        catch (OperationCanceledException)
         {
             // do nothing
         }
