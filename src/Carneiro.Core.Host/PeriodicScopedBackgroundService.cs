@@ -5,18 +5,18 @@
 /// </summary>
 public abstract class PeriodicScopedBackgroundService : PeriodicBackgroundService
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceScopeFactory _serviceScopeFactory;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PeriodicBackgroundService" /> class.
     /// </summary>
     /// <param name="logger">The logger.</param>
     /// <param name="options">The options.</param>
-    /// <param name="serviceProvider">The service provider.</param>
-    protected PeriodicScopedBackgroundService(ILogger<PeriodicScopedBackgroundService> logger, IOptions<PeriodicBackgroundServiceOptions> options, IServiceProvider serviceProvider)
+    /// <param name="serviceScopeFactory">The service scope factory.</param>
+    protected PeriodicScopedBackgroundService(ILogger<PeriodicScopedBackgroundService> logger, IOptions<PeriodicBackgroundServiceOptions> options, IServiceScopeFactory serviceScopeFactory)
         : base(logger, options)
     {
-        _serviceProvider = serviceProvider;
+        _serviceScopeFactory = serviceScopeFactory;
     }
 
     /// <inheritdoc />
@@ -24,7 +24,7 @@ public abstract class PeriodicScopedBackgroundService : PeriodicBackgroundServic
     {
         if (!cancellationToken.IsCancellationRequested)
         {
-            await using AsyncServiceScope asyncServiceScope = _serviceProvider.CreateAsyncScope();
+            await using var asyncServiceScope = _serviceScopeFactory.CreateAsyncScope();
             await RunScopedAsync(asyncServiceScope.ServiceProvider, cancellationToken);
         }
     }
