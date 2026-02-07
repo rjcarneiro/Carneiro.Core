@@ -1,7 +1,9 @@
-﻿namespace Carneiro.Core.Cache;
+﻿using Microsoft.Extensions.Options;
+
+namespace Carneiro.Core.Cache;
 
 /// <inheritdoc />
-public abstract class EntityCache<TDbContext, TKey, TEntity>(EntityCacheOptions options) : IEntityCache<TDbContext, TKey, TEntity>
+public abstract class EntityCache<TDbContext, TKey, TEntity>(IOptions<EntityCacheOptions> options) : IEntityCache<TDbContext, TKey, TEntity>
     where TDbContext : DbContext
     where TEntity : class, IAuditableEntity
 {
@@ -9,7 +11,7 @@ public abstract class EntityCache<TDbContext, TKey, TEntity>(EntityCacheOptions 
     private Dictionary<TKey, TEntity> _cache;
 
     /// <inheritdoc />
-    public virtual TimeSpan GetRefreshPeriod => options.CacheDuration;
+    public virtual TimeSpan GetRefreshPeriod => options.Value.CacheDuration;
 
     /// <summary>
     /// Flag that checks either this cache was initialized or not.
